@@ -1,0 +1,681 @@
+2017-11-15 09:40:54.608 DEBUG [main][ExtensionsEnvironment.java:78] - Instantiating extensions registry class net.sf.jasperreports.extensions.DefaultExtensionsRegistry
+2017-11-15 09:40:54.623 DEBUG [main][DefaultExtensionsRegistry.java:130] - Loading registries for cache key sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:40:54.623 DEBUG [main][JRLoader.java:816] - Found resource jasperreports_extension.properties at jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports/4.6.0/jasperreports-4.6.0.jar!/jasperreports_extension.properties in classloader sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:40:54.623 DEBUG [main][JRLoader.java:816] - Found resource jasperreports_extension.properties at jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports-fonts/4.0.0/jasperreports-fonts-4.0.0.jar!/jasperreports_extension.properties in classloader sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:40:54.623 DEBUG [main][DefaultExtensionsRegistry.java:158] - Loading JasperReports extension properties resource jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports/4.6.0/jasperreports-4.6.0.jar!/jasperreports_extension.properties
+2017-11-15 09:40:54.623 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.governors.GovernorExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.governor
+2017-11-15 09:40:54.623 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for governor using factory class net.sf.jasperreports.governors.GovernorExtensionsRegistryFactory
+2017-11-15 09:40:54.623 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.components.headertoolbar.HeaderToolbarParameterContributorExtensionFactory for property net.sf.jasperreports.extension.registry.factory.headertoolbar
+2017-11-15 09:40:54.623 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for headertoolbar using factory class net.sf.jasperreports.components.headertoolbar.HeaderToolbarParameterContributorExtensionFactory
+2017-11-15 09:40:54.623 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.data.DefaultDataAdapterServiceExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.data.adapter.services
+2017-11-15 09:40:54.623 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for data.adapter.services using factory class net.sf.jasperreports.data.DefaultDataAdapterServiceExtensionsRegistryFactory
+2017-11-15 09:40:54.639 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.web.util.JacksonMappingExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.jackson.mapping
+2017-11-15 09:40:54.639 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for jackson.mapping using factory class net.sf.jasperreports.web.util.JacksonMappingExtensionsRegistryFactory
+2017-11-15 09:40:54.639 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.components.ComponentsExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.components
+2017-11-15 09:40:54.639 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for components using factory class net.sf.jasperreports.components.ComponentsExtensionsRegistryFactory
+2017-11-15 09:40:54.639 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.extensions.DefaultExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.default
+2017-11-15 09:40:54.639 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for default using factory class net.sf.jasperreports.extensions.DefaultExtensionsRegistryFactory
+2017-11-15 09:40:54.655 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.repo.DefaultRepositoryExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.repository
+2017-11-15 09:40:54.655 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for repository using factory class net.sf.jasperreports.repo.DefaultRepositoryExtensionsRegistryFactory
+2017-11-15 09:40:54.655 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.util.CastorMappingExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.castor.mapping
+2017-11-15 09:40:54.655 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for castor.mapping using factory class net.sf.jasperreports.util.CastorMappingExtensionsRegistryFactory
+2017-11-15 09:40:54.655 DEBUG [main][DefaultExtensionsRegistry.java:158] - Loading JasperReports extension properties resource jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports-fonts/4.0.0/jasperreports-fonts-4.0.0.jar!/jasperreports_extension.properties
+2017-11-15 09:40:54.655 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.engine.fonts.SimpleFontExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.simple.font.families
+2017-11-15 09:40:54.655 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for simple.font.families using factory class net.sf.jasperreports.engine.fonts.SimpleFontExtensionsRegistryFactory
+2017-11-15 09:40:54.983 DEBUG [main][JRBaseFiller.java:348] - Fill 1: created for report3
+2017-11-15 09:40:55.262 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: BACKGROUND} for band 2139788441
+2017-11-15 09:40:55.278 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: TITLE} for band 1513608173
+2017-11-15 09:40:55.278 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: PAGE_HEADER} for band 1800976873
+2017-11-15 09:40:55.278 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: COLUMN_HEADER} for band 698741991
+2017-11-15 09:40:55.278 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: DETAIL} for band 1151704483
+2017-11-15 09:40:55.278 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: COLUMN_FOOTER} for band 659590237
+2017-11-15 09:40:55.278 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: PAGE_FOOTER} for band 508378341
+2017-11-15 09:40:55.278 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: SUMMARY} for band 932582590
+2017-11-15 09:40:55.356 DEBUG [main][JRBaseFiller.java:844] - Fill 1: filling report
+2017-11-15 09:40:55.356 DEBUG [main][JRVerticalFiller.java:157] - Fill 1: no data
+2017-11-15 09:40:55.356 DEBUG [main][JRVerticalFiller.java:166] - Fill 1: all sections
+2017-11-15 09:40:55.371 DEBUG [main][JRBaseFiller.java:1765] - Fill 1: adding page 1
+2017-11-15 09:40:55.371 DEBUG [main][JRVerticalFiller.java:323] - Fill 1: title
+2017-11-15 09:40:55.403 DEBUG [main][DeduplicableRegistry.java:85] - Added object net.sf.jasperreports.engine.fill.JRTemplateText@59a008ba
+2017-11-15 09:40:55.403 DEBUG [main][JRVerticalFiller.java:399] - Fill 1: page header
+2017-11-15 09:40:55.403 DEBUG [main][JRVerticalFiller.java:478] - Fill 1: column header
+2017-11-15 09:40:55.403 DEBUG [main][JRVerticalFiller.java:1035] - Fill 1: summary
+2017-11-15 09:40:55.403 DEBUG [main][JRVerticalFiller.java:963] - Fill 1: column footer
+2017-11-15 09:40:55.403 DEBUG [main][JRVerticalFiller.java:1009] - Fill 1: page footer
+2017-11-15 09:40:55.403 DEBUG [main][JRBaseFiller.java:901] - Fill 1: ended
+2017-11-15 09:41:25.169 DEBUG [main][ExtensionsEnvironment.java:78] - Instantiating extensions registry class net.sf.jasperreports.extensions.DefaultExtensionsRegistry
+2017-11-15 09:41:25.169 DEBUG [main][DefaultExtensionsRegistry.java:130] - Loading registries for cache key sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:41:25.169 DEBUG [main][JRLoader.java:816] - Found resource jasperreports_extension.properties at jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports/4.6.0/jasperreports-4.6.0.jar!/jasperreports_extension.properties in classloader sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:41:25.169 DEBUG [main][JRLoader.java:816] - Found resource jasperreports_extension.properties at jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports-fonts/4.0.0/jasperreports-fonts-4.0.0.jar!/jasperreports_extension.properties in classloader sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:41:25.169 DEBUG [main][DefaultExtensionsRegistry.java:158] - Loading JasperReports extension properties resource jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports/4.6.0/jasperreports-4.6.0.jar!/jasperreports_extension.properties
+2017-11-15 09:41:25.169 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.governors.GovernorExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.governor
+2017-11-15 09:41:25.169 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for governor using factory class net.sf.jasperreports.governors.GovernorExtensionsRegistryFactory
+2017-11-15 09:41:25.169 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.components.headertoolbar.HeaderToolbarParameterContributorExtensionFactory for property net.sf.jasperreports.extension.registry.factory.headertoolbar
+2017-11-15 09:41:25.169 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for headertoolbar using factory class net.sf.jasperreports.components.headertoolbar.HeaderToolbarParameterContributorExtensionFactory
+2017-11-15 09:41:25.169 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.data.DefaultDataAdapterServiceExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.data.adapter.services
+2017-11-15 09:41:25.169 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for data.adapter.services using factory class net.sf.jasperreports.data.DefaultDataAdapterServiceExtensionsRegistryFactory
+2017-11-15 09:41:25.169 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.web.util.JacksonMappingExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.jackson.mapping
+2017-11-15 09:41:25.169 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for jackson.mapping using factory class net.sf.jasperreports.web.util.JacksonMappingExtensionsRegistryFactory
+2017-11-15 09:41:25.184 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.components.ComponentsExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.components
+2017-11-15 09:41:25.184 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for components using factory class net.sf.jasperreports.components.ComponentsExtensionsRegistryFactory
+2017-11-15 09:41:25.184 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.extensions.DefaultExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.default
+2017-11-15 09:41:25.184 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for default using factory class net.sf.jasperreports.extensions.DefaultExtensionsRegistryFactory
+2017-11-15 09:41:25.184 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.repo.DefaultRepositoryExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.repository
+2017-11-15 09:41:25.184 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for repository using factory class net.sf.jasperreports.repo.DefaultRepositoryExtensionsRegistryFactory
+2017-11-15 09:41:25.184 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.util.CastorMappingExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.castor.mapping
+2017-11-15 09:41:25.184 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for castor.mapping using factory class net.sf.jasperreports.util.CastorMappingExtensionsRegistryFactory
+2017-11-15 09:41:25.184 DEBUG [main][DefaultExtensionsRegistry.java:158] - Loading JasperReports extension properties resource jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports-fonts/4.0.0/jasperreports-fonts-4.0.0.jar!/jasperreports_extension.properties
+2017-11-15 09:41:25.184 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.engine.fonts.SimpleFontExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.simple.font.families
+2017-11-15 09:41:25.184 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for simple.font.families using factory class net.sf.jasperreports.engine.fonts.SimpleFontExtensionsRegistryFactory
+2017-11-15 09:41:25.528 DEBUG [main][JRBaseFiller.java:348] - Fill 1: created for report3
+2017-11-15 09:41:25.767 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: BACKGROUND} for band 1564698139
+2017-11-15 09:41:25.767 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: TITLE} for band 652176954
+2017-11-15 09:41:25.767 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: PAGE_HEADER} for band 253011924
+2017-11-15 09:41:25.767 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: COLUMN_HEADER} for band 127702987
+2017-11-15 09:41:25.767 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: DETAIL} for band 669284403
+2017-11-15 09:41:25.767 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: COLUMN_FOOTER} for band 1332757905
+2017-11-15 09:41:25.767 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: PAGE_FOOTER} for band 1037854997
+2017-11-15 09:41:25.767 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: SUMMARY} for band 1078705341
+2017-11-15 09:41:25.830 DEBUG [main][JRBaseFiller.java:844] - Fill 1: filling report
+2017-11-15 09:41:25.830 DEBUG [main][JRVerticalFiller.java:157] - Fill 1: no data
+2017-11-15 09:41:25.830 DEBUG [main][JRVerticalFiller.java:166] - Fill 1: all sections
+2017-11-15 09:41:25.845 DEBUG [main][JRBaseFiller.java:1765] - Fill 1: adding page 1
+2017-11-15 09:41:25.845 DEBUG [main][JRVerticalFiller.java:323] - Fill 1: title
+2017-11-15 09:41:25.861 DEBUG [main][DeduplicableRegistry.java:85] - Added object net.sf.jasperreports.engine.fill.JRTemplateText@338c99c8
+2017-11-15 09:41:25.877 DEBUG [main][JRVerticalFiller.java:399] - Fill 1: page header
+2017-11-15 09:41:25.877 DEBUG [main][JRVerticalFiller.java:478] - Fill 1: column header
+2017-11-15 09:41:25.877 DEBUG [main][JRVerticalFiller.java:1035] - Fill 1: summary
+2017-11-15 09:41:25.877 DEBUG [main][JRVerticalFiller.java:963] - Fill 1: column footer
+2017-11-15 09:41:25.877 DEBUG [main][JRVerticalFiller.java:1009] - Fill 1: page footer
+2017-11-15 09:41:25.877 DEBUG [main][JRBaseFiller.java:901] - Fill 1: ended
+2017-11-15 09:44:33.534 DEBUG [main][ExtensionsEnvironment.java:78] - Instantiating extensions registry class net.sf.jasperreports.extensions.DefaultExtensionsRegistry
+2017-11-15 09:44:33.549 DEBUG [main][DefaultExtensionsRegistry.java:130] - Loading registries for cache key sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:44:33.549 DEBUG [main][JRLoader.java:816] - Found resource jasperreports_extension.properties at jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports/4.6.0/jasperreports-4.6.0.jar!/jasperreports_extension.properties in classloader sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:44:33.549 DEBUG [main][JRLoader.java:816] - Found resource jasperreports_extension.properties at jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports-fonts/4.0.0/jasperreports-fonts-4.0.0.jar!/jasperreports_extension.properties in classloader sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:44:33.549 DEBUG [main][DefaultExtensionsRegistry.java:158] - Loading JasperReports extension properties resource jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports/4.6.0/jasperreports-4.6.0.jar!/jasperreports_extension.properties
+2017-11-15 09:44:33.549 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.governors.GovernorExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.governor
+2017-11-15 09:44:33.549 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for governor using factory class net.sf.jasperreports.governors.GovernorExtensionsRegistryFactory
+2017-11-15 09:44:33.549 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.components.headertoolbar.HeaderToolbarParameterContributorExtensionFactory for property net.sf.jasperreports.extension.registry.factory.headertoolbar
+2017-11-15 09:44:33.549 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for headertoolbar using factory class net.sf.jasperreports.components.headertoolbar.HeaderToolbarParameterContributorExtensionFactory
+2017-11-15 09:44:33.549 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.data.DefaultDataAdapterServiceExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.data.adapter.services
+2017-11-15 09:44:33.549 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for data.adapter.services using factory class net.sf.jasperreports.data.DefaultDataAdapterServiceExtensionsRegistryFactory
+2017-11-15 09:44:33.549 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.web.util.JacksonMappingExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.jackson.mapping
+2017-11-15 09:44:33.549 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for jackson.mapping using factory class net.sf.jasperreports.web.util.JacksonMappingExtensionsRegistryFactory
+2017-11-15 09:44:33.549 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.components.ComponentsExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.components
+2017-11-15 09:44:33.549 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for components using factory class net.sf.jasperreports.components.ComponentsExtensionsRegistryFactory
+2017-11-15 09:44:33.565 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.extensions.DefaultExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.default
+2017-11-15 09:44:33.565 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for default using factory class net.sf.jasperreports.extensions.DefaultExtensionsRegistryFactory
+2017-11-15 09:44:33.565 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.repo.DefaultRepositoryExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.repository
+2017-11-15 09:44:33.565 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for repository using factory class net.sf.jasperreports.repo.DefaultRepositoryExtensionsRegistryFactory
+2017-11-15 09:44:33.565 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.util.CastorMappingExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.castor.mapping
+2017-11-15 09:44:33.565 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for castor.mapping using factory class net.sf.jasperreports.util.CastorMappingExtensionsRegistryFactory
+2017-11-15 09:44:33.565 DEBUG [main][DefaultExtensionsRegistry.java:158] - Loading JasperReports extension properties resource jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports-fonts/4.0.0/jasperreports-fonts-4.0.0.jar!/jasperreports_extension.properties
+2017-11-15 09:44:33.565 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.engine.fonts.SimpleFontExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.simple.font.families
+2017-11-15 09:44:33.565 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for simple.font.families using factory class net.sf.jasperreports.engine.fonts.SimpleFontExtensionsRegistryFactory
+2017-11-15 09:44:33.862 DEBUG [main][JRBaseFiller.java:348] - Fill 1: created for report3
+2017-11-15 09:44:34.065 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: BACKGROUND} for band 1564698139
+2017-11-15 09:44:34.076 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: TITLE} for band 652176954
+2017-11-15 09:44:34.076 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: PAGE_HEADER} for band 253011924
+2017-11-15 09:44:34.076 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: COLUMN_HEADER} for band 127702987
+2017-11-15 09:44:34.076 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: DETAIL} for band 669284403
+2017-11-15 09:44:34.076 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: COLUMN_FOOTER} for band 1332757905
+2017-11-15 09:44:34.076 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: PAGE_FOOTER} for band 1037854997
+2017-11-15 09:44:34.076 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: SUMMARY} for band 1078705341
+2017-11-15 09:44:34.138 DEBUG [main][JRBaseFiller.java:844] - Fill 1: filling report
+2017-11-15 09:44:34.138 DEBUG [main][JRVerticalFiller.java:157] - Fill 1: no data
+2017-11-15 09:44:34.138 DEBUG [main][JRVerticalFiller.java:166] - Fill 1: all sections
+2017-11-15 09:44:34.138 DEBUG [main][JRBaseFiller.java:1765] - Fill 1: adding page 1
+2017-11-15 09:44:34.154 DEBUG [main][JRVerticalFiller.java:323] - Fill 1: title
+2017-11-15 09:44:34.170 DEBUG [main][DeduplicableRegistry.java:85] - Added object net.sf.jasperreports.engine.fill.JRTemplateText@338c99c8
+2017-11-15 09:44:34.170 DEBUG [main][JRVerticalFiller.java:399] - Fill 1: page header
+2017-11-15 09:44:34.170 DEBUG [main][JRVerticalFiller.java:478] - Fill 1: column header
+2017-11-15 09:44:34.170 DEBUG [main][JRVerticalFiller.java:1035] - Fill 1: summary
+2017-11-15 09:44:34.170 DEBUG [main][JRVerticalFiller.java:963] - Fill 1: column footer
+2017-11-15 09:44:34.170 DEBUG [main][JRVerticalFiller.java:1009] - Fill 1: page footer
+2017-11-15 09:44:34.170 DEBUG [main][JRBaseFiller.java:901] - Fill 1: ended
+2017-11-15 09:51:36.171 DEBUG [main][ExtensionsEnvironment.java:78] - Instantiating extensions registry class net.sf.jasperreports.extensions.DefaultExtensionsRegistry
+2017-11-15 09:51:36.186 DEBUG [main][DefaultExtensionsRegistry.java:130] - Loading registries for cache key sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:51:36.186 DEBUG [main][JRLoader.java:816] - Found resource jasperreports_extension.properties at jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports/4.6.0/jasperreports-4.6.0.jar!/jasperreports_extension.properties in classloader sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:51:36.186 DEBUG [main][JRLoader.java:816] - Found resource jasperreports_extension.properties at jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports-fonts/4.0.0/jasperreports-fonts-4.0.0.jar!/jasperreports_extension.properties in classloader sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:51:36.186 DEBUG [main][DefaultExtensionsRegistry.java:158] - Loading JasperReports extension properties resource jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports/4.6.0/jasperreports-4.6.0.jar!/jasperreports_extension.properties
+2017-11-15 09:51:36.186 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.governors.GovernorExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.governor
+2017-11-15 09:51:36.186 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for governor using factory class net.sf.jasperreports.governors.GovernorExtensionsRegistryFactory
+2017-11-15 09:51:36.186 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.components.headertoolbar.HeaderToolbarParameterContributorExtensionFactory for property net.sf.jasperreports.extension.registry.factory.headertoolbar
+2017-11-15 09:51:36.186 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for headertoolbar using factory class net.sf.jasperreports.components.headertoolbar.HeaderToolbarParameterContributorExtensionFactory
+2017-11-15 09:51:36.186 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.data.DefaultDataAdapterServiceExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.data.adapter.services
+2017-11-15 09:51:36.186 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for data.adapter.services using factory class net.sf.jasperreports.data.DefaultDataAdapterServiceExtensionsRegistryFactory
+2017-11-15 09:51:36.186 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.web.util.JacksonMappingExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.jackson.mapping
+2017-11-15 09:51:36.186 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for jackson.mapping using factory class net.sf.jasperreports.web.util.JacksonMappingExtensionsRegistryFactory
+2017-11-15 09:51:36.186 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.components.ComponentsExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.components
+2017-11-15 09:51:36.186 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for components using factory class net.sf.jasperreports.components.ComponentsExtensionsRegistryFactory
+2017-11-15 09:51:36.202 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.extensions.DefaultExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.default
+2017-11-15 09:51:36.202 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for default using factory class net.sf.jasperreports.extensions.DefaultExtensionsRegistryFactory
+2017-11-15 09:51:36.202 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.repo.DefaultRepositoryExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.repository
+2017-11-15 09:51:36.202 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for repository using factory class net.sf.jasperreports.repo.DefaultRepositoryExtensionsRegistryFactory
+2017-11-15 09:51:36.202 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.util.CastorMappingExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.castor.mapping
+2017-11-15 09:51:36.202 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for castor.mapping using factory class net.sf.jasperreports.util.CastorMappingExtensionsRegistryFactory
+2017-11-15 09:51:36.202 DEBUG [main][DefaultExtensionsRegistry.java:158] - Loading JasperReports extension properties resource jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports-fonts/4.0.0/jasperreports-fonts-4.0.0.jar!/jasperreports_extension.properties
+2017-11-15 09:51:36.202 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.engine.fonts.SimpleFontExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.simple.font.families
+2017-11-15 09:51:36.202 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for simple.font.families using factory class net.sf.jasperreports.engine.fonts.SimpleFontExtensionsRegistryFactory
+2017-11-15 09:51:36.483 DEBUG [main][JRBaseFiller.java:348] - Fill 1: created for report3
+2017-11-15 09:51:36.686 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: BACKGROUND} for band 1438988851
+2017-11-15 09:51:36.698 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: TITLE} for band 1507118393
+2017-11-15 09:51:36.698 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: COLUMN_HEADER} for band 1261764601
+2017-11-15 09:51:36.698 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: DETAIL} for band 708348097
+2017-11-15 09:51:36.698 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: PAGE_FOOTER} for band 1760670079
+2017-11-15 09:51:36.760 DEBUG [main][JRBaseFiller.java:844] - Fill 1: filling report
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: false
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Boolean' value 'false' to type 'Boolean'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Boolean
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Byte'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:171] -     Converted to Byte value '0'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value:  
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Character' value ' ' to type 'Character'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Character
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Double'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:171] -     Converted to Double value '0.0'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Float'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:171] -     Converted to Float value '0.0'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Integer'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Integer
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Long'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:171] -     Converted to Long value '0'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Short'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:171] -     Converted to Short value '0'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0.0
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'BigDecimal' value '0.0' to type 'BigDecimal'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a BigDecimal
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'BigInteger' value '0' to type 'BigInteger'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a BigInteger
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: false
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Boolean' value 'false' to type 'Boolean'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Boolean
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Byte'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:171] -     Converted to Byte value '0'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value:  
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Character' value ' ' to type 'Character'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Character
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Double'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:171] -     Converted to Double value '0.0'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Float'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:171] -     Converted to Float value '0.0'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Integer'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Integer
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Long'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:171] -     Converted to Long value '0'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Short'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:171] -     Converted to Short value '0'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: 
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:140] - Converting 'String' value '' to type 'String'
+2017-11-15 09:51:36.776 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Z@3e6104fc
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'boolean[]' value '[Z@3e6104fc' to type 'boolean[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a boolean[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [B@12359a82
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'byte[]' value '[B@12359a82' to type 'byte[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a byte[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [C@68df9280
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'char[]' value '[C@68df9280' to type 'char[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a char[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [D@479460a6
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'double[]' value '[D@479460a6' to type 'double[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a double[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [F@7164ca4c
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'float[]' value '[F@7164ca4c' to type 'float[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a float[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [I@4f3bbf68
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'int[]' value '[I@4f3bbf68' to type 'int[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a int[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [J@5be46f9d
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'long[]' value '[J@5be46f9d' to type 'long[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a long[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [S@3f91b517
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'short[]' value '[S@3f91b517' to type 'short[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a short[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.math.BigDecimal;@68702e03
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'BigDecimal[]' value '[Ljava.math.BigDecimal;@68702e03' to type 'BigDecimal[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a BigDecimal[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.math.BigInteger;@2421cc4
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'BigInteger[]' value '[Ljava.math.BigInteger;@2421cc4' to type 'BigInteger[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a BigInteger[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Boolean;@59a008ba
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'Boolean[]' value '[Ljava.lang.Boolean;@59a008ba' to type 'Boolean[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Boolean[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Byte;@21ba0741
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'Byte[]' value '[Ljava.lang.Byte;@21ba0741' to type 'Byte[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Byte[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Character;@58ce9668
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'Character[]' value '[Ljava.lang.Character;@58ce9668' to type 'Character[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Character[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Double;@56673b2c
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'Double[]' value '[Ljava.lang.Double;@56673b2c' to type 'Double[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Double[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Float;@b4711e2
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'Float[]' value '[Ljava.lang.Float;@b4711e2' to type 'Float[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Float[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Integer;@70f02c32
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer[]' value '[Ljava.lang.Integer;@70f02c32' to type 'Integer[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Integer[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Long;@51fadaff
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'Long[]' value '[Ljava.lang.Long;@51fadaff' to type 'Long[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Long[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Short;@31ff43be
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'Short[]' value '[Ljava.lang.Short;@31ff43be' to type 'Short[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Short[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.String;@5c44c582
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'String[]' value '[Ljava.lang.String;@5c44c582' to type 'String[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a String[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Class;@67d18ed7
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'Class[]' value '[Ljava.lang.Class;@67d18ed7' to type 'Class[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Class[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.util.Date;@2c78d320
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'Date[]' value '[Ljava.util.Date;@2c78d320' to type 'Date[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Date[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.util.Calendar;@7b205dbd
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'Calendar[]' value '[Ljava.util.Calendar;@7b205dbd' to type 'Calendar[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Calendar[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.io.File;@7a67e3c6
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'java.io.File[]' value '[Ljava.io.File;@7a67e3c6' to type 'java.io.File[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a java.io.File[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.sql.Date;@15713d56
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'java.sql.Date[]' value '[Ljava.sql.Date;@15713d56' to type 'java.sql.Date[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a java.sql.Date[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.sql.Time;@26ceffa8
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'java.sql.Time[]' value '[Ljava.sql.Time;@26ceffa8' to type 'java.sql.Time[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a java.sql.Time[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.sql.Timestamp;@7c8c9a05
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'java.sql.Timestamp[]' value '[Ljava.sql.Timestamp;@7c8c9a05' to type 'java.sql.Timestamp[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a java.sql.Timestamp[]
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.net.URL;@5c2375a9
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:140] - Converting 'java.net.URL[]' value '[Ljava.net.URL;@5c2375a9' to type 'java.net.URL[]'
+2017-11-15 09:51:36.792 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a java.net.URL[]
+2017-11-15 09:51:36.807 DEBUG [main][JRBaseFiller.java:1765] - Fill 1: adding page 1
+2017-11-15 09:51:36.807 DEBUG [main][JRVerticalFiller.java:323] - Fill 1: title
+2017-11-15 09:51:36.870 DEBUG [main][DeduplicableRegistry.java:85] - Added object net.sf.jasperreports.engine.fill.JRTemplateText@554e218
+2017-11-15 09:51:36.870 DEBUG [main][JRVerticalFiller.java:478] - Fill 1: column header
+2017-11-15 09:51:36.870 DEBUG [main][DeduplicableRegistry.java:85] - Added object net.sf.jasperreports.engine.fill.JRTemplateText@4b79ac84
+2017-11-15 09:51:36.870 DEBUG [main][JRVerticalFiller.java:724] - Fill 1: detail
+2017-11-15 09:51:36.885 DEBUG [main][DeduplicableRegistry.java:85] - Added object net.sf.jasperreports.engine.fill.JRTemplateText@1c481ff2
+2017-11-15 09:51:36.885 DEBUG [main][JRVerticalFiller.java:724] - Fill 1: detail
+2017-11-15 09:51:36.885 DEBUG [main][JRVerticalFiller.java:1009] - Fill 1: page footer
+2017-11-15 09:51:36.885 DEBUG [main][DeduplicableRegistry.java:85] - Added object net.sf.jasperreports.engine.fill.JRTemplateText@29a0cdb
+2017-11-15 09:51:36.885 DEBUG [main][JRBaseFiller.java:901] - Fill 1: ended
+2017-11-15 09:54:07.488 DEBUG [main][ExtensionsEnvironment.java:78] - Instantiating extensions registry class net.sf.jasperreports.extensions.DefaultExtensionsRegistry
+2017-11-15 09:54:07.503 DEBUG [main][DefaultExtensionsRegistry.java:130] - Loading registries for cache key sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:54:07.503 DEBUG [main][JRLoader.java:816] - Found resource jasperreports_extension.properties at jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports/4.6.0/jasperreports-4.6.0.jar!/jasperreports_extension.properties in classloader sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:54:07.503 DEBUG [main][JRLoader.java:816] - Found resource jasperreports_extension.properties at jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports-fonts/4.0.0/jasperreports-fonts-4.0.0.jar!/jasperreports_extension.properties in classloader sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:54:07.503 DEBUG [main][DefaultExtensionsRegistry.java:158] - Loading JasperReports extension properties resource jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports/4.6.0/jasperreports-4.6.0.jar!/jasperreports_extension.properties
+2017-11-15 09:54:07.503 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.governors.GovernorExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.governor
+2017-11-15 09:54:07.503 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for governor using factory class net.sf.jasperreports.governors.GovernorExtensionsRegistryFactory
+2017-11-15 09:54:07.503 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.components.headertoolbar.HeaderToolbarParameterContributorExtensionFactory for property net.sf.jasperreports.extension.registry.factory.headertoolbar
+2017-11-15 09:54:07.503 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for headertoolbar using factory class net.sf.jasperreports.components.headertoolbar.HeaderToolbarParameterContributorExtensionFactory
+2017-11-15 09:54:07.503 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.data.DefaultDataAdapterServiceExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.data.adapter.services
+2017-11-15 09:54:07.503 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for data.adapter.services using factory class net.sf.jasperreports.data.DefaultDataAdapterServiceExtensionsRegistryFactory
+2017-11-15 09:54:07.503 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.web.util.JacksonMappingExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.jackson.mapping
+2017-11-15 09:54:07.503 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for jackson.mapping using factory class net.sf.jasperreports.web.util.JacksonMappingExtensionsRegistryFactory
+2017-11-15 09:54:07.503 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.components.ComponentsExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.components
+2017-11-15 09:54:07.503 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for components using factory class net.sf.jasperreports.components.ComponentsExtensionsRegistryFactory
+2017-11-15 09:54:07.519 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.extensions.DefaultExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.default
+2017-11-15 09:54:07.519 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for default using factory class net.sf.jasperreports.extensions.DefaultExtensionsRegistryFactory
+2017-11-15 09:54:07.519 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.repo.DefaultRepositoryExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.repository
+2017-11-15 09:54:07.519 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for repository using factory class net.sf.jasperreports.repo.DefaultRepositoryExtensionsRegistryFactory
+2017-11-15 09:54:07.519 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.util.CastorMappingExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.castor.mapping
+2017-11-15 09:54:07.519 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for castor.mapping using factory class net.sf.jasperreports.util.CastorMappingExtensionsRegistryFactory
+2017-11-15 09:54:07.519 DEBUG [main][DefaultExtensionsRegistry.java:158] - Loading JasperReports extension properties resource jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports-fonts/4.0.0/jasperreports-fonts-4.0.0.jar!/jasperreports_extension.properties
+2017-11-15 09:54:07.519 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.engine.fonts.SimpleFontExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.simple.font.families
+2017-11-15 09:54:07.519 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for simple.font.families using factory class net.sf.jasperreports.engine.fonts.SimpleFontExtensionsRegistryFactory
+2017-11-15 09:54:07.800 DEBUG [main][JRBaseFiller.java:348] - Fill 1: created for report3
+2017-11-15 09:54:08.003 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: BACKGROUND} for band 1438988851
+2017-11-15 09:54:08.007 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: TITLE} for band 1507118393
+2017-11-15 09:54:08.007 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: COLUMN_HEADER} for band 1261764601
+2017-11-15 09:54:08.007 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: DETAIL} for band 708348097
+2017-11-15 09:54:08.007 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: PAGE_FOOTER} for band 1760670079
+2017-11-15 09:54:08.070 DEBUG [main][JRBaseFiller.java:844] - Fill 1: filling report
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:353] - Setting default value: false
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:140] - Converting 'Boolean' value 'false' to type 'Boolean'
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Boolean
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Byte'
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:171] -     Converted to Byte value '0'
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:353] - Setting default value:  
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:140] - Converting 'Character' value ' ' to type 'Character'
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Character
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Double'
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:171] -     Converted to Double value '0.0'
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Float'
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:171] -     Converted to Float value '0.0'
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:08.070 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Integer'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Integer
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Long'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:171] -     Converted to Long value '0'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Short'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:171] -     Converted to Short value '0'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0.0
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'BigDecimal' value '0.0' to type 'BigDecimal'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a BigDecimal
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'BigInteger' value '0' to type 'BigInteger'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a BigInteger
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: false
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'Boolean' value 'false' to type 'Boolean'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Boolean
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Byte'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:171] -     Converted to Byte value '0'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value:  
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'Character' value ' ' to type 'Character'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Character
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Double'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:171] -     Converted to Double value '0.0'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Float'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:171] -     Converted to Float value '0.0'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Integer'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Integer
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Long'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:171] -     Converted to Long value '0'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Short'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:171] -     Converted to Short value '0'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: 
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'String' value '' to type 'String'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Z@3e6104fc
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'boolean[]' value '[Z@3e6104fc' to type 'boolean[]'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a boolean[]
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: [B@12359a82
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'byte[]' value '[B@12359a82' to type 'byte[]'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a byte[]
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: [C@68df9280
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'char[]' value '[C@68df9280' to type 'char[]'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a char[]
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: [D@479460a6
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'double[]' value '[D@479460a6' to type 'double[]'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a double[]
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: [F@7164ca4c
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'float[]' value '[F@7164ca4c' to type 'float[]'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a float[]
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: [I@4f3bbf68
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'int[]' value '[I@4f3bbf68' to type 'int[]'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a int[]
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: [J@5be46f9d
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:140] - Converting 'long[]' value '[J@5be46f9d' to type 'long[]'
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a long[]
+2017-11-15 09:54:08.085 DEBUG [main][AbstractConverter.java:353] - Setting default value: [S@3f91b517
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'short[]' value '[S@3f91b517' to type 'short[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a short[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.math.BigDecimal;@68702e03
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'BigDecimal[]' value '[Ljava.math.BigDecimal;@68702e03' to type 'BigDecimal[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a BigDecimal[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.math.BigInteger;@2421cc4
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'BigInteger[]' value '[Ljava.math.BigInteger;@2421cc4' to type 'BigInteger[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a BigInteger[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Boolean;@59a008ba
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'Boolean[]' value '[Ljava.lang.Boolean;@59a008ba' to type 'Boolean[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Boolean[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Byte;@21ba0741
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'Byte[]' value '[Ljava.lang.Byte;@21ba0741' to type 'Byte[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Byte[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Character;@58ce9668
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'Character[]' value '[Ljava.lang.Character;@58ce9668' to type 'Character[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Character[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Double;@56673b2c
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'Double[]' value '[Ljava.lang.Double;@56673b2c' to type 'Double[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Double[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Float;@b4711e2
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'Float[]' value '[Ljava.lang.Float;@b4711e2' to type 'Float[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Float[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Integer;@70f02c32
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer[]' value '[Ljava.lang.Integer;@70f02c32' to type 'Integer[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Integer[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Long;@51fadaff
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'Long[]' value '[Ljava.lang.Long;@51fadaff' to type 'Long[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Long[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Short;@31ff43be
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'Short[]' value '[Ljava.lang.Short;@31ff43be' to type 'Short[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Short[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.String;@5c44c582
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'String[]' value '[Ljava.lang.String;@5c44c582' to type 'String[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a String[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Class;@67d18ed7
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'Class[]' value '[Ljava.lang.Class;@67d18ed7' to type 'Class[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Class[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.util.Date;@2c78d320
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'Date[]' value '[Ljava.util.Date;@2c78d320' to type 'Date[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Date[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.util.Calendar;@7b205dbd
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'Calendar[]' value '[Ljava.util.Calendar;@7b205dbd' to type 'Calendar[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Calendar[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.io.File;@7a67e3c6
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'java.io.File[]' value '[Ljava.io.File;@7a67e3c6' to type 'java.io.File[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a java.io.File[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.sql.Date;@15713d56
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'java.sql.Date[]' value '[Ljava.sql.Date;@15713d56' to type 'java.sql.Date[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a java.sql.Date[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.sql.Time;@26ceffa8
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'java.sql.Time[]' value '[Ljava.sql.Time;@26ceffa8' to type 'java.sql.Time[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a java.sql.Time[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.sql.Timestamp;@7c8c9a05
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'java.sql.Timestamp[]' value '[Ljava.sql.Timestamp;@7c8c9a05' to type 'java.sql.Timestamp[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a java.sql.Timestamp[]
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.net.URL;@5c2375a9
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:140] - Converting 'java.net.URL[]' value '[Ljava.net.URL;@5c2375a9' to type 'java.net.URL[]'
+2017-11-15 09:54:08.101 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a java.net.URL[]
+2017-11-15 09:54:08.116 DEBUG [main][JRBaseFiller.java:1765] - Fill 1: adding page 1
+2017-11-15 09:54:08.116 DEBUG [main][JRVerticalFiller.java:323] - Fill 1: title
+2017-11-15 09:54:08.195 DEBUG [main][DeduplicableRegistry.java:85] - Added object net.sf.jasperreports.engine.fill.JRTemplateText@554e218
+2017-11-15 09:54:08.195 DEBUG [main][JRVerticalFiller.java:478] - Fill 1: column header
+2017-11-15 09:54:08.195 DEBUG [main][DeduplicableRegistry.java:85] - Added object net.sf.jasperreports.engine.fill.JRTemplateText@4b79ac84
+2017-11-15 09:54:08.195 DEBUG [main][JRVerticalFiller.java:724] - Fill 1: detail
+2017-11-15 09:54:08.210 DEBUG [main][DeduplicableRegistry.java:85] - Added object net.sf.jasperreports.engine.fill.JRTemplateText@1c481ff2
+2017-11-15 09:54:08.210 DEBUG [main][JRVerticalFiller.java:724] - Fill 1: detail
+2017-11-15 09:54:08.210 DEBUG [main][JRVerticalFiller.java:1009] - Fill 1: page footer
+2017-11-15 09:54:08.210 DEBUG [main][DeduplicableRegistry.java:85] - Added object net.sf.jasperreports.engine.fill.JRTemplateText@29a0cdb
+2017-11-15 09:54:08.210 DEBUG [main][JRBaseFiller.java:901] - Fill 1: ended
+2017-11-15 09:54:34.132 DEBUG [main][ExtensionsEnvironment.java:78] - Instantiating extensions registry class net.sf.jasperreports.extensions.DefaultExtensionsRegistry
+2017-11-15 09:54:34.132 DEBUG [main][DefaultExtensionsRegistry.java:130] - Loading registries for cache key sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:54:34.132 DEBUG [main][JRLoader.java:816] - Found resource jasperreports_extension.properties at jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports/4.6.0/jasperreports-4.6.0.jar!/jasperreports_extension.properties in classloader sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:54:34.132 DEBUG [main][JRLoader.java:816] - Found resource jasperreports_extension.properties at jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports-fonts/4.0.0/jasperreports-fonts-4.0.0.jar!/jasperreports_extension.properties in classloader sun.misc.Launcher$AppClassLoader@73d16e93
+2017-11-15 09:54:34.132 DEBUG [main][DefaultExtensionsRegistry.java:158] - Loading JasperReports extension properties resource jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports/4.6.0/jasperreports-4.6.0.jar!/jasperreports_extension.properties
+2017-11-15 09:54:34.132 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.governors.GovernorExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.governor
+2017-11-15 09:54:34.132 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for governor using factory class net.sf.jasperreports.governors.GovernorExtensionsRegistryFactory
+2017-11-15 09:54:34.132 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.components.headertoolbar.HeaderToolbarParameterContributorExtensionFactory for property net.sf.jasperreports.extension.registry.factory.headertoolbar
+2017-11-15 09:54:34.132 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for headertoolbar using factory class net.sf.jasperreports.components.headertoolbar.HeaderToolbarParameterContributorExtensionFactory
+2017-11-15 09:54:34.148 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.data.DefaultDataAdapterServiceExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.data.adapter.services
+2017-11-15 09:54:34.148 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for data.adapter.services using factory class net.sf.jasperreports.data.DefaultDataAdapterServiceExtensionsRegistryFactory
+2017-11-15 09:54:34.148 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.web.util.JacksonMappingExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.jackson.mapping
+2017-11-15 09:54:34.148 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for jackson.mapping using factory class net.sf.jasperreports.web.util.JacksonMappingExtensionsRegistryFactory
+2017-11-15 09:54:34.148 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.components.ComponentsExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.components
+2017-11-15 09:54:34.148 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for components using factory class net.sf.jasperreports.components.ComponentsExtensionsRegistryFactory
+2017-11-15 09:54:34.148 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.extensions.DefaultExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.default
+2017-11-15 09:54:34.148 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for default using factory class net.sf.jasperreports.extensions.DefaultExtensionsRegistryFactory
+2017-11-15 09:54:34.148 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.repo.DefaultRepositoryExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.repository
+2017-11-15 09:54:34.148 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for repository using factory class net.sf.jasperreports.repo.DefaultRepositoryExtensionsRegistryFactory
+2017-11-15 09:54:34.164 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.util.CastorMappingExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.castor.mapping
+2017-11-15 09:54:34.164 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for castor.mapping using factory class net.sf.jasperreports.util.CastorMappingExtensionsRegistryFactory
+2017-11-15 09:54:34.164 DEBUG [main][DefaultExtensionsRegistry.java:158] - Loading JasperReports extension properties resource jar:file:/C:/Users/root/.m2/repository/net/sf/jasperreports/jasperreports-fonts/4.0.0/jasperreports-fonts-4.0.0.jar!/jasperreports_extension.properties
+2017-11-15 09:54:34.164 DEBUG [main][DefaultExtensionsRegistry.java:208] - Instantiating registry of type net.sf.jasperreports.engine.fonts.SimpleFontExtensionsRegistryFactory for property net.sf.jasperreports.extension.registry.factory.simple.font.families
+2017-11-15 09:54:34.164 DEBUG [main][DefaultExtensionsRegistry.java:233] - Instantiating extensions registry for simple.font.families using factory class net.sf.jasperreports.engine.fonts.SimpleFontExtensionsRegistryFactory
+2017-11-15 09:54:34.414 DEBUG [main][JRBaseFiller.java:348] - Fill 1: created for report3
+2017-11-15 09:54:34.617 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: BACKGROUND} for band 88397182
+2017-11-15 09:54:34.633 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: TITLE} for band 69329761
+2017-11-15 09:54:34.633 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: COLUMN_HEADER} for band 888557915
+2017-11-15 09:54:34.633 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: DETAIL} for band 1482246673
+2017-11-15 09:54:34.633 DEBUG [main][JRFillBand.java:147] - Origin {reportName: null, groupName: null,bandType: PAGE_FOOTER} for band 115433442
+2017-11-15 09:54:34.680 DEBUG [main][JRBaseFiller.java:844] - Fill 1: filling report
+2017-11-15 09:54:34.696 DEBUG [main][AbstractConverter.java:353] - Setting default value: false
+2017-11-15 09:54:34.696 DEBUG [main][AbstractConverter.java:140] - Converting 'Boolean' value 'false' to type 'Boolean'
+2017-11-15 09:54:34.696 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Boolean
+2017-11-15 09:54:34.696 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:34.696 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Byte'
+2017-11-15 09:54:34.696 DEBUG [main][AbstractConverter.java:171] -     Converted to Byte value '0'
+2017-11-15 09:54:34.696 DEBUG [main][AbstractConverter.java:353] - Setting default value:  
+2017-11-15 09:54:34.696 DEBUG [main][AbstractConverter.java:140] - Converting 'Character' value ' ' to type 'Character'
+2017-11-15 09:54:34.696 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Character
+2017-11-15 09:54:34.696 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:34.696 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Double'
+2017-11-15 09:54:34.696 DEBUG [main][AbstractConverter.java:171] -     Converted to Double value '0.0'
+2017-11-15 09:54:34.696 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:34.696 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Float'
+2017-11-15 09:54:34.696 DEBUG [main][AbstractConverter.java:171] -     Converted to Float value '0.0'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Integer'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Integer
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Long'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:171] -     Converted to Long value '0'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Short'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:171] -     Converted to Short value '0'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0.0
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'BigDecimal' value '0.0' to type 'BigDecimal'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a BigDecimal
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'BigInteger' value '0' to type 'BigInteger'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a BigInteger
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: false
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'Boolean' value 'false' to type 'Boolean'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Boolean
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Byte'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:171] -     Converted to Byte value '0'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value:  
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'Character' value ' ' to type 'Character'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Character
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Double'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:171] -     Converted to Double value '0.0'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Float'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:171] -     Converted to Float value '0.0'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Integer'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Integer
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Long'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:171] -     Converted to Long value '0'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: 0
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer' value '0' to type 'Short'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:171] -     Converted to Short value '0'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: 
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'String' value '' to type 'String'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Z@6239aba6
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'boolean[]' value '[Z@6239aba6' to type 'boolean[]'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a boolean[]
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: [B@3e6104fc
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'byte[]' value '[B@3e6104fc' to type 'byte[]'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a byte[]
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: [C@12359a82
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'char[]' value '[C@12359a82' to type 'char[]'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a char[]
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: [D@68df9280
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'double[]' value '[D@68df9280' to type 'double[]'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a double[]
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: [F@479460a6
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'float[]' value '[F@479460a6' to type 'float[]'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a float[]
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: [I@7164ca4c
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'int[]' value '[I@7164ca4c' to type 'int[]'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a int[]
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: [J@4f3bbf68
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'long[]' value '[J@4f3bbf68' to type 'long[]'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a long[]
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: [S@5be46f9d
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'short[]' value '[S@5be46f9d' to type 'short[]'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a short[]
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.math.BigDecimal;@3f91b517
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'BigDecimal[]' value '[Ljava.math.BigDecimal;@3f91b517' to type 'BigDecimal[]'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a BigDecimal[]
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.math.BigInteger;@7a220c9a
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:140] - Converting 'BigInteger[]' value '[Ljava.math.BigInteger;@7a220c9a' to type 'BigInteger[]'
+2017-11-15 09:54:34.711 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a BigInteger[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Boolean;@30c93896
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'Boolean[]' value '[Ljava.lang.Boolean;@30c93896' to type 'Boolean[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Boolean[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Byte;@338c99c8
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'Byte[]' value '[Ljava.lang.Byte;@338c99c8' to type 'Byte[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Byte[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Character;@21ba0741
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'Character[]' value '[Ljava.lang.Character;@21ba0741' to type 'Character[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Character[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Double;@172b013
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'Double[]' value '[Ljava.lang.Double;@172b013' to type 'Double[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Double[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Float;@2796aeae
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'Float[]' value '[Ljava.lang.Float;@2796aeae' to type 'Float[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Float[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Integer;@1fa1cab1
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'Integer[]' value '[Ljava.lang.Integer;@1fa1cab1' to type 'Integer[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Integer[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Long;@62010f5c
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'Long[]' value '[Ljava.lang.Long;@62010f5c' to type 'Long[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Long[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Short;@401f7633
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'Short[]' value '[Ljava.lang.Short;@401f7633' to type 'Short[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Short[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.String;@5b6ec132
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'String[]' value '[Ljava.lang.String;@5b6ec132' to type 'String[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a String[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.lang.Class;@5c44c582
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'Class[]' value '[Ljava.lang.Class;@5c44c582' to type 'Class[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Class[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.util.Date;@67d18ed7
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'Date[]' value '[Ljava.util.Date;@67d18ed7' to type 'Date[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Date[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.util.Calendar;@132e0cc
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'Calendar[]' value '[Ljava.util.Calendar;@132e0cc' to type 'Calendar[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a Calendar[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.io.File;@106cc338
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'java.io.File[]' value '[Ljava.io.File;@106cc338' to type 'java.io.File[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a java.io.File[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.sql.Date;@6cc558c6
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'java.sql.Date[]' value '[Ljava.sql.Date;@6cc558c6' to type 'java.sql.Date[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a java.sql.Date[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.sql.Time;@63f259c3
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'java.sql.Time[]' value '[Ljava.sql.Time;@63f259c3' to type 'java.sql.Time[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a java.sql.Time[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.sql.Timestamp;@600b90df
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'java.sql.Timestamp[]' value '[Ljava.sql.Timestamp;@600b90df' to type 'java.sql.Timestamp[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a java.sql.Timestamp[]
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:353] - Setting default value: [Ljava.net.URL;@d41f816
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:140] - Converting 'java.net.URL[]' value '[Ljava.net.URL;@d41f816' to type 'java.net.URL[]'
+2017-11-15 09:54:34.727 DEBUG [main][AbstractConverter.java:162] -     No conversion required, value is already a java.net.URL[]
+2017-11-15 09:54:34.743 DEBUG [main][JRBaseFiller.java:1765] - Fill 1: adding page 1
+2017-11-15 09:54:34.743 DEBUG [main][JRVerticalFiller.java:323] - Fill 1: title
+2017-11-15 09:54:34.805 DEBUG [main][DeduplicableRegistry.java:85] - Added object net.sf.jasperreports.engine.fill.JRTemplateText@6f63b475
+2017-11-15 09:54:34.805 DEBUG [main][JRVerticalFiller.java:478] - Fill 1: column header
+2017-11-15 09:54:34.805 DEBUG [main][DeduplicableRegistry.java:85] - Added object net.sf.jasperreports.engine.fill.JRTemplateText@52c3cb31
+2017-11-15 09:54:34.805 DEBUG [main][JRVerticalFiller.java:724] - Fill 1: detail
+2017-11-15 09:54:34.821 DEBUG [main][DeduplicableRegistry.java:85] - Added object net.sf.jasperreports.engine.fill.JRTemplateText@740d2e78
+2017-11-15 09:54:34.821 DEBUG [main][JRVerticalFiller.java:724] - Fill 1: detail
+2017-11-15 09:54:34.821 DEBUG [main][JRVerticalFiller.java:724] - Fill 1: detail
+2017-11-15 09:54:34.821 DEBUG [main][JRVerticalFiller.java:724] - Fill 1: detail
+2017-11-15 09:54:34.821 DEBUG [main][JRVerticalFiller.java:724] - Fill 1: detail
+2017-11-15 09:54:34.821 DEBUG [main][JRVerticalFiller.java:724] - Fill 1: detail
+2017-11-15 09:54:34.821 DEBUG [main][JRVerticalFiller.java:1009] - Fill 1: page footer
+2017-11-15 09:54:34.821 DEBUG [main][DeduplicableRegistry.java:85] - Added object net.sf.jasperreports.engine.fill.JRTemplateText@335b5620
+2017-11-15 09:54:34.821 DEBUG [main][JRBaseFiller.java:1765] - Fill 1: adding page 2
+2017-11-15 09:54:34.821 DEBUG [main][JRVerticalFiller.java:478] - Fill 1: column header
+2017-11-15 09:54:34.821 DEBUG [main][JRVerticalFiller.java:724] - Fill 1: detail
+2017-11-15 09:54:34.821 DEBUG [main][JRVerticalFiller.java:724] - Fill 1: detail
+2017-11-15 09:54:34.821 DEBUG [main][JRVerticalFiller.java:1009] - Fill 1: page footer
+2017-11-15 09:54:34.821 DEBUG [main][JRBaseFiller.java:901] - Fill 1: ended

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>liyu.test</groupId>
+		<artifactId>my</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>ireport</artifactId>
+	<name>ireport</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>4.6.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-fonts</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>liyu.test</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>liyu.test</groupId>
+			<artifactId>log4j</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+		<!-- mvn install:install-file -Dfile=liyu\rthd\work\my\ireport\src\main\webapp\WEB-INF\lib\iTextAsian.jar -DgroupId=liyu.test -DartifactId=iTextAsian -Dversion=0.0.1 -Dpackaging=jar  -->
+		<dependency>
+			<groupId>liyu.test</groupId>
+			<artifactId>iTextAsian</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all -->
+		<dependency>
+		    <groupId>org.codehaus.groovy</groupId>
+		    <artifactId>groovy-all</artifactId>
+		    <version>2.4.12</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
+	</dependencies>
+</project>

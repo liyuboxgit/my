@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liyu.test.springboot.dao.user.UserMapper">
+  <select id="findList" resultType="liyu.test.springboot.model.user.User">
+    select * from user
+    <include refid="liyu.test.springboot.dao.BaseMapper.page"/>
+  </select>
+  <insert id="insert">
+  	insert into user(id,name) values (#{id},#{name})
+  </insert>
+</mapper>

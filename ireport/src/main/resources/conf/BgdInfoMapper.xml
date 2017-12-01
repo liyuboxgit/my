@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.system.tmssb.drawback.mapper.BgdInfoMapper">
+	<!-- 打印关单信息 -->
+	<select id="findBgdItemPrintMapper" resultType="java.util.Map" parameterType="java.util.Map">
+			SELECT
+				b.YLRBH, <!--预录入编号-->
+				b.BGD_NO, <!--海关编码-->
+				b.HGNAME, <!--出口机场-->
+				b.BAH, <!--备案号-->
+			  	b.LJ_DATE, <!--出口日期-->
+				b.SB_DATE, <!--申报日期-->
+				b.DWCODE, <!--经营单位编码-->
+				b.DWNAME, <!--经营单位名称-->
+				b.TRANS_NAME, <!--运输方式-->
+				b.TRANS_TOOLS,<!--运输工具名称-->
+				b.TYDH, <!--提运单号-->
+				b.FHDWBH, <!--发货单位编码-->
+				b.FHDWMC, <!--发货单位名称-->
+				b.MYNAME, <!--贸易方式-->
+				b.MYCODE, <!--贸易方式Code-->
+				b.ZMXZMC, <!--征免性质名称-->
+				b.ZMXZ, <!--征免性质-->
+				b.SETNAME, <!--结汇方式名称-->
+				b.XKZH, <!--许可证号-->
+				b.GBNAME, <!--抵运国-->
+				b.ZYGNAME, <!--指运港-->
+				b.HYDBM, <!--境内货源地-->
+				b.HYDMC, <!--境内货源地-->
+				b.PZWH, <!--批准文号-->
+				b.MYFS, <!--成交方式-->
+				b.T_AMT, <!--运费-->
+				b.BF_AMT, <!--保费-->
+				b.ZF_AMT, <!--杂费-->
+				b.CONTRACT_NO, <!--合同协议号-->
+				b.JS, <!--件数-->
+			  	b.BZZL, <!--包装种类-->
+				b.GROSSWEIGHT, <!--毛重-->
+				b.NETWEIGHT, <!--净重-->
+				b.JZX_NO, <!--集装箱号-->
+				b.FJ , <!--随附单据-->
+				b.SCCJ, <!--生产厂家-->
+				b.BJMMJBZ, <!--标记唛码及备注-->
+			  	b.INVO_NO, <!--发票号-->
+			  	b.HGCODE , <!--出口口岸-->
+				b.TRANS_TYPE, <!--贸易方式-->
+				b.GBCODE, <!--运抵国-->
+			  	b.MDD, <!--最终目的国-->
+			  	b.SBDWBM, <!--申报编码-->
+			  	b.SBDWMC, <!--申报单位-->
+				i.SORTNO, <!--项号-->
+				i.CMCODE, <!--商品编码-->
+				i.CMNAME, <!--商品名称-->
+				i.MT_TYPE, <!--规格型号-->
+				i.CJ_NUM, <!--数量-->
+				i.CJDW, <!--单位-->
+				i.CJDWMC,
+				b.GBNAME as ZZMDG, <!--最终目的国-->
+				i.PRICE, <!--单价-->
+				i.CJJE, <!--总价-->
+				i.CJBZ, <!--币制-->
+				i.CJBZNAME,<!--币制名称-->
+				i.ZMFS <!--征免-->
+			FROM
+				t_bgd_item i
+			LEFT JOIN t_bgd b ON i.bgd_no = b.bgd_no
+			where b.BGD_NO=#{bgd_no}
+			order by <!-- b.bgd_no, -->i.sortno+0
+	</select>
+</mapper>	
+

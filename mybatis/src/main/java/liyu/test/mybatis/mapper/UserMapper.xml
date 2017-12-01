@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liyu.test.mybatis.mapper.UserMapper">
+  <cache-ref namespace="liyu.test.mybatis.mapper.BlogMapper"/>
+  
+  <delete id="deleteByPrimaryKey">
+  	delete from user where id=#{id}
+  </delete>
+  
+  <select id="findList" resultType="liyu.test.mybatis.mapper.User">
+    select * from user
+  </select>
+  
+  <resultMap type="liyu.test.mybatis.mapper.User" id="joinMap">
+  	<collection property="blogs" foreignColumn="author" resultMap="liyu.test.mybatis.mapper.BlogMapper.joinMap"/>
+  </resultMap>
+  
+  <select id="find" resultType="liyu.test.mybatis.mapper.User">
+    select id,name from user where id=#{id}
+  </select>
+  
+  <select id="findCount" resultType="java.lang.Integer">
+  	select count(*) from user
+  </select>
+  <insert id="create">
+  	insert into user (id,name) values(#{id},#{name})
+  </insert>
+  <update id="update">
+  	update user set name=#{name} where 1=0 
+  </update>
+</mapper>

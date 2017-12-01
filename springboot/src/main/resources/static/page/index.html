@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>seajs example</title>
+</head>
+<body>
+<script src="../js/sea.js"></script>
+<script src="../js/sea-css.js"></script>
+<script>
+	seajs.use("../css/index.css");
+    seajs.config({
+        alias:{
+            jquery :'../js/jquery/jquery.js'
+        },
+    });
+    seajs.use(['jquery'],function($) {
+    	$(function(){
+	        alert("you are use jquery version of "+$.fn.jquery);
+    	})
+    });
+</script>
+</body>
+</html>

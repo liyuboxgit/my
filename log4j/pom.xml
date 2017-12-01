@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>liyu.test</groupId>
+		<artifactId>my</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>log4j</artifactId>
+	<version>0.0.2-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>log4j Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<slf4j.version>1.7.21</slf4j.version>
+        <log4j.version>2.7</log4j.version>
+	</properties>
+	<dependencies>
+		<!-- log start -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
+		<!--用于与slf4j保持桥接 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.version}</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
+		<dependency> <!-- 桥接：告诉commons logging使用Log4j2 -->
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-jcl</artifactId>
+			<version>${log4j.version}</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
+		<!--web工程需要包含log4j-web，非web工程不需要 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-web</artifactId>
+			<version>${log4j.version}</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
+		<!-- log end -->
+	</dependencies>
+	<build>
+		<finalName>log4j</finalName>
+	</build>
+</project>
