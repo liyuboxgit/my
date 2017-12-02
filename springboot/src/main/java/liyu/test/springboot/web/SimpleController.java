@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import liyu.test.springboot.dao.user.UserMapper;
-import liyu.test.springboot.model.user.User;
+import liyu.test.springboot.mapper.UserMapper;
+import liyu.test.springboot.model.User;
 import liyu.test.springboot.service.user.UserService;
 
 @Controller

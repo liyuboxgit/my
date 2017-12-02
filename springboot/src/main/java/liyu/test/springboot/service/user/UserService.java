@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import liyu.test.springboot.dao.user.UserMapper;
-import liyu.test.springboot.model.user.User;
+import liyu.test.springboot.mapper.UserMapper;
+import liyu.test.springboot.model.User;
+import liyu.test.springboot.service.BaseService;
 
 @Service
-public class UserService {
+public class UserService extends BaseService{
 	@Autowired
 	private UserMapper userMapper;
 	@Transactional

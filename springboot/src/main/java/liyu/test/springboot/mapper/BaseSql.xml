@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liyu.test.springboot.mapper.BaseSql">  
+    <sql id="pageSql">
+    	limit 0,10
+    </sql>
+    
+    <sql id="user">
+    	id as id,
+    	username as username
+    </sql>
+    
+    <sql id="contract">
+    	id as id,
+    	name as name,
+    	type_dict as typeDict,
+    	create_time as createTime,
+    	author as author
+    </sql>
+</mapper>
