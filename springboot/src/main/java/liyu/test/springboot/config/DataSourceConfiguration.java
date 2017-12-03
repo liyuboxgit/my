@@ -1,4 +1,4 @@
-package liyu.test.springboot.util;
+package liyu.test.springboot.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package liyu.test.springboot.mapper;
+package liyu.test.springboot.mapper.role;
 
 import java.util.List;
 

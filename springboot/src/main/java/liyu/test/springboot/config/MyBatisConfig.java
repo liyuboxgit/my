@@ -1,4 +1,4 @@
-package liyu.test.springboot.util;
+package liyu.test.springboot.config;
 
 import javax.sql.DataSource;
 

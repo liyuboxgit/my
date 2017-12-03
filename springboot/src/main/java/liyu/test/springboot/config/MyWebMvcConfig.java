@@ -1,4 +1,4 @@
-package liyu.test.springboot.util;
+package liyu.test.springboot.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import liyu.test.springboot.mapper.UserMapper;
+import liyu.test.springboot.mapper.user.UserMapper;
 import liyu.test.springboot.model.User;
 import liyu.test.springboot.service.user.UserService;
 
@@ -22,7 +22,6 @@ public class SimpleController {
     @RequestMapping("/home")
     @ResponseBody
     String home() {
-    	userMapper.findList(new User());
     	logger.info(new Date().toString());
         return "Hello World";
     }

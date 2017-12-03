@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="liyu.test.springboot.mapper.RoleMapper">
+<mapper namespace="liyu.test.springboot.mapper.role.RoleMapper">
     <resultMap type="liyu.test.springboot.model.Role" id="Role">
     	<id property="id" column="id"/>
     	<collection property="users" column="id" ofType="liyu.test.springboot.model.User" 
-    		select="liyu.test.springboot.mapper.UserMapper.get">
+    		select="liyu.test.springboot.mapper.user.UserMapper.get">
     	</collection>
     </resultMap>
     <select id="get" resultMap="Role">

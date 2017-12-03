@@ -7,6 +7,7 @@ public class User implements Serializable{
 	
 	private Integer id;
 	private String username;
+	private String password = "123456";
 	private Role role;
 	
 
@@ -36,5 +37,13 @@ public class User implements Serializable{
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

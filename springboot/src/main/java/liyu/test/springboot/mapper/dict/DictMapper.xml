@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://springboot.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="liyu.test.springboot.mapper.DictMapper">
+<mapper namespace="liyu.test.springboot.mapper.dict.DictMapper">
     <select id="findList" resultType="liyu.test.springboot.model.Dict">
     	select text_ as text,value_ as value from t_dict where group_key = 'type'
     </select>

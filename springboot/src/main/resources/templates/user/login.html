@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link href="/static/bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/static/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+<meta charset="UTF-8" />
+<title>登录</title>
+</head>
+<body>
+	<div class="container">
+		<form class="form-signin" action="/user/login" method="post">
+			<h2 class="form-signin-heading">Please sign in</h2>
+			<label for="username" class="sr-only">Email address</label>
+			<input type="text" name="username" class="form-control" placeholder="username" required="true" autofocus="true"/>
+			
+			<label for="password" class="sr-only">Password</label>
+			<input type="password" name="password" class="form-control" placeholder="password" required="true"/>
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" value="remember-me"/>Remember me
+				</label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Signin</button>
+		</form>
+	</div>
+</body>
+</html>
