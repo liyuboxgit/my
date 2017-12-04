@@ -1,27 +1,11 @@
 package liyu.test.mybatis;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Date;
-import java.util.List;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import liyu.test.DateUtil;
 import liyu.test.mybatis.mapper.Blog;
-import liyu.test.mybatis.mapper.BlogMapper;
-import liyu.test.mybatis.mapper.UpdateColumnWapper;
-import liyu.test.mybatis.mapper.User;
-import liyu.test.mybatis.mapper.UserMapper;
-import liyu.test.mybatis.page.Pager;
-import liyu.test.mybatis.page.PagerHolder;
 import liyu.test.mybatis.util.ENUM;
 /**
  * 分页插件使用动态代理，不是mabatis官方支持的，第三方封装的mybatis分页插件和mybatis缓存，不兼容，所以使用mybatis缓存的时候最好不要使用分页插件

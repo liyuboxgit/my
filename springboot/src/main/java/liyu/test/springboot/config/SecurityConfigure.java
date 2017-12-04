@@ -28,6 +28,8 @@ public class SecurityConfigure {
 		// 配置访问权限
 		LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 		filterChainDefinitionMap.put("/static/**", "anon");
+		filterChainDefinitionMap.put("/favicon.ico", "anon");
+	
 		filterChainDefinitionMap.put("/**", "authc");
 		bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return bean;

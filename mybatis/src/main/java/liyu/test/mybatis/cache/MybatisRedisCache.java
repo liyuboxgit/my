@@ -7,7 +7,6 @@ import org.apache.ibatis.cache.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import liyu.test.DateUtil;
 import redis.clients.jedis.Jedis;
 /**
  * 
@@ -17,7 +16,7 @@ import redis.clients.jedis.Jedis;
  * @date: 2017年10月17日 上午10:33:14
  */
 public class MybatisRedisCache extends JedisPoolManager implements Cache{
-	private static final Logger logger = LoggerFactory.getLogger(DateUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(MybatisRedisCache.class);
 	private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();   
     
     private String id;
