@@ -1,5 +1,7 @@
 package liyu.test.task;
 
+import org.springframework.context.ApplicationContext;
+
 public class ScheduleJob {
 	/** 任务id */
 	private String jobId;
@@ -13,6 +15,8 @@ public class ScheduleJob {
 	private String cronExpression;
 	/** 任务描述 */
 	private String desc;
+	
+	private ApplicationContext applicationContext;
 	
 	public String getJobId() {
 		return jobId;
@@ -60,6 +64,14 @@ public class ScheduleJob {
 
 	public void setDesc(String desc) {
 		this.desc = desc;
+	}
+
+	public ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
+
+	public void setApplicationContext(ApplicationContext applicationContext) {
+		this.applicationContext = applicationContext;
 	}
 
 }

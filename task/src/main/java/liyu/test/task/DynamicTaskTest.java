@@ -26,7 +26,7 @@ public class DynamicTaskTest {
 		List<ScheduleJob> jobList = DataWorkContext.getAllJob();
 
 		for (ScheduleJob job : jobList) {
-
+			job.setApplicationContext(context);
 			TriggerKey triggerKey = TriggerKey.triggerKey(job.getJobName(), job.getJobGroup());
 
 			CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
