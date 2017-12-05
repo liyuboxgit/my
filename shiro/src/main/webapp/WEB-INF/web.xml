@@ -6,7 +6,7 @@
   	<display-name>Archetype Created Web Application</display-name>
   	<context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring.xml,classpath:spring-shiro-web.xml</param-value>
+        <param-value>classpath:spring.xml</param-value>
     </context-param>
     
    <servlet>  
@@ -39,4 +39,8 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener> 
+    
+    <welcome-file-list>
+    	<welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

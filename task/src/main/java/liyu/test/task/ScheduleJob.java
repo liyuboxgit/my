@@ -18,6 +18,19 @@ public class ScheduleJob {
 	
 	private ApplicationContext applicationContext;
 	
+	public ScheduleJob(){
+		this.init();
+	}
+	
+	private void init(){
+		this.setJobId("10001");
+		this.setJobName("data_import");
+		this.setJobGroup("dataWork");
+		this.setJobStatus("1");
+		this.setCronExpression("0/5 * * * * ?");
+		this.setDesc("数据导入任务");
+	}
+	
 	public String getJobId() {
 		return jobId;
 	}

@@ -14,17 +14,19 @@
         <property name="cacheManagerConfigFile" value="classpath:ehcache.xml" />
     </bean>
 
-    <!-- 凭证匹配器 -->
-    <bean id="credentialsMatcher" class="utils.RetryLimitHashedCredentialsMatcher">
+    <!-- 凭证匹配器,需要用户表中的密码实现相同的加密，采用MD5，盐值为2 -->
+    <!-- 
+    <bean id="credentialsMatcher" class="liyu.test.shiro.config.RetryLimitHashedCredentialsMatcher">
         <constructor-arg ref="cacheManager" />
         <property name="hashAlgorithmName" value="md5" />
         <property name="hashIterations" value="2" />
         <property name="storedCredentialsHexEncoded" value="true" />
     </bean>
+     -->
 
     <!-- Realm实现 -->
-    <bean id="userRealm" class="utils.UserRealm">
-        <property name="credentialsMatcher" ref="credentialsMatcher" />
+    <bean id="userRealm" class="liyu.test.shiro.config.UserRealm">
+		<!-- <property name="credentialsMatcher" ref="credentialsMatcher" /> -->
     </bean>
 
     <!-- 安全管理器 -->
@@ -39,9 +41,11 @@
         <property name="unauthorizedUrl" value="/" />
         <property name="filterChainDefinitions">
             <value>
-                /authc/admin = roles[admin]
-                /authc/** = authc
-                /** = anon
+                /login.jsp = anon
+                /login = anon
+                /static/** = anon
+                
+                /** = authc
             </value>
         </property>
     </bean>
