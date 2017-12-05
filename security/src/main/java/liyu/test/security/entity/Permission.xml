@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liyu.test.security.dao.PermissionMapper">  
+    <sql id="tn">security_permission</sql>
+    <sql id="columns">positionId,moduleId,buttons</sql>
+        
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+       	insert into <include refid="tn"/> (<include refid="columns"/>) values
+       	(#{positionId},#{moduleId},#{buttons})
+    </insert>
+ 	
+ 	<select id="query" resultType="Permission">
+ 		select id,<include refid="columns"/> from <include refid="tn"/>
+ 		where id=#{id}
+ 	</select>
+</mapper>

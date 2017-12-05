@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liyu.test.security.dao.ButtonMapper">  
+    <sql id="tn">security_button</sql>
+    <sql id="columns">code,mark,enable</sql>
+        
+    <insert id="add">
+	    <selectKey resultType="int" order="BEFORE" keyProperty="id">
+	      select sqe_security_button.nextval as id from dual
+	    </selectKey>
+       	insert into <include refid="tn"/> (id,<include refid="columns"/>) values
+       	(#{id},#{code},#{mark},#{enable})
+    </insert>
+ 	
+ 	<delete id="del">
+ 		delete from <include refid="tn"/> where id=#{id}	
+ 	</delete>
+ 	
+ 	<update id="update">
+ 		update <include refid="tn"/>
+ 		set code=#{code},mark=#{mark},enable=#{enable}
+ 		where id = #{id}
+ 	</update>
+ 	
+    <select id="query" resultType="Button">
+       	select id,<include refid="columns"/> from <include refid="tn"/>
+    </select>
+</mapper>

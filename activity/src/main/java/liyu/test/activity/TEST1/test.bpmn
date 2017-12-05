@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+	xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+	typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
+	targetNamespace="http://www.activiti.org/processdef">
+	<process id="出口退税流程1" isExecutable="true" name="ckts">
+		<startEvent id="sid-5DAA28E3-9553-41E1-A097-9F784982E9DB"></startEvent>
+		<userTask id="sid-680EC23A-F973-4CE4-A053-AACB62583052" name="预关单审核"
+			activiti:assignee="00000001" activiti:formKey="cktsfk:/fengkong/ygdsh.html"></userTask>
+		<userTask id="sid-48B31622-4953-4A15-8EC5-3ADE45F40F7B" name="报关单审核"
+			activiti:assignee="lsuserId" activiti:formKey="ckts:/aaa/bbb"></userTask>
+		<endEvent id="sid-C2169B20-1CCA-4740-B9EE-B6CE2500DF84"></endEvent>
+		<sequenceFlow id="sid-4B02E35C-0B79-4B21-8C75-2C55A1488BE5"
+			sourceRef="sid-5DAA28E3-9553-41E1-A097-9F784982E9DB" targetRef="sid-680EC23A-F973-4CE4-A053-AACB62583052"></sequenceFlow>
+		<sequenceFlow id="sid-3B38824F-0C96-4B34-BB74-5575D8680BAD"
+			sourceRef="sid-48B31622-4953-4A15-8EC5-3ADE45F40F7B" targetRef="sid-C2169B20-1CCA-4740-B9EE-B6CE2500DF84"></sequenceFlow>
+		<sequenceFlow id="sid-B10E7DFD-688A-410B-96FA-1B71850CBE8A"
+			name="a=2" sourceRef="sid-680EC23A-F973-4CE4-A053-AACB62583052"
+			targetRef="sid-C2169B20-1CCA-4740-B9EE-B6CE2500DF84">
+			<conditionExpression xsi:type="tFormalExpression">
+                <![CDATA[${a==2}]]>
+			</conditionExpression>
+		</sequenceFlow>
+		<sequenceFlow id="sid-F8CE75DB-4B85-49FB-A88C-0874BEBE1E2F"
+			name="a=1" sourceRef="sid-680EC23A-F973-4CE4-A053-AACB62583052"
+			targetRef="sid-48B31622-4953-4A15-8EC5-3ADE45F40F7B">
+			<conditionExpression xsi:type="tFormalExpression">
+                <![CDATA[${a==1}]]>
+			</conditionExpression>
+		</sequenceFlow>
+	</process>
+	<bpmndi:BPMNDiagram id="BPMNDiagram_出口退税流程1">
+		<bpmndi:BPMNPlane bpmnElement="出口退税流程1" id="BPMNPlane_出口退税流程1">
+			<bpmndi:BPMNShape bpmnElement="sid-5DAA28E3-9553-41E1-A097-9F784982E9DB"
+				id="BPMNShape_sid-5DAA28E3-9553-41E1-A097-9F784982E9DB">
+				<omgdc:Bounds height="30.0" width="30.0" x="48.0" y="32.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="sid-680EC23A-F973-4CE4-A053-AACB62583052"
+				id="BPMNShape_sid-680EC23A-F973-4CE4-A053-AACB62583052">
+				<omgdc:Bounds height="80.0" width="100.0" x="165.0" y="105.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="sid-48B31622-4953-4A15-8EC5-3ADE45F40F7B"
+				id="BPMNShape_sid-48B31622-4953-4A15-8EC5-3ADE45F40F7B">
+				<omgdc:Bounds height="80.0" width="100.0" x="375.0" y="0.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="sid-C2169B20-1CCA-4740-B9EE-B6CE2500DF84"
+				id="BPMNShape_sid-C2169B20-1CCA-4740-B9EE-B6CE2500DF84">
+				<omgdc:Bounds height="28.0" width="28.0" x="525.0" y="150.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge bpmnElement="sid-4B02E35C-0B79-4B21-8C75-2C55A1488BE5"
+				id="BPMNEdge_sid-4B02E35C-0B79-4B21-8C75-2C55A1488BE5">
+				<omgdi:waypoint x="75.60688677777793" y="55.12812436988314"></omgdi:waypoint>
+				<omgdi:waypoint x="165.0" y="112.76315789473684"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="sid-F8CE75DB-4B85-49FB-A88C-0874BEBE1E2F"
+				id="BPMNEdge_sid-F8CE75DB-4B85-49FB-A88C-0874BEBE1E2F">
+				<omgdi:waypoint x="265.0" y="120.0"></omgdi:waypoint>
+				<omgdi:waypoint x="375.0" y="65.0"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="sid-B10E7DFD-688A-410B-96FA-1B71850CBE8A"
+				id="BPMNEdge_sid-B10E7DFD-688A-410B-96FA-1B71850CBE8A">
+				<omgdi:waypoint x="265.0" y="147.9320987654321"></omgdi:waypoint>
+				<omgdi:waypoint x="525.024010260267" y="163.18042035476873"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="sid-3B38824F-0C96-4B34-BB74-5575D8680BAD"
+				id="BPMNEdge_sid-3B38824F-0C96-4B34-BB74-5575D8680BAD">
+				<omgdi:waypoint x="461.7741935483871" y="80.0"></omgdi:waypoint>
+				<omgdi:waypoint x="529.5248103476364" y="153.69365336058692"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+		</bpmndi:BPMNPlane>
+	</bpmndi:BPMNDiagram>
+</definitions>

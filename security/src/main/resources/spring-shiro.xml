@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+                        http://www.springframework.org/schema/mvc  
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	
+	<!-- jedis保存session 实现session共享 -->
+	<bean id="jedisShiroSessionRepository" class="liyu.test.framework.shiro.JedisShiroSessionRepostory"/>
+	<bean id="myRealm" class="liyu.test.framework.shiro.MyRealm"></bean> 
+    
+    <bean id="defaultWebSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">  
+	    <property name="globalSessionTimeout" value="1200000" />  
+	    <property name="sessionDAO" ref="customShiroSessionDAO" /> 
+	</bean>    
+    
+    <bean id="customShiroSessionDAO" class="liyu.test.framework.shiro.MyShiroSessionDao">  
+	    <property name="shiroSessionRepository" ref="jedisShiroSessionRepository" />  
+	</bean>	
+    
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">  
+    	<property name="sessionManager" ref="defaultWebSessionManager" />
+        <property name="realm" ref="myRealm"/>  
+    </bean> 
+    
+    <!-- 仅为了单元测试 ,否则应该用上面的 --><!-- 
+    <bean id="securityManager" class="org.apache.shiro.mgt.DefaultSecurityManager">  
+        <property name="realm" ref="myRealm"/>  
+    </bean>  
+     -->
+    
+    <bean id="shiroFilter" class="liyu.test.framework.shiro.MyShiroFilterFactroyBean"> 
+        <property name="securityManager" ref="securityManager"/>  
+        <property name="loginUrl" value="/login.jsp"/>
+        <property name="loginSubmitUrl" value="/sec/login"/>  
+        <property name="unauthorizedUrl" value="/noPermission.jsp"/>  
+        <property name="filterChainDefinitions">  
+            <value>  
+                /static/**=anon  
+            </value>  
+        </property>    
+    </bean> 
+    
+	<!--<bean id="myNeedSessionFilter" class="liyu.test.framework.shiro.MyNeedSessionFilter"/>   -->
+</beans>
