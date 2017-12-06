@@ -1,5 +1,7 @@
 package liyu.test.springboot.service.user;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,5 +17,15 @@ public class UserService extends BaseService{
 	@Transactional
 	public void insert(User user){
 		this.userMapper.insert(user);
+	}
+	
+	public User findOne(){
+		/*List<User> list = userMapper.findList(new User());
+		return list.isEmpty()?null:list.get(0);*/
+		
+		User user = new User();
+		user.setUsername("user john");
+		
+		return user;
 	}
 }

@@ -22,13 +22,13 @@ public class SecurityConfigure {
 		ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
 		bean.setSecurityManager(manager);
 		
-		bean.setLoginUrl("/user/login");
-		bean.setSuccessUrl("/user/index");
-		bean.setUnauthorizedUrl(bean.getLoginUrl());
+		bean.setLoginUrl("/");
+		bean.setUnauthorizedUrl("/");
 		// 配置访问权限
 		LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 		filterChainDefinitionMap.put("/static/**", "anon");
 		filterChainDefinitionMap.put("/favicon.ico", "anon");
+		filterChainDefinitionMap.put("/login", "anon");
 	
 		filterChainDefinitionMap.put("/**", "authc");
 		bean.setFilterChainDefinitionMap(filterChainDefinitionMap);

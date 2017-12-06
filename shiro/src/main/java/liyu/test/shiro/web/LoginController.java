@@ -47,4 +47,9 @@ public class LoginController {
 	public String loginSuccess() {
 		return "loginSuccess";
 	}
+	@RequestMapping("/query")
+	@ResponseBody
+	public AjaxResult query(){
+		return AjaxResult.success();
+	}
 }
