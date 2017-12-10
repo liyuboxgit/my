@@ -1,2 +1,2 @@
 springmvc fileupload
-spring data jpa
+jetty 
