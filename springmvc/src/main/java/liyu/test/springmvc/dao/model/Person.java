@@ -1,4 +1,4 @@
-package liyu.test.springboot.model;
+package liyu.test.springmvc.dao.model;
 
 import java.util.Date;
 

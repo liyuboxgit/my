@@ -38,7 +38,7 @@ public class MyController {
 		if(false)
 		throw new RuntimeException();
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put("success", true);
+		map.put("success", false);
 		return map;
 	}
 }

@@ -11,7 +11,7 @@
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 	
 	<mvc:annotation-driven/>
-	<context:component-scan base-package="liyu.test.springmvc.web"></context:component-scan> 
+	<context:component-scan base-package="liyu.test.springmvc"></context:component-scan> 
 	<!-- 页面视图 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
         <property name="prefix" value="/WEB-INF/jsp/"/>  
@@ -42,4 +42,6 @@
 		<property name="maxUploadSize" value="10485760000" />
 		<property name="maxInMemorySize" value="40960" />
 	</bean>
+	
+	<import resource="jpa.xml"/>
 </beans>   
