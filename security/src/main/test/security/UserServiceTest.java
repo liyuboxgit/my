@@ -6,7 +6,9 @@ import java.io.IOException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.alibaba.dubbo.common.json.JSON;
+import com.alibaba.druid.support.json.JSONParser;
+import com.alibaba.druid.support.json.JSONUtils;
+import com.fasterxml.jackson.core.JsonParser;
 
 import liyu.test.framework.mybatis.page.Pager;
 import liyu.test.security.entity.User;
@@ -37,13 +39,8 @@ public class UserServiceTest {
 		System.out.println(t.userService.qeuryForList().size());*/
 		
 		Pager<Object> page = t.userService.queryForPage();
-		try {
-			String json = JSON.json(page);
-			System.out.println(json);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		String json = JSONUtils.toJSONString(page);
+		System.out.println(json);
 		 
 		
 		System.out.println(page.getTotal());

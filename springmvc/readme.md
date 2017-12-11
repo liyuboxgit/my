@@ -1,2 +1,4 @@
 springmvc fileupload
-jetty 
+jetty starter
+jpa
+hibernate create table

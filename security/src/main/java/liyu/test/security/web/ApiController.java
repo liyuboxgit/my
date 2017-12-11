@@ -6,11 +6,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.alibaba.druid.support.json.JSONUtils;
 
 @Controller
 @RequestMapping("/api")
@@ -20,7 +21,7 @@ public class ApiController {
 	public String json(@RequestBody Map map,HttpServletRequest request,HttpServletResponse response){
 		try{
 			Writer writer = response.getWriter();
-			String string = JSONObject.valueToString(map);
+			String string = JSONUtils.toJSONString(map);
 			writer.write(string);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -33,7 +34,7 @@ public class ApiController {
 	public String form(@RequestParam Map map,HttpServletRequest request,HttpServletResponse response){
 		try{
 			Writer writer = response.getWriter();
-			String string = JSONObject.valueToString(map);
+			String string = JSONUtils.toJSONString(map);
 			writer.write(string);
 		}catch(Exception e){
 			e.printStackTrace();
