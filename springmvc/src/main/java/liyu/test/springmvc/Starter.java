@@ -11,7 +11,7 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 public class Starter {
 	public static void main(String[] args) {
-		int port = 8080;
+		/*int port = 8080;
         Server server = new Server(port);
         WebAppContext webAppContext = new WebAppContext("webapp","/");  
 
@@ -29,8 +29,8 @@ public class Starter {
             server.join();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-		
+        }*/
+		syncdb();
 	}
 	/**
 	 * 

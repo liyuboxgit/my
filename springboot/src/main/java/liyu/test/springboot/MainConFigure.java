@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
 import liyu.test.springboot.config.DataSourceConfiguration;
+import liyu.test.springboot.config.JpaConfigure;
 import liyu.test.springboot.config.MyBatisConfig;
 import liyu.test.springboot.config.MyBatisMapperScannerConfig;
 import liyu.test.springboot.config.MyWebMvcConfig;
@@ -18,7 +19,8 @@ import liyu.test.springboot.config.SecurityConfigure;
 	SecurityConfigure.class,
 	DataSourceConfiguration.class,
 	MyBatisConfig.class,
-	MyBatisMapperScannerConfig.class
+	MyBatisMapperScannerConfig.class,
+	JpaConfigure.class
 })
 
 public class MainConFigure {

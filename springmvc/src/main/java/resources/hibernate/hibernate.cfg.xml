@@ -34,6 +34,10 @@
     
     <!-- 注册ORM映射文件 -->
     <mapping class="liyu.test.springmvc.dao.model.Person" />
+    <mapping class="liyu.test.springmvc.dao.model.User" />
+    <mapping class="liyu.test.springmvc.dao.model.Role" />
+    <mapping class="liyu.test.springmvc.dao.model.Contract" />
+    <mapping class="liyu.test.springmvc.dao.model.Dict" />
     
 </session-factory>
 </hibernate-configuration>

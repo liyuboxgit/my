@@ -22,10 +22,5 @@ public class UserService extends BaseService{
 	public User findOne(){
 		List<User> list = userMapper.findList(new User());
 		return list.isEmpty()?null:list.get(0);
-		
-		/*User user = new User();
-		user.setUsername("user john");*/
-		
-		//return user;
 	}
 }

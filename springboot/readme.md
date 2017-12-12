@@ -4,3 +4,5 @@ bootstrap-3.3.7
 mybatis,支持事务回滚,高级映射
 模版
 shiro
+多datasource使用@Primary
+jpa 编程事务控制

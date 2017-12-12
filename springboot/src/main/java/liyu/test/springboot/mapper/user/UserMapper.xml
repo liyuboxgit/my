@@ -18,4 +18,8 @@
     	select <include refid="liyu.test.springboot.mapper.BaseSql.user"/> 
     	from t_user <include refid="liyu.test.springboot.mapper.BaseSql.pageSql"/>
     </select>
+    
+    <insert id="insert">
+    	insert into t_user (username,password,role_id) values(#{username},#{password},null)
+    </insert>
 </mapper>
