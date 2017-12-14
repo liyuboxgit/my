@@ -19,6 +19,15 @@ import java.util.ArrayList;
  * 		根据项目需要配置enmu Path，有任何问题请联系309147857@qq.com
  * 		mapper配置文件中无分页参数，这个在后续添加，建议不使用分页插件，因为所有的分页插件都是非官方支持，而mybatis的缓存非常好，
  * 		不能保证第三方分页插件和官方mybatis缓存的兼容性。
+ * 		除了生成实体bean，没有生成其他po和vo，使用时请根据需要自行添加。
+ * 		生成之mapper配置文件中有<resultMap/>,但其内容为空，配置这一项的原因是希望用户能使用mybatis的高级映射之多对一单向关联，
+ * 		为什么要使用多对一关联，而不使用其他呢，因为其比较简单，使用最多，能降低sql join的代码。
+ * 		那为什么不使用全部高级映射和双向关联呢，因为学习门槛高，大部分colder没用过mybatis之高级映射。
+ * 		<resultMap type="liyu.test.springboot.model.User" id="User">
+ *	    	<association property="role" column="role_id" 
+ *	    		select="liyu.test.springboot.mapper.role.RoleMapper.get">
+ *	    	</association>
+ *   	</resultMap>
  * @author: liyu
  * @date: 2017年12月12日 下午4:52:18
  */
@@ -31,37 +40,43 @@ public class Codec {
 	 * 4，BaseMapper，最后将附上BaseMapper的代码。
 	 */
 	enum Path{
-		DB("mybatis"),TABLE("t_person"),BEAN("Person"),
-		DIR_BEAN("liyu.test.mybatis.model"),DIR_MAPPER("liyu.test.mybatis.mapper"),DIR_DAO("liyu.test.mybatis.mapper"),
-		JDBC_URL("jdbc:mysql://localhost:3306/mybatis"),JDBC_DRIVER("com.mysql.jdbc.Driver"),JDBC_USER("root"),JDBC_PASSWORD("root"),
-		BASEMAPPER("liyu.test.mybatis.BaseMapper");
+		DB_SCHEMA	("mybatis"),
+		DB_TABLE	("t_person"),
+		DB_BEAN		("Person"),
 		
-		private String value;
-		private Path(String value) {
-			this.value = value;
-		}
-		public String getValue(){
-			return this.value;
-		}
+		DIR_BEAN	("liyu.test.mybatis.model"),
+		DIR_MAPPER	("liyu.test.mybatis.mapper"),
+		DIR_DAO		("liyu.test.mybatis.mapper"),
+		
+		JDBC_URL	("jdbc:mysql://localhost:3306/mybatis"),
+		JDBC_DRIVER	("com.mysql.jdbc.Driver"),
+		JDBC_USER	("root"),
+		JDBC_PSWORD	("root"),
+		
+		BASE_MAPPER ("liyu.test.mybatis.BaseMapper");
+		
+		private String value;Path(String value) {this.value = value;}
 	}
+	/**文件分割符*/
+	public static final String sp = File.separator;
 	
 	private void run(){
 		//1.当前时间
 		long timestampt = System.currentTimeMillis();
 		//2.dataSource	
 		DataSource dataSource = new DataSource(
-				Path.JDBC_URL.getValue(),
-				Path.JDBC_DRIVER.getValue(),
-				Path.JDBC_USER.getValue(),
-				Path.JDBC_PASSWORD.getValue()
+				Path.JDBC_URL.value,
+				Path.JDBC_DRIVER.value,
+				Path.JDBC_USER.value,
+				Path.JDBC_PSWORD.value
 		);
 		
 		try {
 			//3，指定代码生成的根路径，并逐级创建
-			File path = new File(System.getProperty("user.home") + File.separator + "codec_" + timestampt);
-			createDir(path,Path.DIR_BEAN.getValue());
-			createDir(path,Path.DIR_MAPPER.getValue());
-			createDir(path,Path.DIR_DAO.getValue());
+			File path = new File(System.getProperty("user.home") + sp + "codec_" + timestampt);
+			createDir(path,Path.DIR_BEAN.value);
+			createDir(path,Path.DIR_MAPPER.value);
+			createDir(path,Path.DIR_DAO.value);
 			
 			Connection conn = dataSource.getConn();
 			String sql = 
@@ -70,9 +85,23 @@ public class Codec {
 					+ "from information_schema.columns "
 					+ "where table_schema=? and table_name=?";
 			
+			String sql_ = "select TABLE_NAME,TABLE_COMMENT from information_schema.tables  where table_schema = ? "
+					+ "and table_name = ?";
+			
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, Path.DB.getValue());
-			preparedStatement.setString(2, Path.TABLE.getValue());
+			preparedStatement.setString(1, Path.DB_SCHEMA.value);
+			preparedStatement.setString(2, Path.DB_TABLE.value);
+			
+			PreparedStatement preparedStatement_ = conn.prepareStatement(sql_);
+			preparedStatement_.setString(1, Path.DB_SCHEMA.value);
+			preparedStatement_.setString(2, Path.DB_TABLE.value);
+			ResultSet resultSet_ = preparedStatement_.executeQuery();
+			
+			String tableCommen = "";
+			while(resultSet_.next()){
+				tableCommen = resultSet_.getString(2);
+			}
+			
 			
 			//4，执行查询返回jdbc之ResultSet
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -88,24 +117,19 @@ public class Codec {
 			ArrayLists<String> columnsExceptId = new ArrayLists<String>();
 				
 			
-			javaBean.append("package "+Path.DIR_BEAN.getValue()+";\n");
-			javaBean.append("public class "+Path.BEAN.getValue()+"{"+"\n");
+			javaBean.append("package "+Path.DIR_BEAN.value+";\n");
+			javaBean.append("/**\n*"+tableCommen+"("+Path.DB_TABLE.value+")\n**/\npublic class "+Path.DB_BEAN.value+" implements java.io.Serializable{"+"\n");
+			javaBean.append("\n    private static final long serialVersionUID = 1L;\n");
 			
 			mapperXml.append(
 			"<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n"+
 				"<!DOCTYPE mapper\n"+
 				  "  PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\"\n"+
 				  "  \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\n"+
-				"<mapper namespace=\""+Path.DIR_MAPPER.getValue()+"."+Path.BEAN.getValue()+"Mapper\">\n");
+				"<mapper namespace=\""+Path.DIR_MAPPER.value+"."+Path.DB_BEAN.value+"Mapper\">\n");
 			
 			while(resultSet.next()){
-				String field = genFieldStr(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3));
-				if(field == null){
-					System.err.println("类型错误！");
-					break;
-				}
-				
-				javaBean.append("    "+field+";\n");
+				javaBean.append("    /**"+resultSet.getString(3)+"*/\n"+"    private "+typeConvert(resultSet.getString(2))+javaNaming(resultSet.getString(1))+";\n");
 				getsetMothod(resultSet.getString(1),resultSet.getString(2),javaBeanGetsetM);
 				
 				if(!resultSet.getString(4).equals(""))
@@ -117,63 +141,49 @@ public class Codec {
 			javaBean.append(javaBeanGetsetM);
 			javaBean.append("\n}");
 			
-			mapperXml.append("    <resultMap type=\""+Path.DIR_BEAN.getValue()+"."+Path.BEAN.getValue()+"\" id=\"BaseResultMap\"></resultMap>");
-			
+			mapperXml.append("    <resultMap type=\""+Path.DIR_BEAN.value+"."+Path.DB_BEAN.value+"\" id=\"BaseResultMap\"></resultMap>");
 			mapperXml.append("\n    <sql id=\"cols\">\n        "+columnsExceptId.joinc()+id+" as "+javaNaming(id)+"\n    </sql>");
-			
 			mapperXml.append("\n    <sql id=\"whereSql\">\n        <where>");
 			mapperXml.append("\n            <if test=\""+javaNaming(id)+" != null\">\n                "+id+"=#{"+javaNaming(id)+"}\n            </if>");
 			for(String str:columnsExceptId)
 			mapperXml.append("\n            <if test=\""+javaNaming(str)+" != null\">\n                "+str+"=#{"+javaNaming(str)+"}\n            </if>");
 			mapperXml.append("\n        </where>");
 			mapperXml.append("\n    </sql>");
-			
-			mapperXml.append("\n    <insert id=\"create\">\n        insert into "+Path.TABLE.getValue()+"("+columnsExceptId.join()+") values("+columnsExceptId.joinv()+")\n    </insert>");
-			
-			mapperXml.append("\n    <update id=\"merge\">\n        update "+Path.TABLE.getValue()+" set "+columnsExceptId.joinu()+" where "+id+"=#{"+javaNaming(id)+"}\n    </update>");
-
+			mapperXml.append("\n    <insert id=\"create\">\n        insert into "+Path.DB_TABLE.value+"("+columnsExceptId.join()+") values("+columnsExceptId.joinv()+")\n    </insert>");
+			mapperXml.append("\n    <update id=\"merge\">\n        update "+Path.DB_TABLE.value+" set "+columnsExceptId.joinu()+" where "+id+"=#{"+javaNaming(id)+"}\n    </update>");
 			mapperXml.append("\n    <update id=\"updateColumn\">\n        update ${tableName} set ${columnName}=#{value} where "+id+" = #{primaryKey}\n    </update>");
-			
-			mapperXml.append("\n    <delete id=\"delete\">\n        delete from "+Path.TABLE.getValue()+" where "+id+"=#{"+javaNaming(id)+"}\n    </delete>");
-			
-			mapperXml.append("\n    <delete id=\"deleteBatch\" parameterType=\"java.util.List\">\n        <foreach collection=\"list\" item=\"item\" index=\"index\" open=\"begin\" close=\";end;\" separator=\";\">\n            delete from "+Path.TABLE.getValue()+" where "+id+"=#{item."+javaNaming(id)+"}\n        </foreach>\n    </delete>");
-			
-			mapperXml.append("\n    <select id=\"findOne\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from "+Path.TABLE.getValue()+" where "+id+"=#{"+javaNaming(id)+"}\n    </select>");
-
-			mapperXml.append("\n    <select id=\"findList\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from "+Path.TABLE.getValue()+" <include refid=\"whereSql\"/>\n    </select>");
-
-			mapperXml.append("\n    <select id=\"findCount\" resultType=\"java.lang.Integer\">\n        select count(1) from "+Path.TABLE.getValue()+" <include refid=\"whereSql\"/>\n    </select>");
-			
+			mapperXml.append("\n    <delete id=\"delete\">\n        delete from "+Path.DB_TABLE.value+" where "+id+"=#{"+javaNaming(id)+"}\n    </delete>");
+			mapperXml.append("\n    <delete id=\"deleteBatch\" parameterType=\"java.util.List\">\n        <foreach collection=\"list\" item=\"item\" index=\"index\" open=\"begin\" close=\";end;\" separator=\";\">\n            delete from "+Path.DB_TABLE.value+" where "+id+"=#{item."+javaNaming(id)+"}\n        </foreach>\n    </delete>");
+			mapperXml.append("\n    <select id=\"findOne\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from "+Path.DB_TABLE.value+" where "+id+"=#{"+javaNaming(id)+"}\n    </select>");
+			mapperXml.append("\n    <select id=\"findList\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from "+Path.DB_TABLE.value+" <include refid=\"whereSql\"/>\n    </select>");
+			mapperXml.append("\n    <select id=\"findCount\" resultType=\"java.lang.Integer\">\n        select count(1) from "+Path.DB_TABLE.value+" <include refid=\"whereSql\"/>\n    </select>");
 			mapperXml.append("\n</mapper>");
 			
-			daoBean.append("package "+Path.DIR_DAO.getValue()+";\n");
-		
-			daoBean.append("import java.util.List;\n");
+			daoBean.append("package "+Path.DIR_DAO.value+";\n");
 			daoBean.append("import org.springframework.stereotype.Repository;\n");
-			daoBean.append("import "+Path.DIR_BEAN.getValue()+"."+Path.BEAN.getValue()+";\n");
-			
+			daoBean.append("import "+Path.DIR_BEAN.value+"."+Path.DB_BEAN.value+";\n");
 			daoBean.append("@Repository\n");
-			daoBean.append("public interface "+Path.BEAN.getValue()+"Mapper extends BaseMapper<"+Path.BEAN.getValue()+">{"+"\n");
+			daoBean.append("public interface "+Path.DB_BEAN.value+"Mapper extends BaseMapper<"+Path.DB_BEAN.value+">{"+"\n");
 			daoBean.append("}");
 			
 			//6，写入文件
 			byte[] bytes = javaBean.toString().getBytes(Charset.defaultCharset());
-			File file = new File(path,Path.DIR_BEAN.getValue().replace(".", File.separator)+File.separator+Path.BEAN.getValue()+".java");
+			File file = new File(path,Path.DIR_BEAN.value.replace(".", sp)+sp+Path.DB_BEAN.value+".java");
 			file.createNewFile();
 			Files.write(file.toPath(), bytes);
 
 			byte[] xmlbytes = mapperXml.toString().getBytes(Charset.defaultCharset());
-			File xmlfile = new File(path,Path.DIR_MAPPER.getValue().replace(".", File.separator)+File.separator+Path.BEAN.getValue()+"Mapper.xml");
+			File xmlfile = new File(path,Path.DIR_MAPPER.value.replace(".", sp)+sp+Path.DB_BEAN.value+"Mapper.xml");
 			xmlfile.createNewFile();
 			Files.write(xmlfile.toPath(), xmlbytes);
 			
 			byte[] daobytes = daoBean.toString().getBytes(Charset.defaultCharset());
-			File daofile = new File(path,Path.DIR_MAPPER.getValue().replace(".", File.separator)+File.separator+Path.BEAN.getValue()+"Mapper.java");
+			File daofile = new File(path,Path.DIR_MAPPER.value.replace(".", sp)+sp+Path.DB_BEAN.value+"Mapper.java");
 			daofile.createNewFile();
 			Files.write(daofile.toPath(), daobytes);
 			
 			//7,关闭资源	
-			DataSource.close(resultSet,preparedStatement,conn);
+			DataSource.close(resultSet,preparedStatement,resultSet_,preparedStatement_,conn);
 			//8，打开窗口
 			java.awt.Desktop.getDesktop().open(path);
 		} catch (ClassNotFoundException e) {
@@ -191,34 +201,12 @@ public class Codec {
 	}
 
 	private static void getsetMothod(String string, String type, StringBuffer getsetM) {
-		if(string.indexOf("_")>-1){
-			string = string.substring(0, string.indexOf("_")) 
-					+ string.substring(string.indexOf("_")+1, string.indexOf("_")+2).toUpperCase()
-					+ string.substring(string.indexOf("_")+2);
-		}
-		
+		string = javaNaming(string);
 		String str = string.substring(0, 1).toUpperCase() + string.substring(1);
+		String javaType = typeConvert(type);
 		
-		switch (type) {
-			case "bigint":
-				getsetM.append("\n    public void set"+str+"(Integer "+string+"){\n        this."+string+"="+string+";\n    }");
-				getsetM.append("\n    public Integer get"+str+"(){\n        return this."+string+";\n    }");
-				break;
-			case "int":
-				getsetM.append("\n    public void set"+str+"(Integer "+string+"){\n        this."+string+"="+string+";\n    }");
-				getsetM.append("\n    public Integer get"+str+"(){\n        return this."+string+";\n    }");
-				break;	
-			case "varchar":
-				getsetM.append("\n    public void set"+str+"(String "+string+"){\n        this."+string+"="+string+";\n    }");
-				getsetM.append("\n    public String get"+str+"(){\n        return this."+string+";\n    }");
-				break;
-			case "datetime":
-				getsetM.append("\n    public void set"+str+"(java.util.Date "+string+"){\n        this."+string+"="+string+";\n    }");
-				getsetM.append("\n    public java.util.Date get"+str+"(){\n        return this."+string+";\n    }");
-				break;
-			default:
-			break;
-		}
+		getsetM.append("\n    public void set"+str+"("+javaType+string+"){\n        this."+string+"="+string+";\n    }");
+		getsetM.append("\n    public "+javaType+"get"+str+"(){\n        return this."+string+";\n    }");
 	}
 	
 	public static String javaNaming(String column){
@@ -233,42 +221,29 @@ public class Codec {
 		return column;
 	}
 	
-	private static String genFieldStr(String string, String type, String common) {
-		if(string.startsWith("_")){
-			throw new RuntimeException("数据库column不能以下划线开头！");
-		}else if(string.indexOf("_")>-1){
-			string = string.substring(0, string.indexOf("_")) 
-					+ string.substring(string.indexOf("_")+1, string.indexOf("_")+2).toUpperCase()
-					+ string.substring(string.indexOf("_")+2);
-		}
-		
-		switch (type) {
+	private static String typeConvert(String dbType){
+		switch (dbType) {
 			case "bigint":
-				return "/*"+common+"*/\n"+"    private Integer "+string;
+				return "Integer ";
 			case "int":
-				return "/*"+common+"*/\n"+"    private Integer "+string;	
+				return "Integer ";	
 			case "varchar":
-				return "/*"+common+"*/\n"+"    private String "+string;
+				return "String ";
 			case "datetime":
-				return "/*"+common+"*/\n"+"    private java.util.Date "+string;
+				return "java.util.Date ";
 			default:
 				break;
 		}
-		
-		return null;
+		throw new RuntimeException("类型缺失或错误！");
 	}
-
+	
 	private static void createDir(File path, String value) {
-		mkDir(new File(path,value.replace(".", File.separator)));
+		mkDir(new File(path,value.replace(".", sp)));
 	}
 	
 	private static void mkDir(File file) {  
-        if (file.getParentFile().exists()){  
-        	file.mkdir();  
-        } else {  
-            mkDir(file.getParentFile());  
-            file.mkdir();    
-        }  
+        if (file.getParentFile().exists()) file.mkdir();  
+        else{mkDir(file.getParentFile()); file.mkdir();}  
     }  
 }
 /**
@@ -358,7 +333,7 @@ class ArrayLists<E> extends ArrayList<E>{
 
 }
 /*
- * BaseMapper code
+ * ================================BaseMapper code=====================================
 public interface BaseMapper <T>{
 	public void create(T t);
 	public void merge(T t);
@@ -376,7 +351,6 @@ public class UpdateColumnWapper {
 	private Object primaryKey;
 	
 	public UpdateColumnWapper(String tableName, String columnName, Object value, Object primaryKey) {
-		super();
 		this.tableName = tableName;
 		this.columnName = columnName;
 		this.primaryKey = primaryKey;
@@ -395,4 +369,4 @@ public class UpdateColumnWapper {
 		return value;
 	}
 }
-*/
+=======================================================================================*/

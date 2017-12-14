@@ -1,8 +1,8 @@
-package liyu.test.mybatis;
+package liyu.test.mybatis.mapper;
 
 import java.util.List;
 
-import liyu.test.mybatis.mapper.UpdateColumnWapper;
+import liyu.test.mybatis.model.UpdateColumnWapper;
 /**
  * 
  * @ClassName: BaseMapper 

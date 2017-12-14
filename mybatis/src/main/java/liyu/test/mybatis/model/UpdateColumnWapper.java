@@ -1,4 +1,4 @@
-package liyu.test.mybatis.mapper;
+package liyu.test.mybatis.model;
 
 public class UpdateColumnWapper {
 	private String tableName;
@@ -7,7 +7,6 @@ public class UpdateColumnWapper {
 	private Object primaryKey;
 	
 	public UpdateColumnWapper(String tableName, String columnName, Object value, Object primaryKey) {
-		super();
 		this.tableName = tableName;
 		this.columnName = columnName;
 		this.primaryKey = primaryKey;
