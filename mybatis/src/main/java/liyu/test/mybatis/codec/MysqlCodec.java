@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  * 
- * @ClassName: Codec 目前仅支持mysql，oracle在后续实现
+ * @ClassName: Codec mysql
  * @Description: 生成mayatis的mapper配置文件和实体类
  * 		使用时拷贝注释代码BaseMapper code，生成项目的BaseMapper
  * 		根据项目需要配置enmu Path，有任何问题请联系309147857@qq.com
@@ -31,7 +31,7 @@ import java.util.ArrayList;
  * @author: liyu
  * @date: 2017年12月12日 下午4:52:18
  */
-public class Codec {
+public class MysqlCodec {
 	/**
 	 * 首先配置，Path枚举分三部分：
 	 * 1，那个库、那个表、那个类；
@@ -144,9 +144,9 @@ public class Codec {
 			mapperXml.append("    <resultMap type=\""+Path.DIR_BEAN.value+"."+Path.DB_BEAN.value+"\" id=\"BaseResultMap\"></resultMap>");
 			mapperXml.append("\n    <sql id=\"cols\">\n        "+columnsExceptId.joinc()+id+" as "+javaNaming(id)+"\n    </sql>");
 			mapperXml.append("\n    <sql id=\"whereSql\">\n        <where>");
-			mapperXml.append("\n            <if test=\""+javaNaming(id)+" != null\">\n                "+id+"=#{"+javaNaming(id)+"}\n            </if>");
+			mapperXml.append("\n            <if test=\""+javaNaming(id)+" != null\">\n                and "+id+"=#{"+javaNaming(id)+"}\n            </if>");
 			for(String str:columnsExceptId)
-			mapperXml.append("\n            <if test=\""+javaNaming(str)+" != null\">\n                "+str+"=#{"+javaNaming(str)+"}\n            </if>");
+			mapperXml.append("\n            <if test=\""+javaNaming(str)+" != null\">\n                and "+str+"=#{"+javaNaming(str)+"}\n            </if>");
 			mapperXml.append("\n        </where>");
 			mapperXml.append("\n    </sql>");
 			mapperXml.append("\n    <insert id=\"create\">\n        insert into "+Path.DB_TABLE.value+"("+columnsExceptId.join()+") values("+columnsExceptId.joinv()+")\n    </insert>");
@@ -183,7 +183,7 @@ public class Codec {
 			Files.write(daofile.toPath(), daobytes);
 			
 			//7,关闭资源	
-			DataSource.close(resultSet,preparedStatement,resultSet_,preparedStatement_,conn);
+			dataSource.close(resultSet,preparedStatement,resultSet_,preparedStatement_,conn);
 			//8，打开窗口
 			java.awt.Desktop.getDesktop().open(path);
 		} catch (ClassNotFoundException e) {
@@ -197,7 +197,7 @@ public class Codec {
 	}
 	
 	public static void main(String[] args) {
-		new Codec().run();
+		new MysqlCodec().run();
 	}
 
 	private static void getsetMothod(String string, String type, StringBuffer getsetM) {
@@ -245,93 +245,98 @@ public class Codec {
         if (file.getParentFile().exists()) file.mkdir();  
         else{mkDir(file.getParentFile()); file.mkdir();}  
     }  
-}
-/**
- * 
- * @ClassName: DataSource 
- * @Description: 
- * @author: liyu
- * @date: 2017年12月13日 上午10:33:53
- */
-class DataSource{
-	private String url,driver,username,password;
-	private javax.sql.DataSource dataSource;
 	
-	public DataSource(String url, String driver, String username, String password) {
-		super();
-		this.url = url;
-		this.driver = driver;
-		this.username = username;
-		this.password = password;
-	}
-	public DataSource(javax.sql.DataSource dataSource) {
-		super();
-		this.dataSource = dataSource;
-	}
-	public Connection getConn() throws SQLException, ClassNotFoundException{
-		if(this.dataSource!=null){
-			return dataSource.getConnection();
-		}else{
-			Class.forName(this.driver);
-			return DriverManager.getConnection(this.url, this.username, this.password);
+	
+	class ArrayLists<E> extends ArrayList<E>{
+		private static final long serialVersionUID = 1L;
+
+		public String join(){
+			StringBuffer sb = new StringBuffer();
+			for(int i=0;i<this.size();i++){
+				sb.append((i==this.size()-1)?this.get(i):(this.get(i)+","));
+			}
+			return sb.toString();
 		}
+		
+		public String joinv(){
+			StringBuffer sb = new StringBuffer();
+			for(int i=0;i<this.size();i++){
+				sb.append((i==this.size()-1)?val(this.get(i)):val(this.get(i))+",");
+			}
+			return sb.toString();
+		}
+		
+		public String joinu(){
+			StringBuffer sb = new StringBuffer();
+			for(int i=0;i<this.size();i++){
+				if(i==this.size()-1)
+					sb.append(this.get(i)+"=#{"+javaNaming((String)this.get(i))+"}");
+				else
+					sb.append(this.get(i)+"=#{"+javaNaming((String)this.get(i))+"},");
+			}
+			return sb.toString();
+		}
+		
+		public String joinc(){
+			StringBuffer sb = new StringBuffer();
+			for(int i=0;i<this.size();i++){
+				sb.append(this.get(i)+" as "+javaNaming((String)this.get(i))+",");
+			}
+			return sb.toString();
+		}
+		
+		private String val(E e){
+			return "#{"+javaNaming((String)e)+"}";
+		}
+
 	}
-	public static void close(AutoCloseable...closeable){
-		if(closeable!=null){
-			try {
-				for (AutoCloseable autoCloseable : closeable) {
-					autoCloseable.close();
+	
+	/**
+	 * 
+	 * @ClassName: DataSource 
+	 * @Description: 
+	 * @author: liyu
+	 * @date: 2017年12月13日 上午10:33:53
+	 */
+	class DataSource{
+		private String url,driver,username,password;
+		private javax.sql.DataSource dataSource;
+		
+		public DataSource(String url, String driver, String username, String password) {
+			super();
+			this.url = url;
+			this.driver = driver;
+			this.username = username;
+			this.password = password;
+		}
+		public DataSource(javax.sql.DataSource dataSource) {
+			super();
+			this.dataSource = dataSource;
+		}
+		public Connection getConn() throws SQLException, ClassNotFoundException{
+			if(this.dataSource!=null){
+				return dataSource.getConnection();
+			}else{
+				Class.forName(this.driver);
+				return DriverManager.getConnection(this.url, this.username, this.password);
+			}
+		}
+		public void close(AutoCloseable...closeable){
+			if(closeable!=null){
+				try {
+					for (AutoCloseable autoCloseable : closeable) {
+						autoCloseable.close();
+					}
+				} catch (Exception e) {
+					
 				}
-			} catch (Exception e) {
-				
 			}
 		}
 	}
 }
 
-class ArrayLists<E> extends ArrayList<E>{
-	private static final long serialVersionUID = 1L;
 
-	public String join(){
-		StringBuffer sb = new StringBuffer();
-		for(int i=0;i<this.size();i++){
-			sb.append((i==this.size()-1)?this.get(i):(this.get(i)+","));
-		}
-		return sb.toString();
-	}
-	
-	public String joinv(){
-		StringBuffer sb = new StringBuffer();
-		for(int i=0;i<this.size();i++){
-			sb.append((i==this.size()-1)?val(this.get(i)):val(this.get(i))+",");
-		}
-		return sb.toString();
-	}
-	
-	public String joinu(){
-		StringBuffer sb = new StringBuffer();
-		for(int i=0;i<this.size();i++){
-			if(i==this.size()-1)
-				sb.append(this.get(i)+"=#{"+Codec.javaNaming((String)this.get(i))+"}");
-			else
-				sb.append(this.get(i)+"=#{"+Codec.javaNaming((String)this.get(i))+"},");
-		}
-		return sb.toString();
-	}
-	
-	public String joinc(){
-		StringBuffer sb = new StringBuffer();
-		for(int i=0;i<this.size();i++){
-			sb.append(this.get(i)+" as "+Codec.javaNaming((String)this.get(i))+",");
-		}
-		return sb.toString();
-	}
-	
-	private String val(E e){
-		return "#{"+Codec.javaNaming((String)e)+"}";
-	}
 
-}
 /*
  * ================================BaseMapper code=====================================
 public interface BaseMapper <T>{

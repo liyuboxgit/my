@@ -15,13 +15,13 @@ public interface BaseMapper <T>{
 	public void create(T t);
 	
 	public void delete(T t);
-	public void deleteByPrimaryKey(Object key);
+	public void deleteBatch(List<T> list);
 	
-	public void update(T t);
+	public void merge(T t);
 	
-	public T find(T t);
+	public T findOne(T t);
 	public List<T> findList(T t);
-	public int findListCount(T t);
+	public int findCount(T t);
 	
 	public boolean updateColumn(UpdateColumnWapper updateColumnWapper);
 }
