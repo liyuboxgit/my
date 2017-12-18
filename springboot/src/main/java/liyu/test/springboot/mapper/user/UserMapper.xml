@@ -15,10 +15,9 @@
         select * from t_user where id=#{id}
     </select>
     <select id="findList" resultType="liyu.test.springboot.model.User">
-    	select <include refid="liyu.test.springboot.mapper.BaseSql.user"/> 
-    	from t_user <include refid="liyu.test.springboot.mapper.BaseSql.pageSql"/>
-    </select>
-    
+    	select *
+    	from t_user limit 0,10
+    </select>    
     <insert id="insert">
     	insert into t_user (username,password,role_id) values(#{username},#{password},null)
     </insert>

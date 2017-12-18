@@ -39,10 +39,9 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
 			throw new RuntimeException(e);
 		}
 	}
-
+	
 	@Bean
 	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}
-
 }

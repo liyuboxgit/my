@@ -10,9 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
-import liyu.test.mybatis.model.UpdateColumnWapper;
 
 /**
  * 
@@ -195,7 +192,7 @@ public class OracleCodec {
 			Files.write(daofile.toPath(), daobytes);
 			
 			//7,关闭资源	
-			dataSource.close(resultSet,preparedStatement,resultSet_,preparedStatement_,conn);
+			dataSource.close(resultSet,preparedStatement,resultSet_,preparedStatement_,resultSet__,preparedStatement__,conn);
 			//8，打开窗口
 			java.awt.Desktop.getDesktop().open(path);
 		} catch (ClassNotFoundException e) {
