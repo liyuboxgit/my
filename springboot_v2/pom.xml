@@ -11,6 +11,16 @@
   <packaging>war</packaging>
   <name>springboot_v2 Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  
+  <description>
+  	springboot bom
+  	test
+  	profile
+  	mybatis:enhanceMapper,include cross file sqlfragemeng,resultmap association 
+  	transtional
+  	logback
+  </description>
+
   <dependencies>
   	<dependency>
 		<groupId>org.springframework.boot</groupId>

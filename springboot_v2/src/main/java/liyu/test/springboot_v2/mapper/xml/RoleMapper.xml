@@ -5,4 +5,7 @@
     <select id="get" resultMap="Role">
         select * from t_role where id=#{id}
     </select>
+    <update id="update">
+    	update t_role set rolename=#{rolename} where id=#{id}
+    </update>
 </mapper>

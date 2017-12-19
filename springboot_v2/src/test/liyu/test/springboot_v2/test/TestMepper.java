@@ -13,7 +13,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import liyu.test.springboot_v2.Start;
 import liyu.test.springboot_v2.mapper.EnhanceMapper;
 import liyu.test.springboot_v2.mapper.UserMapper;
+import liyu.test.springboot_v2.model.Role;
 import liyu.test.springboot_v2.model.User;
+import liyu.test.springboot_v2.service.RoleService;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
 @SpringBootTest(classes=Start.class)
@@ -23,7 +25,8 @@ public class TestMepper {
 	private UserMapper userMapper;
 	@Autowired
 	private EnhanceMapper enhanceMapper;
-	
+	@Autowired
+	private RoleService roleService;
 	@Test
 	public void test(){
 		System.out.println(userMapper.findList(new User()).size());
@@ -33,5 +36,13 @@ public class TestMepper {
 	public void testEnhanceMapper(){
 		List<Object> list = enhanceMapper.findList("liyu.test.springboot_v2.mapper.UserMapper.findList", new User());
 		System.out.println(list.size());
+	}
+	@Test
+	public void testRoleService(){
+		Role role = new Role();
+		role.setId(1);
+		role.setRolename("超级管理员");
+		int ret = this.roleService.update(role);
+		System.out.println(ret);
 	}
 }

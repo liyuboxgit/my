@@ -49,4 +49,8 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 		Object ret = this.getSqlSession().selectOne(statement, parameter);
 		return ret;
 	}
+	
+	public int exccute(String statement,Object parameter){
+		return this.getSqlSession().update(statement, parameter);
+	}
 }

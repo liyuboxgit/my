@@ -11,4 +11,5 @@ public interface RoleMapper {
 	public Role get(int id);
 	public List<Role> findList(Role user);
 	public Integer findCount(Role user);
+	public int update(Role role);
 }
