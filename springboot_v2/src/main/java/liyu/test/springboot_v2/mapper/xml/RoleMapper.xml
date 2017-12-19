@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liyu.test.springboot_v2.mapper.RoleMapper">
+    <resultMap type="liyu.test.springboot_v2.model.Role" id="Role"/>
+    <select id="get" resultMap="Role">
+        select * from t_role where id=#{id}
+    </select>
+</mapper>

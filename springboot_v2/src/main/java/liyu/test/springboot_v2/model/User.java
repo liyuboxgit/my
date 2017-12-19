@@ -9,6 +9,7 @@ public class User implements Serializable{
 	private Integer id;
 	private String username;
 	private String password = "123456";
+	private Role role;
 	
 	public User(Integer id, String username) {
 		this.id = id;
@@ -36,5 +37,13 @@ public class User implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 }

@@ -2,17 +2,16 @@ package liyu.test.springboot_v2;
 
 import java.util.Date;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
-import liyu.test.springboot_v2.mapper.UserMapper;
-
 @EnableAutoConfiguration
 @ComponentScan
+@MapperScan(basePackages="liyu.test.springboot_v2.mapper")
 public class Start {
 	private static Logger logger = LoggerFactory.getLogger(Start.class);
 	
