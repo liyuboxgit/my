@@ -12,6 +12,15 @@
 	<packaging>war</packaging>
 	<name>springmvc Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+	
+	<description>
+		springmvc fileupload
+		jetty starter
+		jpa
+		hibernate create table
+		springmvn date convert
+	</description>
+	
 	<dependencies>
 		<dependency>
 			<groupId>liyu.test</groupId>

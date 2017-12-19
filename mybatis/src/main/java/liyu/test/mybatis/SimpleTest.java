@@ -27,7 +27,7 @@ public class SimpleTest {
         SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
         SqlSession session = sessionFactory.openSession();
         BaoGuanDanMapper mapper = session.getMapper(BaoGuanDanMapper.class);
-        mapper.findCount(new BaoGuanDan());
+        mapper.findList(new BaoGuanDan());
         session.commit();		
 	}
 }

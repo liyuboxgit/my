@@ -1,5 +1,6 @@
 package liyu.test.springmvc.web;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,7 +18,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @RequestMapping("/my")
 public class MyController {
 	@RequestMapping("/index")
-	public String index(){
+	public String index(Model model,Date date){
+		model.addAttribute("now", date);
 		return "index";
 	}
 	@SuppressWarnings("unused")

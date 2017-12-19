@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	hello world.
+	hello world.this date is:<%=request.getAttribute("now") %>
 </body>
 </html>

@@ -6,19 +6,20 @@
 	<settings>
 		<setting name="cacheEnabled" value="true" />
 		<setting name="jdbcTypeForNull" value="NULL" />
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
-				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<!-- <property name="driver" value="com.mysql.jdbc.Driver" />
 				<property name="url" value="jdbc:mysql://localhost:3306/mybatis" />
 				<property name="username" value="root" />
-				<property name="password" value="root" />
-				<!-- <property name="driver" value="oracle.jdbc.OracleDriver" />
+				<property name="password" value="root" /> -->
+				<property name="driver" value="oracle.jdbc.OracleDriver" />
 				<property name="url" value="jdbc:oracle:thin:@192.168.100.252:1521:zssd" />
 				<property name="username" value="cktsfk" />
-				<property name="password" value="cktsfk" /> -->
+				<property name="password" value="cktsfk" />
 			</dataSource>
 		</environment>
 	</environments>

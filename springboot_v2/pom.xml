@@ -16,7 +16,11 @@
   	springboot bom
   	test
   	profile
-  	mybatis:enhanceMapper,include cross file sqlfragemeng,resultmap association 
+  	mybatis:
+  		@MapperScan,
+  		enhanceMapper,
+  		include cross file sqlfragemeng,
+  		resultmap association 
   	transtional
   	logback
   </description>

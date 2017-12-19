@@ -36,6 +36,23 @@
             </list>
         </property>
     </bean>
+    
+	<!-- date Convert -->
+    <mvc:annotation-driven conversion-service="conversionService"/>
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <ref bean="dateConvert"/>
+            </set>
+        </property>
+    </bean>
+    <bean id="dateConvert" class="liyu.test.springmvc.util.DateConvert">
+    	<constructor-arg>
+    		<value>yyyy-MM-dd</value>
+    		<value>yyyy-MM-dd HH:mm:ss</value>
+    	</constructor-arg>
+    </bean>
+    
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="utf-8" />

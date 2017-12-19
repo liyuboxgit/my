@@ -210,13 +210,18 @@ public class MysqlCodec {
 	}
 	
 	public static String javaNaming(String column){
+		column = column.toLowerCase();
 		if(column.startsWith("_")){
 			throw new RuntimeException("数据库column不能以下划线开头！");
 		}else if(column.indexOf("_")>-1){
-			column = column.substring(0, column.indexOf("_")) 
-					+ column.substring(column.indexOf("_")+1, column.indexOf("_")+2).toUpperCase()
-					+ column.substring(column.indexOf("_")+2);
-			return column;
+			String[] fields = column.split("_");
+	        StringBuilder sbuilder = new StringBuilder(fields[0]);
+	        for (int i = 1; i < fields.length; i++) {
+	            char[] cs=fields[i].toCharArray();
+	            cs[0]-=32;
+	            sbuilder.append(String.valueOf(cs));
+	        }
+	        return sbuilder.toString();
 		}
 		return column;
 	}
