@@ -1,8 +1,8 @@
 package liyu.test.springboot_v2.test;
 
-import java.util.Date;
+import java.util.List;
 
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import liyu.test.springboot_v2.Start;
 import liyu.test.springboot_v2.mapper.EnhanceMapper;
-import liyu.test.springboot_v2.mapper.EnhanceMapper.Page;
-import liyu.test.springboot_v2.mapper.UpdateColumnWapper;
-import liyu.test.springboot_v2.mapper.UserMapper;
-import liyu.test.springboot_v2.model.Role;
 import liyu.test.springboot_v2.model.User;
-import liyu.test.springboot_v2.service.RoleService;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
 @SpringBootTest(classes=Start.class)
@@ -24,16 +19,17 @@ import liyu.test.springboot_v2.service.RoleService;
 public class TestMepper {
 	@Autowired
 	private EnhanceMapper enhanceMapper;
-	@Autowired
-	private RoleService roleService;
 	@Test
 	public void test(){
 		
 	}
 	@Test
 	public void testEnhanceMapper(){
-		Role role = new Role();
-		role.setRolename("hello");
-		enhanceMapper.exccute(Role.class, EnhanceMapper.insert, role);
+		User user = new User();
+		List<User> list = enhanceMapper.findList(EnhanceMapper.findlist, user, User.class);
+		System.out.println(list.size());
+
+		Long findCount = enhanceMapper.findCount(EnhanceMapper.findcount, user, User.class);
+		Assert.assertEquals(list.size(),findCount.intValue());
 	}
 }

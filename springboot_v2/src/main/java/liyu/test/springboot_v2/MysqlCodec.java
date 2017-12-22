@@ -35,18 +35,17 @@ public class MysqlCodec {
 	/**
 	 * 首先配置，Path枚举分三部分：
 	 * 1，那个库、那个表、那个类；
-	 * 2，实体类位置、mapperXML位置、mapper接口位置；
+	 * 2，实体类位置、mapperXML位置；
 	 * 3，jdbc连接的配置;
 	 * 4，BaseMapper，最后将附上BaseMapper的代码。
 	 */
 	enum Path{
 		DB_SCHEMA	("mybatis"),
-		DB_TABLE	("t_person"),
-		DB_BEAN		("Person"),
+		DB_TABLE	("t_user"),
+		DB_BEAN		("User"),
 		
-		DIR_BEAN	("liyu.test.mybatis.model"),
-		DIR_MAPPER	("liyu.test.mybatis.mapper"),
-		DIR_DAO		("liyu.test.mybatis.mapper"),
+		DIR_BEAN	("liyu.test.springboot_v2.model"),
+		DIR_MAPPER	("liyu.test.springboot_v2.xml.mapper"),
 		
 		JDBC_URL	("jdbc:mysql://localhost:3306/mybatis"),
 		JDBC_DRIVER	("com.mysql.jdbc.Driver"),
@@ -76,7 +75,6 @@ public class MysqlCodec {
 			File path = new File(System.getProperty("user.home") + sp + "codec_" + timestampt);
 			createDir(path,Path.DIR_BEAN.value);
 			createDir(path,Path.DIR_MAPPER.value);
-			createDir(path,Path.DIR_DAO.value);
 			
 			Connection conn = dataSource.getConn();
 			String sql = 
@@ -110,8 +108,7 @@ public class MysqlCodec {
 			StringBuffer 
 				javaBean = new StringBuffer(),
 				javaBeanGetsetM  = new StringBuffer(),
-				mapperXml  = new StringBuffer(),
-				daoBean = new StringBuffer();
+				mapperXml  = new StringBuffer();
 			
 			String id = null;
 			ArrayLists<String> columnsExceptId = new ArrayLists<String>();
@@ -126,7 +123,7 @@ public class MysqlCodec {
 				"<!DOCTYPE mapper\n"+
 				  "  PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\"\n"+
 				  "  \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\n"+
-				"<mapper namespace=\""+Path.DIR_MAPPER.value+"."+Path.DB_BEAN.value+"Mapper\">\n");
+				"<mapper namespace=\""+Path.DIR_BEAN.value+"."+Path.DB_BEAN.value+"\">\n");
 			
 			while(resultSet.next()){
 				javaBean.append("    /**"+resultSet.getString(3)+"*/\n"+"    private "+typeConvert(resultSet.getString(2))+javaNaming(resultSet.getString(1))+";\n");
@@ -149,22 +146,15 @@ public class MysqlCodec {
 			mapperXml.append("\n            <if test=\""+javaNaming(str)+" != null\">\n                and "+str+"=#{"+javaNaming(str)+"}\n            </if>");
 			mapperXml.append("\n        </where>");
 			mapperXml.append("\n    </sql>");
-			mapperXml.append("\n    <insert id=\"create\">\n        insert into "+Path.DB_TABLE.value+"("+columnsExceptId.join()+") values("+columnsExceptId.joinv()+")\n    </insert>");
+			mapperXml.append("\n    <insert id=\"insert\">\n        insert into "+Path.DB_TABLE.value+"("+columnsExceptId.join()+") values("+columnsExceptId.joinv()+")\n    </insert>");
 			mapperXml.append("\n    <update id=\"merge\">\n        update "+Path.DB_TABLE.value+" set "+columnsExceptId.joinu()+" where "+id+"=#{"+javaNaming(id)+"}\n    </update>");
-			mapperXml.append("\n    <update id=\"updateColumn\">\n        update ${tableName} set ${columnName}=#{value} where "+id+" = #{primaryKey}\n    </update>");
+			mapperXml.append("\n    <update id=\"dynamicUpdate\">\n        update ${tableName} set ${columnName}=#{value} where "+id+" = #{primaryKey}\n    </update>");
 			mapperXml.append("\n    <delete id=\"delete\">\n        delete from "+Path.DB_TABLE.value+" where "+id+"=#{"+javaNaming(id)+"}\n    </delete>");
 			mapperXml.append("\n    <delete id=\"deleteBatch\" parameterType=\"java.util.List\">\n        <foreach collection=\"list\" item=\"item\" index=\"index\" open=\"begin\" close=\";end;\" separator=\";\">\n            delete from "+Path.DB_TABLE.value+" where "+id+"=#{item."+javaNaming(id)+"}\n        </foreach>\n    </delete>");
-			mapperXml.append("\n    <select id=\"findOne\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from "+Path.DB_TABLE.value+" where "+id+"=#{"+javaNaming(id)+"}\n    </select>");
-			mapperXml.append("\n    <select id=\"findList\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from "+Path.DB_TABLE.value+" <include refid=\"whereSql\"/>\n    </select>");
-			mapperXml.append("\n    <select id=\"findCount\" resultType=\"java.lang.Integer\">\n        select count(1) from "+Path.DB_TABLE.value+" <include refid=\"whereSql\"/>\n    </select>");
+			mapperXml.append("\n    <select id=\"findone\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from "+Path.DB_TABLE.value+" where "+id+"=#{"+javaNaming(id)+"}\n    </select>");
+			mapperXml.append("\n    <select id=\"findlist\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from "+Path.DB_TABLE.value+" <include refid=\"whereSql\"/>\n    </select>");
+			mapperXml.append("\n    <select id=\"findcount\" resultType=\"java.lang.Long\">\n        select count(1) from "+Path.DB_TABLE.value+" <include refid=\"whereSql\"/>\n    </select>");
 			mapperXml.append("\n</mapper>");
-			
-			daoBean.append("package "+Path.DIR_DAO.value+";\n");
-			daoBean.append("import org.springframework.stereotype.Repository;\n");
-			daoBean.append("import "+Path.DIR_BEAN.value+"."+Path.DB_BEAN.value+";\n");
-			daoBean.append("@Repository\n");
-			daoBean.append("public interface "+Path.DB_BEAN.value+"Mapper extends BaseMapper<"+Path.DB_BEAN.value+">{"+"\n");
-			daoBean.append("}");
 			
 			//6，写入文件
 			byte[] bytes = javaBean.toString().getBytes(Charset.defaultCharset());
@@ -176,11 +166,6 @@ public class MysqlCodec {
 			File xmlfile = new File(path,Path.DIR_MAPPER.value.replace(".", sp)+sp+Path.DB_BEAN.value+"Mapper.xml");
 			xmlfile.createNewFile();
 			Files.write(xmlfile.toPath(), xmlbytes);
-			
-			byte[] daobytes = daoBean.toString().getBytes(Charset.defaultCharset());
-			File daofile = new File(path,Path.DIR_MAPPER.value.replace(".", sp)+sp+Path.DB_BEAN.value+"Mapper.java");
-			daofile.createNewFile();
-			Files.write(daofile.toPath(), daobytes);
 			
 			//7,关闭资源	
 			dataSource.close(resultSet,preparedStatement,resultSet_,preparedStatement_,conn);
@@ -340,43 +325,3 @@ public class MysqlCodec {
 	}
 }
 
-
-
-/*
- * ================================BaseMapper code=====================================
-public interface BaseMapper <T>{
-	public void create(T t);
-	public void merge(T t);
-	public boolean updateColumn(UpdateColumnWapper updateColumnWapper);
-	public void delete(T t);
-	public void deleteBatch(List<T> list);
-	public T findOne(T t);	
-	public List<T> findList(T t);
-	public Integer findCount(T t);
-}
-public class UpdateColumnWapper {
-	private String tableName;
-	private String columnName;
-	private Object value;
-	private Object primaryKey;
-	
-	public UpdateColumnWapper(String tableName, String columnName, Object value, Object primaryKey) {
-		this.tableName = tableName;
-		this.columnName = columnName;
-		this.primaryKey = primaryKey;
-		this.value = value;
-	}
-	public String getTableName() {
-		return tableName;
-	}
-	public String getColumnName() {
-		return columnName;
-	}
-	public Object getPrimaryKey() {
-		return primaryKey;
-	}
-	public Object getValue() {
-		return value;
-	}
-}
-=======================================================================================*/
