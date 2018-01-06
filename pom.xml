@@ -16,6 +16,7 @@
     <module>task</module>
     <module>dubbo</module>
     <module>springboot_v2</module>
+    <module>sb</module>
   </modules>
 	<dependencyManagement>
 		<dependencies>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="./jquery.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+	$.ajax({url:'/rest/msg',async: false,success:function(ret){
+		alert(ret);
+	}});
+	alert('request end.');
+</script>
+</body>
+</html>
