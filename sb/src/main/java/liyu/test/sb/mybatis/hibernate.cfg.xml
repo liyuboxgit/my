@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+
+<session-factory>
+    <property name="connection.url">jdbc:mysql://localhost:3306/mybatis</property>
+    <property name="connection.username">root</property>
+    <property name="connection.password">root</property>
+    <!-- 数据库JDBC驱动类名 -->
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <!-- 数据库方言 -->
+    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+    <!-- ddl语句自动建表 -->
+    <property name="hbm2ddl.auto">none</property>
+    <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
+    
+    <!-- 连接池配置 -->
+    <property name="hibernate.connection.provider_class">
+        org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider
+    </property>
+    <!-- 连接池中JDBC连接的最小数量。Hibernate默认为1 -->
+    <property name="hibernate.c3p0.min_size">5</property>
+    <!-- 连接池中JDBC连接的最大数量。Hibernate默认为100 -->
+    <property name="hibernate.c3p0.max_size">20</property>
+    <!-- 何时从连接池中移除一个空闲的连接（以秒为单位）时。Hibernate默认为0，永不过期 -->
+    <property name="hibernate.c3p0.timeout">300</property>
+    <!-- 被缓存的预编译语句数量。用来提高性能。Hibernate默认为0，缓存不可用-->
+    <property name="hibernate.c3p0.max_statements">100</property>
+    <!-- 一个连接被自动验证前的闲置时间（以秒为单位）。Hibernate默认为0 -->
+    <property name="hibernate.c3p0.idle_test_period">3000</property>
+    
+    <!-- 注册ORM映射文件 -->
+    <mapping class="liyu.test.sb.mybatis.entity.SB" />
+   
+</session-factory>
+</hibernate-configuration>
