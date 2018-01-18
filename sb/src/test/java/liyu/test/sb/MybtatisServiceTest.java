@@ -23,13 +23,6 @@ public class MybtatisServiceTest {
 	
 	@Test
 	public void testSB() throws Exception{
-		/*SB sb = new SB();
- * 		
- * 				sb.setName("tlangp");
- * 						sb.setPrice(new BigDecimal("2.5"));
- * 								sb.setSex_type('2');
- * 										sb.setBirth(new Date());
- * 												service.create(sb);*/
 		
 		SB sb = new SB();
 		sb.setId(1);

@@ -34,8 +34,7 @@ public class MysqlCodec {
 
 		long timestampt = System.currentTimeMillis();
 
-		DataSource dataSource = new DataSource(Path.JDBC_URL.value, Path.JDBC_DRIVER.value, Path.JDBC_USER.value,
-				Path.JDBC_PSWORD.value);
+		DataSource dataSource = new DataSource(Path.JDBC_URL.value, Path.JDBC_DRIVER.value, Path.JDBC_USER.value, Path.JDBC_PSWORD.value);
 
 		try {
 
@@ -44,8 +43,10 @@ public class MysqlCodec {
 			createDir(path, Path.DIR_MAPPER.value);
 
 			Connection conn = dataSource.getConn();
-			String sql = "select " + "COLUMN_NAME,DATA_TYPE,COLUMN_COMMENT,COLUMN_KEY,EXTRA "
-					+ "from information_schema.columns " + "where table_schema=? and table_name=?";
+			String sql = "select " + 
+					"COLUMN_NAME,DATA_TYPE,COLUMN_COMMENT,COLUMN_KEY,EXTRA "
+					+ "from information_schema.columns " 
+					+ "where table_schema=? and table_name=?";
 
 			String sql_ = "select TABLE_NAME,TABLE_COMMENT from information_schema.tables  where table_schema = ? "
 					+ "and table_name = ?";
@@ -73,21 +74,20 @@ public class MysqlCodec {
 			ArrayLists<String> columnsExceptId = new ArrayLists<String>();
 
 			javaBean.append("package " + Path.DIR_BEAN.value + ";\n");
-			javaBean.append("/**\n*" + tableCommen + "(" + Path.DB_TABLE.value + ")\n**/\npublic class "
-					+ Path.DB_BEAN.value + " implements java.io.Serializable{" + "\n");
+			javaBean.append("/**\n*" + tableCommen + "(" + Path.DB_TABLE.value + ")\n**/\npublic class " + Path.DB_BEAN.value + " implements java.io.Serializable{" + "\n");
 			javaBean.append("\n    private static final long serialVersionUID = 1L;\n");
 
-			mapperXml.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" + "<!DOCTYPE mapper\n"
+			mapperXml.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" 
+					+ "<!DOCTYPE mapper\n"
 					+ "  PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\"\n"
-					+ "  \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\n" + "<mapper namespace=\""
-					+ Path.DIR_BEAN.value + "." + Path.DB_BEAN.value + "\">\n");
+					+ "  \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\n" 
+					+ "<mapper namespace=\"" + Path.DIR_BEAN.value + "." + Path.DB_BEAN.value + "\">\n");
 
 			while (resultSet.next()) {
-				javaBean.append("    /**" + resultSet.getString(3) + "*/\n" + "    private "
-						+ typeConvert(resultSet.getString(2)) + javaNaming(resultSet.getString(1)) + ";\n");
+				javaBean.append("    /**" + resultSet.getString(3) + "*/\n" + "    private " + typeConvert(resultSet.getString(2)) + javaNaming(resultSet.getString(1)) + ";\n");
 				getsetMothod(resultSet.getString(1), resultSet.getString(2), javaBeanGetsetM);
 
-				if (!resultSet.getString(4).equals(""))
+				if (resultSet.getString(4).equals("PRI"))
 					id = resultSet.getString(1);
 				else {
 					columnsExceptId.add(resultSet.getString(1));
@@ -96,42 +96,23 @@ public class MysqlCodec {
 			javaBean.append(javaBeanGetsetM);
 			javaBean.append("\n}");
 
-			mapperXml.append("    <resultMap type=\"" + Path.DIR_BEAN.value + "." + Path.DB_BEAN.value
-					+ "\" id=\"BaseResultMap\"></resultMap>");
-			mapperXml.append("\n    <sql id=\"cols\">\n        " + columnsExceptId.joinc() + id + " as "
-					+ javaNaming(id) + "\n    </sql>");
+			mapperXml.append("    <resultMap type=\"" + Path.DIR_BEAN.value + "." + Path.DB_BEAN.value + "\" id=\"BaseResultMap\"></resultMap>");
+			mapperXml.append("\n    <sql id=\"cols\">\n        " + columnsExceptId.joinc() + id + " as " + javaNaming(id) + "\n    </sql>");
 			mapperXml.append("\n    <sql id=\"whereSql\">\n        <where>");
-			mapperXml.append("\n            <if test=\"" + javaNaming(id) + " != null\">\n                and " + id
-					+ "=#{" + javaNaming(id) + "}\n            </if>");
+			mapperXml.append("\n            <if test=\"" + javaNaming(id) + " != null\">\n                and " + id + "=#{" + javaNaming(id) + "}\n            </if>");
 			for (String str : columnsExceptId)
-				mapperXml.append("\n            <if test=\"" + javaNaming(str) + " != null\">\n                and "
-						+ str + "=#{" + javaNaming(str) + "}\n            </if>");
+			mapperXml.append("\n            <if test=\"" + javaNaming(str) + " != null\">\n                and " + str + "=#{" + javaNaming(str) + "}\n            </if>");
 			mapperXml.append("\n        </where>");
 			mapperXml.append("\n    </sql>");
-			mapperXml.append("\n    <sql id=\"pageSql\">\n        <if test=\"pageNo!=null and pageSize!=null\">\n            "
-					+ "limit #{pageNo},#{pageSize}"+"\n        </if>\n    </sql>");
-			mapperXml.append("\n    <insert id=\"insert\">\n        insert into " + Path.DB_TABLE.value + "("
-					+ columnsExceptId.join() + ") values(" + columnsExceptId.joinv() + ")\n    </insert>");
-			mapperXml.append("\n    <update id=\"merge\">\n        update " + Path.DB_TABLE.value + " set "
-					+ columnsExceptId.joinu() + " where " + id + "=#{" + javaNaming(id) + "}\n    </update>");
-			mapperXml.append(
-					"\n    <update id=\"dynamicUpdate\">\n        update ${tableName} set ${columnName}=#{value} where "
-							+ id + " = #{primaryKey}\n    </update>");
-			mapperXml.append("\n    <delete id=\"delete\">\n        delete from " + Path.DB_TABLE.value + " where " + id
-					+ "=#{" + javaNaming(id) + "}\n    </delete>");
-			mapperXml.append(
-					"\n    <delete id=\"deleteBatch\" parameterType=\"java.util.List\">\n        <foreach collection=\"list\" item=\"item\" index=\"index\" open=\"begin\" close=\";end;\" separator=\";\">\n            delete from "
-							+ Path.DB_TABLE.value + " where " + id + "=#{item." + javaNaming(id)
-							+ "}\n        </foreach>\n    </delete>");
-			mapperXml.append(
-					"\n    <select id=\"findone\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from "
-							+ Path.DB_TABLE.value + " where " + id + "=#{" + javaNaming(id) + "}\n    </select>");
-			mapperXml.append(
-					"\n    <select id=\"findlist\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from "
-							+ Path.DB_TABLE.value + " <include refid=\"whereSql\"/> <include refid=\"pageSql\"/>\n    </select>");
-			mapperXml.append(
-					"\n    <select id=\"findcount\" resultType=\"java.lang.Long\">\n        select count(1) from "
-							+ Path.DB_TABLE.value + " <include refid=\"whereSql\"/>\n    </select>");
+			mapperXml.append("\n    <sql id=\"pageSql\">\n        <if test=\"pageNo!=null and pageSize!=null\">\n            " + "limit #{pageNo},#{pageSize}"+"\n        </if>\n    </sql>");
+			mapperXml.append("\n    <insert id=\"insert\">\n        insert into " + Path.DB_TABLE.value + "(" + columnsExceptId.join() + ") values(" + columnsExceptId.joinv() + ")\n    </insert>");
+			mapperXml.append("\n    <update id=\"merge\">\n        update " + Path.DB_TABLE.value + " set " + columnsExceptId.joinu() + " where " + id + "=#{" + javaNaming(id) + "}\n    </update>");
+			mapperXml.append("\n    <update id=\"dynamicUpdate\">\n        update ${tableName} set ${columnName}=#{value} where " + id + " = #{primaryKey}\n    </update>");
+			mapperXml.append("\n    <delete id=\"delete\">\n        delete from " + Path.DB_TABLE.value + " where " + id + "=#{" + javaNaming(id) + "}\n    </delete>");
+			mapperXml.append("\n    <delete id=\"deleteBatch\" parameterType=\"java.util.List\">\n        <foreach collection=\"list\" item=\"item\" index=\"index\" open=\"begin\" close=\";end;\" separator=\";\">\n            delete from " + Path.DB_TABLE.value + " where " + id + "=#{item." + javaNaming(id) + "}\n        </foreach>\n    </delete>");
+			mapperXml.append("\n    <select id=\"findone\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from " + Path.DB_TABLE.value + " where " + id + "=#{" + javaNaming(id) + "}\n    </select>");
+			mapperXml.append("\n    <select id=\"findlist\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from " + Path.DB_TABLE.value + " <include refid=\"whereSql\"/> <include refid=\"pageSql\"/>\n    </select>");
+			mapperXml.append("\n    <select id=\"findcount\" resultType=\"java.lang.Long\">\n        select count(1) from " + Path.DB_TABLE.value + " <include refid=\"whereSql\"/>\n    </select>");
 			mapperXml.append("\n</mapper>");
 
 			byte[] bytes = javaBean.toString().getBytes(Charset.defaultCharset());
@@ -167,8 +148,7 @@ public class MysqlCodec {
 		String str = string.substring(0, 1).toUpperCase() + string.substring(1);
 		String javaType = typeConvert(type);
 
-		getsetM.append("\n    public void set" + str + "(" + javaType + string + "){\n        this." + string + "="
-				+ string + ";\n    }");
+		getsetM.append("\n    public void set" + str + "(" + javaType + string + "){\n        this." + string + "=" + string + ";\n    }");
 		getsetM.append("\n    public " + javaType + "get" + str + "(){\n        return this." + string + ";\n    }");
 	}
 
