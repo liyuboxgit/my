@@ -5,18 +5,15 @@
 <mapper namespace="liyu.test.sb.mybatis.entity.SB">
     <resultMap type="liyu.test.sb.mybatis.entity.SB" id="BaseResultMap"></resultMap>
     <sql id="cols">
-        birth as birth,name as name,price as price,sex_type as sex_type,id as id
+        birth as birth,price as price,sex_type as sex_type,name as name
     </sql>
     <sql id="whereSql">
         <where>
-            <if test="id != null">
-                and id=#{id}
+            <if test="name != null">
+                and name=#{name}
             </if>
             <if test="birth != null">
                 and birth=#{birth}
-            </if>
-            <if test="name != null">
-                and name=#{name}
             </if>
             <if test="price != null">
                 and price=#{price}
@@ -26,28 +23,33 @@
             </if>
         </where>
     </sql>
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into t_sb(birth,name,price,sex_type) values(#{birth},#{name},#{price},#{sex_type})
+    <sql id="pageSql">
+        <if test="pageNo!=null and pageSize!=null">
+            limit #{pageNo},#{pageSize}
+        </if>
+    </sql>
+    <insert id="insert">
+        insert into t_sb(birth,price,sex_type) values(#{birth},#{price},#{sex_type})
     </insert>
     <update id="merge">
-        update t_sb set birth=#{birth},name=#{name},price=#{price},sex_type=#{sex_type} where id=#{id}
+        update t_sb set birth=#{birth},price=#{price},sex_type=#{sex_type} where name=#{name}
     </update>
     <update id="dynamicUpdate">
-        update ${tableName} set ${columnName}=#{value} where id = #{primaryKey}
+        update ${tableName} set ${columnName}=#{value} where name = #{primaryKey}
     </update>
     <delete id="delete">
-        delete from t_sb where id=#{id}
+        delete from t_sb where name=#{name}
     </delete>
     <delete id="deleteBatch" parameterType="java.util.List">
         <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
-            delete from t_sb where id=#{item.id}
+            delete from t_sb where name=#{item.name}
         </foreach>
     </delete>
     <select id="findone" resultMap="BaseResultMap">
-        select <include refid="cols"/> from t_sb where id=#{id}
+        select <include refid="cols"/> from t_sb where name=#{name}
     </select>
     <select id="findlist" resultMap="BaseResultMap">
-        select <include refid="cols"/> from t_sb <include refid="whereSql"/>
+        select <include refid="cols"/> from t_sb <include refid="whereSql"/> <include refid="pageSql"/>
     </select>
     <select id="findcount" resultType="java.lang.Long">
         select count(1) from t_sb <include refid="whereSql"/>

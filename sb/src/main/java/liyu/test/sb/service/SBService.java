@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import liyu.test.sb.framework.TransactionalControl;
 import liyu.test.sb.jpa.SBRepostory;
 import liyu.test.sb.mybatis.EnhanceMapper;
+import liyu.test.sb.mybatis.EnhanceMapper.PageParam;
 import liyu.test.sb.mybatis.entity.SB;
 
 @Service
@@ -25,6 +26,11 @@ public class SBService {
 	
 	public SB get(SB sb){
 		return em.findOne(EnhanceMapper.findone, sb, SB.class);
+	}
+	
+	public EnhanceMapper.Page<SB> findPage(SB sb,PageParam pageParam){
+		return em.findPage(EnhanceMapper.findlist, EnhanceMapper.findcount, 
+				pageParam, sb, SB.class);
 	}
 }
 

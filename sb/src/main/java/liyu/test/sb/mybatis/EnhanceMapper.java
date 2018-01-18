@@ -203,7 +203,7 @@ public final class EnhanceMapper extends SqlSessionDaoSupport implements Applica
 			this.totalCount = totalCount;
 			this.elements = elements;
 			this.totalPage = totalCount / pageSize == 0 ? totalCount / pageSize : totalCount / pageSize + 1;
-			;
+			
 		}
 
 		public int getPageNo() {
