@@ -41,14 +41,14 @@ public class MysqlCodec {
 	 */
 	enum Path{
 		DB_SCHEMA	("mybatis"),
-		DB_TABLE	("t_person"),
-		DB_BEAN		("Person"),
+		DB_TABLE	("t_user"),
+		DB_BEAN		("User"),
 		
 		DIR_BEAN	("liyu.test.mybatis.model"),
 		DIR_MAPPER	("liyu.test.mybatis.mapper"),
 		DIR_DAO		("liyu.test.mybatis.mapper"),
 		
-		JDBC_URL	("jdbc:mysql://localhost:3306/mybatis"),
+		JDBC_URL	("jdbc:mysql://192.168.0.63:3306/mybatis"),
 		JDBC_DRIVER	("com.mysql.jdbc.Driver"),
 		JDBC_USER	("root"),
 		JDBC_PSWORD	("root"),
@@ -236,6 +236,8 @@ public class MysqlCodec {
 				return "String ";
 			case "datetime":
 				return "java.util.Date ";
+			case "decimal":
+				return "java.math.BigDecimal ";	
 			default:
 				break;
 		}

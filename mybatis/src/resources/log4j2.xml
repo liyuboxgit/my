@@ -2,8 +2,8 @@
 <!-- status=debug 可以查看log4j的装配过程 -->  
 <configuration status="off" monitorInterval="1800">
     <properties>  
-        <property name="LOG_HOME">mybatis</property>
-        <property name="APP_NAME">my</property>
+        <property name="LOG_HOME">/home/liyu/logs</property>
+        <property name="APP_NAME">my_mybatis</property>
     </properties>  
     <appenders>  
         <!-- 定义控制台输出 -->  
@@ -20,16 +20,12 @@
         </RollingRandomAccessFile>  
     </appenders>  
     <loggers>   
- 		<logger name="org.apache.ibatis" level="debug"></logger>
- 		<logger name="org.mybatis.generator" level="debug"></logger>
- 		
-        <!--打印sql日志，若不需要输出sql结果，将TRACE改为debug-->
-        <logger name="liyu.test" level="TRACE" additivity="false">
+        <logger name="liyu.test" level="trace" additivity="false">
             <appender-ref ref="Console" />   
         </logger>
 
         <!-- Root Logger -->  
-        <root level="debug">
+        <root level="info">
             <appender-ref ref="DevLog" />  
             <appender-ref ref="Console" />  
         </root>  

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liyu.test.mybatis.mapper.UserMapper">
+    <resultMap type="liyu.test.mybatis.model.User" id="BaseResultMap"></resultMap>
+    <sql id="cols">
+        password as password,username as username,age as age,role_id as roleId
+    </sql>
+    <sql id="whereSql">
+        <where>
+            <if test="roleId != null">
+                and role_id=#{roleId}
+            </if>
+            <if test="password != null">
+                and password=#{password}
+            </if>
+            <if test="username != null">
+                and username=#{username}
+            </if>
+            <if test="age != null">
+                and age=#{age}
+            </if>
+        </where>
+    </sql>
+    <insert id="create">
+        insert into t_user(password,username,age) values(#{password},#{username},#{age})
+    </insert>
+    <update id="merge">
+        update t_user set password=#{password},username=#{username},age=#{age} where role_id=#{roleId}
+    </update>
+    <update id="updateColumn">
+        update ${tableName} set ${columnName}=#{value} where role_id = #{primaryKey}
+    </update>
+    <delete id="delete">
+        delete from t_user where role_id=#{roleId}
+    </delete>
+    <delete id="deleteBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            delete from t_user where role_id=#{item.roleId}
+        </foreach>
+    </delete>
+    <select id="findOne" resultMap="BaseResultMap">
+        select <include refid="cols"/> from t_user where role_id=#{roleId}
+    </select>
+    <select id="findList" resultMap="BaseResultMap">
+        select <include refid="cols"/> from t_user <include refid="whereSql"/>
+    </select>
+    <select id="findCount" resultType="java.lang.Integer">
+        select count(1) from t_user <include refid="whereSql"/>
+    </select>
+</mapper>

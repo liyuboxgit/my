@@ -30,7 +30,7 @@ public class MybatisRedisCache extends JedisPoolManager implements Cache{
         logger.debug("MybatisRedisCache:id="+id);  
         this.id = id; 
         this.key = id.getBytes();
-        //this.rebuild();
+        this.rebuild();
     }  
     /**
      * 

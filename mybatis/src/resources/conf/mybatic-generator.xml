@@ -8,7 +8,7 @@
         <commentGenerator>
             <property name="suppressAllComments" value="false" />
         </commentGenerator>
-        <!--数据库连接-->
+           <!--数据库连接-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
             connectionURL="jdbc:mysql://localhost:3306/mybatis?characterEncoding=utf-8" 
             userId="root" password="root">
@@ -30,7 +30,7 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.iot.ssm.mapper" targetProject=".\src">
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
-        <!-- 指定数据库表 -->
+           <!-- 指定数据库表 -->
         <table tableName="blog" schema="Blog" />
     </context>
 </generatorConfiguration>
