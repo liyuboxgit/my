@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+</head>
+<body>
+<input type="text" name="username" value="user"/>
+<input type="password" name="password" value="123456"/>
+<button onclick="login();">submit</button> <p th:text="${#httpServletRequest.getAttribute('msg')}"></p>
+<script type="text/javascript">//<![CDATA[
+	function login(){
+		location.href="/login?username=user&password=123456"		
+	}
+//]]>
+</script>
+</body>
+</html>
