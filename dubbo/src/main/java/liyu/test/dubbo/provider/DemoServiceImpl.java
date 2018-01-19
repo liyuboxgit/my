@@ -1,4 +1,4 @@
-package liyu.test.dubbo.quickStart;
+package liyu.test.dubbo.provider;
 
 public class DemoServiceImpl implements DemoService {
     public String sayHello(String name) {
