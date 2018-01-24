@@ -10,7 +10,8 @@ public class Archtype {
 	private static String sp = File.separator;
 	public enum ARCH{
 		GROUPID("liyu.test"),ARTIFACTID("sb_1"),VERSION("0.0.1-SNAPSHOT"),
-		TYPE("spring boot");
+		//spring boot,spring cloud
+		TYPE("spring cloud");
 		
 		private String value;
 
@@ -76,27 +77,32 @@ public class Archtype {
 			pom.append("</project>");
 		}else{
 			pom.append(
-					"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-							"<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n" + 
-					"    <modelVersion>4.0.0</modelVersion>\n");
-			pom.append(
+					"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
+                    "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n"+
+                    "<modelVersion>4.0.0</modelVersion>\n"+
+                    "<parent>\n"+
+                    "<groupId>org.springframework.boot</groupId>\n"+
+					"<artifactId>spring-boot-starter-parent</artifactId>\n"+
+					"<version>1.5.7.RELEASE</version>\n"+
+					"</parent>\n"+
+					"<dependencyManagement>\n"+
+					"<dependencies>\n"+
+					"<dependency>\n"+
+					"<groupId>org.springframework.cloud</groupId>\n"+
+					"<artifactId>spring-cloud-dependencies</artifactId>\n"+
+					"<version>Camden.SR4</version>\n"+
+					"<type>pom</type>\n"+
+					"<scope>import</scope>\n"+
+					"</dependency>\n"+
+					"</dependencies>\n"+
+					"</dependencyManagement>\n"+
+
+
 					"    <groupId>"+ARCH.GROUPID.value+"</groupId>\n" + 
 					"    <artifactId>"+ARCH.ARTIFACTID.value+"</artifactId>\n" + 
 					"    <version>"+ARCH.VERSION.value+"</version>\n" +
 					"    <packaging>jar</packaging>\n" +
-							
-					"    <dependencyManagement>\n" + 
-					"        <dependencies>\n" + 
-					"            <dependency>\n" + 
-					"                <groupId>org.springframework.boot</groupId>\n" + 
-					"                <artifactId>spring-boot-dependencies</artifactId>\n" + 
-					"                <version>1.5.7.RELEASE</version>\n" + 
-					"                <type>pom</type>\n" + 
-					"                <scope>import</scope>\n" + 
-					"            </dependency>\n" + 
-					"        </dependencies>\n" + 
-					"    </dependencyManagement>\n" +
-					
+
 					"    <dependencies>\n" + 
 					"        <dependency>\n" + 
 					"            <groupId>org.springframework.boot</groupId>\n" + 
@@ -104,23 +110,41 @@ public class Archtype {
 					"        </dependency>\n" +
 					"    </dependencies>\n" +
 					
-					"    <build>\n" + 
-					"        <pluginManagement>\n" + 
-					"            <plugins>\n" + 
-					"                <plugin>\n" + 
-					"                    <groupId>org.apache.maven.plugins</groupId>\n" + 
-					"                    <artifactId>maven-compiler-plugin</artifactId>\n" + 
-					"                    <version>3.6.1</version>\n" + 
-					"                    <configuration>\n" + 
-					"                        <source>1.8</source>\n" + 
-					"                        <target>1.8</target>\n" + 
-					"                        <encoding>UTF-8</encoding>\n" + 
-					"                    </configuration>\n" + 
-					"                </plugin>\n" + 
-					"            </plugins>\n" + 
-					"        </pluginManagement>\n" + 
-					"    </build>\n");
-			pom.append("</project>");
+					"<repositories>\n"+
+					"<repository>\n"+
+					"<snapshots>\n"+
+					"<enabled>true</enabled>\n"+
+					"</snapshots>\n"+
+					"<id>public</id>\n"+
+					"<name>Public Repositories</name>\n"+
+					"<url>http://maven.aliyun.com/nexus/content/groups/public/</url>\n"+
+					"</repository>\n"+
+					"</repositories>\n"+
+					"<pluginRepositories>\n"+
+					"<pluginRepository>\n"+
+					"<id>public</id>\n"+
+					"<name>Public Repositories</name>\n"+
+					"<url>http://maven.aliyun.com/nexus/content/groups/public/</url>\n"+
+					"</pluginRepository>\n"+
+					"</pluginRepositories>\n"+
+					"<build>\n"+
+					"<plugins>\n"+
+					"<plugin>\n"+
+					"<groupId>org.springframework.boot</groupId>\n"+
+					"<artifactId>spring-boot-maven-plugin</artifactId>\n"+
+					"</plugin>\n"+
+					"<plugin>\n"+
+					"<groupId>org.apache.maven.plugins</groupId>\n"+
+					"<artifactId>maven-compiler-plugin</artifactId>\n"+
+					"<configuration>\n"+
+					"<source>1.8</source>\n"+
+					"<target>1.8</target>\n"+
+					"<encoding>UTF-8</encoding>\n"+
+					"</configuration>\n"+
+					"</plugin>\n"+
+					"</plugins>\n"+
+					"</build>\n"+
+					"</project>");
 		}
 		
 		byte[] xmlbytes = pom.toString().getBytes(Charset.defaultCharset());
