@@ -116,6 +116,10 @@ public class Archtype {
 					"            <groupId>org.springframework.boot</groupId>\n" + 
 					"            <artifactId>spring-boot-starter-web</artifactId>\n" + 
 					"        </dependency>\n" +
+					"        <dependency>\n" + 
+					"            <groupId>org.springframework.boot</groupId>\n" + 
+					"            <artifactId>spring-boot-starter-actuator</artifactId>\n" + 
+					"        </dependency>\n" +
 					"    </dependencies>\n" +
 					
 					"    <repositories>\n"+

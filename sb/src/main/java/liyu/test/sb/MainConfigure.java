@@ -13,7 +13,7 @@ import liyu.test.sb.shiro.ShiroConfigure;
 
 @SpringBootApplication
 @Import({ShiroConfigure.class})
-@ImportResource("classpath:liyu/test/sb/dubbo/provider/dubboProvider.xml")
+//@ImportResource("classpath:liyu/test/sb/dubbo/provider/dubboProvider.xml")
 public class MainConfigure extends WebMvcConfigurerAdapter{
 	@Override
    public void addResourceHandlers(ResourceHandlerRegistry registry) {
