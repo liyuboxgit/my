@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 
 public class Archtype {
@@ -19,9 +21,15 @@ public class Archtype {
 			this.value = value;
 		}
 	}
-	
+
 	public static void main(String[] args) throws IOException {
-		File path = new File(System.getProperty("user.home") + sp + "maven_" + new Date().getTime());
+		//用户空间
+		//File path = new File(System.getProperty("user.home") + sp + "maven_" + new Date().getTime());
+		//工作空间
+		String classPath = java.lang.Object.class.getClass().getResource("/").getFile();
+		String src = classPath+"../../../";
+		File path = new File(src);
+		
 		String javapath = ARCH.ARTIFACTID.value + ".src.main.java" +"."+ARCH.GROUPID.value + "."+ARCH.ARTIFACTID.value;
 		createDir(path,javapath);
 		createDir(path,ARCH.ARTIFACTID.value+".src.main.resources");
