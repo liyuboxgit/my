@@ -11,7 +11,7 @@ import java.util.Date;
 public class Archtype {
 	private static String sp = File.separator;
 	public enum ARCH{
-		GROUPID("liyu.test"),ARTIFACTID("sb_1"),VERSION("0.0.1-SNAPSHOT"),
+		GROUPID("liyu.test"),ARTIFACTID("eurekaconsumer"),VERSION("0.0.1-SNAPSHOT"),
 		//spring boot,spring cloud
 		TYPE("spring cloud");
 		
@@ -98,7 +98,7 @@ public class Archtype {
 					"            <dependency>\n"+
 					"                <groupId>org.springframework.cloud</groupId>\n"+
 					"                <artifactId>spring-cloud-dependencies</artifactId>\n"+
-					"                <version>Camden.SR4</version>\n"+
+					"                <version>Dalston.SR3</version>\n"+
 					"                <type>pom</type>\n"+
 					"                <scope>import</scope>\n"+
 					"            </dependency>\n"+

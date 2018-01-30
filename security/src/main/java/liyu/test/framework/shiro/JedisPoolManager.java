@@ -12,13 +12,12 @@ public class JedisPoolManager {
             jedis.select(index);
             return jedis;
         } catch (Exception e) {
-            /*return retry(index);*/
-        	return null;
+            return retry(index);
+        	/*return null;*/
         }
 		
     }
     
-	@SuppressWarnings("unused")
 	private Jedis retry(int index) {
 		ProcessBuilder proc = new ProcessBuilder("D:/redis/redis-server.exe");
 		try {

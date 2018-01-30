@@ -1,0 +1,14 @@
+package liyu.test.eurekaprovider;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class MainConfigure {
+	public static void main(String[] args) {
+		SpringApplication.run(MainConfigure.class, args);
+	}
+}
