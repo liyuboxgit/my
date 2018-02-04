@@ -18,6 +18,7 @@ public class MainConfigure extends WebMvcConfigurerAdapter{
 	@Override
    public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/mh/**").addResourceLocations("classpath:/liyu/test/sb/mh/");
     }
 	
 	@Bean
