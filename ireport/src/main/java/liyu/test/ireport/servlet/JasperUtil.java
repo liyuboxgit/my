@@ -59,34 +59,12 @@ public class JasperUtil {
 	}
 	
 	public static void main(String[] args) {
-		String jasperFilePath = "C:\\liyu\\report3.jasper";
+		String jasperFilePath = "C:/Users/Administrator/report1.jasper";
 		Map<String,Object> parameters = new HashMap<String,Object>();
 		List<Map<String,Object>> set = new ArrayList<Map<String,Object>>();
 		
 		HashMap<String, Object> map = new HashMap<String,Object>();
-		map.put("field1", "中文");
-		set.add(map);
 		
-		map = new HashMap<String,Object>();
-		map.put("field1", "韩文");
-		set.add(map);
-		map = new HashMap<String,Object>();
-		map.put("field1", "韩文");
-		set.add(map);
-		map = new HashMap<String,Object>();
-		map.put("field1", "韩文");
-		set.add(map);
-		map = new HashMap<String,Object>();
-		map.put("field1", "韩文");
-		set.add(map);
-		map = new HashMap<String,Object>();
-		map.put("field1", "韩文");
-		set.add(map);
-		map = new HashMap<String,Object>();
-		map.put("field1", "韩文");
-		set.add(map);
-		map = new HashMap<String,Object>();
-		map.put("field1", "韩文");
 		set.add(map);
 		
 		try {
@@ -108,7 +86,7 @@ public class JasperUtil {
 				g.dispose();
 				
 				
-				FileOutputStream outputStream = new FileOutputStream(new File("c:\\liyu\\temp.jpeg"));
+				FileOutputStream outputStream = new FileOutputStream(new File("temp.jpeg"));
 				ImageIO.write(bufferedImage, "JPEG", outputStream);
 				outputStream.flush();
 				outputStream.close();
