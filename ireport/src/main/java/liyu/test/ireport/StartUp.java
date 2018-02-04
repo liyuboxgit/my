@@ -4,7 +4,8 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 public class StartUp {
-
+	//ireport version is 5.5.2,download url:https://sourceforge.net/projects/ireport/files/iReport/
+	//note use jdk 1.6
 	public static void main(String[] args) {
 		int port = 8080;
         Server server = new Server(port);
