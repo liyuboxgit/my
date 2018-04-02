@@ -17,7 +17,7 @@ public class MysqlCodec {
 
 		DIR_BEAN("liyu.test.sb.mybatis.entity"), DIR_MAPPER("liyu.test.sb.mybatis.mappers"),
 
-		JDBC_URL("jdbc:mysql://192.168.0.63:3306/mybatis"), JDBC_DRIVER("com.mysql.jdbc.Driver"), JDBC_USER("root"), JDBC_PSWORD("root"),
+		JDBC_URL("jdbc:mysql://127.0.0.1:3306/mybatis"), JDBC_DRIVER("com.mysql.jdbc.Driver"), JDBC_USER("root"), JDBC_PSWORD("root"),
 
 		JAVA_NAMEING("false");
 

@@ -11,9 +11,9 @@ import java.util.Date;
 public class Archtype {
 	private static String sp = File.separator;
 	public enum ARCH{
-		GROUPID("liyu.test"),ARTIFACTID("eurekaconsumer"),VERSION("0.0.1-SNAPSHOT"),
+		GROUPID("liyu.test"),ARTIFACTID("sb2_0"),VERSION("0.0.1-SNAPSHOT"),
 		//spring boot,spring cloud
-		TYPE("spring cloud");
+		TYPE("spring boot");
 		
 		private String value;
 
@@ -24,11 +24,11 @@ public class Archtype {
 
 	public static void main(String[] args) throws IOException {
 		//用户空间
-		//File path = new File(System.getProperty("user.home") + sp + "maven_" + new Date().getTime());
+		File path = new File(System.getProperty("user.home") + sp + "maven_" + new Date().getTime());
 		//工作空间
-		String classPath = java.lang.Object.class.getClass().getResource("/").getFile();
-		String src = classPath+"../../../";
-		File path = new File(src);
+		//String classPath = java.lang.Object.class.getClass().getResource("/").getFile();
+		//String src = classPath+"../../../";
+		//File path = new File(src);
 		
 		String javapath = ARCH.ARTIFACTID.value + ".src.main.java" +"."+ARCH.GROUPID.value + "."+ARCH.ARTIFACTID.value;
 		createDir(path,javapath);
@@ -162,6 +162,7 @@ public class Archtype {
 		byte[] xmlbytes = pom.toString().getBytes(Charset.defaultCharset());
 		File xmlfile = new File(path,
 				ARCH.ARTIFACTID.value + sp + "pom.xml");
+		System.out.println(path.getPath());
 		xmlfile.createNewFile();
 		Files.write(xmlfile.toPath(), xmlbytes);
 		
