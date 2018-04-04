@@ -58,6 +58,10 @@
 			<artifactId>shiro-spring</artifactId>
 			<version>1.2.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+  			<artifactId>hibernate-core</artifactId>
+  		</dependency>
     </dependencies>
     <build>
         <pluginManagement>

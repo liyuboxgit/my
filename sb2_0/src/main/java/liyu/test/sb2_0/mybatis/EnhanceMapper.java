@@ -33,7 +33,7 @@ public final class EnhanceMapper extends SqlSessionDaoSupport implements Applica
 	public static final String findcount = "findcount";
 	public static final String insert = "insert";
 	public static final String merge = "merge";
-	public static final String deleteBatch = "deleteBatch";
+	public static final String delete = "delete";
 	public static final String dynamicUpdate = "dynamicUpdate";
 
 	@Override
@@ -162,11 +162,13 @@ public final class EnhanceMapper extends SqlSessionDaoSupport implements Applica
 		private String columnName;
 		private Object value;
 		private Object primaryKey;
+		private Object version;
 
-		public UpdateColumnWapper(String tableName, String columnName, Object value, Object primaryKey) {
+		public UpdateColumnWapper(String tableName, String columnName, Object value, Object version, Object primaryKey) {
 			this.tableName = tableName;
 			this.columnName = columnName;
 			this.primaryKey = primaryKey;
+			this.version = version;
 			this.value = value;
 		}
 
@@ -184,6 +186,10 @@ public final class EnhanceMapper extends SqlSessionDaoSupport implements Applica
 
 		public Object getValue() {
 			return value;
+		}
+
+		public Object getVersion() {
+			return version;
 		}
 	}
 
