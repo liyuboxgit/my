@@ -1,10 +1,13 @@
 package liyu.test.shiro.model;
 
 public class Permission {
+	private String name;
 
-	public String getPermission() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getName() {
+		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 }

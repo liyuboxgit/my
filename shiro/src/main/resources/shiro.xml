@@ -14,20 +14,8 @@
         <property name="cacheManagerConfigFile" value="classpath:ehcache.xml" />
     </bean>
 
-    <!-- 凭证匹配器,需要用户表中的密码实现相同的加密，采用MD5，盐值为2 -->
-    <!-- 
-    <bean id="credentialsMatcher" class="liyu.test.shiro.config.RetryLimitHashedCredentialsMatcher">
-        <constructor-arg ref="cacheManager" />
-        <property name="hashAlgorithmName" value="md5" />
-        <property name="hashIterations" value="2" />
-        <property name="storedCredentialsHexEncoded" value="true" />
-    </bean>
-     -->
-
     <!-- Realm实现 -->
-    <bean id="userRealm" class="liyu.test.shiro.config.UserRealm">
-		<!-- <property name="credentialsMatcher" ref="credentialsMatcher" /> -->
-    </bean>
+    <bean id="userRealm" class="liyu.test.shiro.config.UserRealm"/>
 
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
@@ -38,13 +26,14 @@
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager" />
         <property name="loginUrl" value="/" />
-        <property name="unauthorizedUrl" value="/" />
+        <property name="unauthorizedUrl" value="/noperm" />
         <property name="filterChainDefinitions">
             <value>
-                /login.jsp = anon
                 /login = anon
                 /static/** = anon
                 
+                /query = perms[user:query]
+                /add = perms[user:add]
                 /** = authc
             </value>
         </property>

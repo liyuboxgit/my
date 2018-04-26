@@ -17,7 +17,7 @@
 	</div>
 	<div>
 		<ul class="nav navbar-nav">
-			<li><a href="#" orgmgr>机构管理</a></li>
+			<li class="active"><a href="#" orgmgr>机构管理</a></li>
 			<li><a href="#" usermgr>用户管理</a></li>
 			<li><a href="#">角色管理</a></li>
 			<li><a href="#">资源管理</a></li>
@@ -43,13 +43,18 @@
 			var main = $('#main');
 			
 			$('a[orgmgr]').click(function(){
-				main.attr('src','./orgmgr/org.html');
+				postChangeSrc(main,'./orgmgr/org.html',this);
 			});
 			$('a[usermgr]').click(function(){
-				main.attr('src','http://baidu.com');
+				postChangeSrc(main,'./usermgr/user.html',this);
 			});
 			
-		})
+		});
+		
+		var postChangeSrc = function(main,url,me){
+			main.attr('src',url);
+			$(me).parent().addClass('active').siblings().removeClass('active');
+		}
 	</script>
 </body>
 </html>

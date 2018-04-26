@@ -1,5 +1,7 @@
 package liyu.test.shiro.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -16,19 +18,21 @@ public class UserService {
 			user.setUsername("admin");
 			user.setPassword("123456");
 		}			
-			
 		return user;
-		
 	}
 
 	public Set<Role> findRoles(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		Role role = new Role();
+		role.setName("user");
+		HashSet<Role> set = new HashSet<Role>();
+		set.add(role);
+		for(Role el:set) {
+			Permission permission = new Permission();
+			permission.setName("query");
+			el.setPermissions(new ArrayList<Permission>());
+			el.getPermissions().add(permission);
+		}
+		return set;
 	}
-
-	public Set<Permission> findPermissions(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }

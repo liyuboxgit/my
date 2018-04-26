@@ -20,7 +20,17 @@ import liyu.test.shiro.util.AjaxResult;
 public class LoginController {
 	@Autowired
 	private UserService userService;
-
+	
+	@RequestMapping("/")
+	public String toroot() {
+		return "login";
+	}
+	
+	@RequestMapping("/noperm")
+	public String noperm() {
+		return "noperm";
+	}
+	
 	@RequestMapping("/login")
 	@ResponseBody
 	public AjaxResult login(@RequestParam("username") String username, @RequestParam("password") String password) {
@@ -43,13 +53,15 @@ public class LoginController {
 		return AjaxResult.success();
 	}
 	
-	@RequestMapping("/loginSuccess")
-	public String loginSuccess() {
-		return "loginSuccess";
-	}
 	@RequestMapping("/query")
 	@ResponseBody
 	public AjaxResult query(){
+		return AjaxResult.success();
+	}
+	
+	@RequestMapping("/add")
+	@ResponseBody
+	public AjaxResult add(){
 		return AjaxResult.success();
 	}
 }

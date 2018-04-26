@@ -22,7 +22,7 @@ $(function(){
 	                alert(data.msg);
 	            }else{
 	                //登录成功
-	                window.location.href = "<%=request.getContextPath()%>/loginSuccess";
+	                window.location.href = "<%=request.getContextPath()%>/query";
 	            }
 	        },
 	        error: function(data) { 
