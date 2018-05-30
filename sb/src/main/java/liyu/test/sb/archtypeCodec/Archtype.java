@@ -11,7 +11,7 @@ import java.util.Date;
 public class Archtype {
 	private static String sp = File.separator;
 	public enum ARCH{
-		GROUPID("com.rthd.ui"),ARTIFACTID("rickEditer"),VERSION("0.0.1-SNAPSHOT"),
+		GROUPID("liyu.test"),ARTIFACTID("dubbo"),VERSION("0.0.1-SNAPSHOT"),
 		//spring boot,spring cloud
 		TYPE("spring boot");
 		
