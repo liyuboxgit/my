@@ -81,7 +81,59 @@ nginx
 	在指定区域打开端口（记得重启防火墙）
 	firewall-cmd --zone=public --add-port=80/tcp --permanent
 
-mysql
+mysql：
+	下载：mysql-5.6.40-linux-glibc2.12-x86_64.tar.gz至/usr/local
+	rpm -qa|grep mariadb 	//查看是否安装maradb
+	rpm -e --nodeps 文件名 	//如安装，则卸载
+	rm /etc/my.cnf 			//删除遗留配置文件
+	groupadd mysql			//create group
+	useradd -g mysql mysql	//create user 
+	yum -y install autoconf	//
+	tar -xvf mysql-5.6.34-linux-glibc2.5-x86_64.tar
+	mv mysql-5.6.40-linux-glibc2.12-x86_64 mysql
+	vi /etc/my.cnf			//创建mysql配置文件在目录/etc下
+		[mysql]
+		default-character-set=utf8 
+		socket=/var/lib/mysql/mysql.sock
+
+		[mysqld]
+		skip-name-resolve
+		port = 3306 
+		socket=/var/lib/mysql/mysql.sock
+		basedir=/usr/local/mysql
+		datadir=/usr/local/mysql/data
+		max_connections=200
+		character-set-server=utf8
+		default-storage-engine=INNODB
+		lower_case_table_name=1
+		max_allowed_packet=16M
+	cd /usr/local/mysql
+	chown -R mysql:mysql ./	//修改当前目录拥有着为mysql用户，下面的命令是安装数据库
+	./scripts/mysql_install_db --user=mysql --basedir=/usr/local/mysql/ --datadir=/usr/local/mysql/data/
+	chown -R mysql:mysql data
+	
+	chmod 777 /etc/my.cnf 	//配置mysql，开放my权限，下面的命令配置开机启动
+	cp ./support-files/mysql.server /etc/rc.d/init.d/mysqld
+	chmod +x /etc/rc.d/init.d/mysqld
+	chkconfig --add mysqld
+	chkconfig --list mysqld	//检查是否生效 在2、3、4、5运行级别随系统启动而自动启动，以后可以使用service命令控制mysql的启动和停止
+	service mysqld start	//启动mysql，如启动报错：(注意看启动日志)
+								1.mkdir /var/lib/mysql 
+								2.打开/etc/selinux/config，把SELINUX=enforcing改为SELINUX=disabled后存盘退出重启机器
+								3.chown -R mysql:mysql /var/lib/mysql/
+	
+	/usr/local/mysql/bin/mysql -uroot -p(没用配置环境变量)
+	mysql>use mysql;		//设置mysql，root用户的密码
+	mysql>update user set password=password('root') where user='root' and host='localhost';
+	mysql>flush privileges;
+	
+	create database liyu;	//创建数据库
+	CREATE USER 'liyu'@'%' IDENTIFIED BY 'liyu';(创建用户，%代表可以在任何客户端登录)
+	GRANT ALL PRIVILEGES ON liyu.* TO 'liyu'@'%';(授权)
+	
+	REVOKE ALL PRIVILEGES ON liyu.* FROM 'liyu'@'%';(撤销权限)
+	DROP USER 'liyu'@'%';
+	drop database liyu;
 java：RSA加减密
 	package smart;
 
