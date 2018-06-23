@@ -332,6 +332,36 @@ java：RSA加减密
 			System.out.println(decodedData);
 		}
 	}
+oracle分区;
+	--建立测试表分区
+	CREATE TABLE FPFX_T_QYGX_TEST (
+		NSRSBH VARCHAR2(100 BYTE), 
+		RELATION_SBH VARCHAR2(100 BYTE)
+	)
+	PARTITION BY HASH(NSRSBH,RELATION_SBH)(
+	PARTITION p1 TABLESPACE DB_ZGXT,
+	PARTITION p2 TABLESPACE DB_ZGXT_INDEX
+	) NOLOGGING;
+
+	--查询分区
+	select t.partition_name,t.num_rows from all_tab_partitions t where table_name='FPFX_T_QYGX_TEST';
+
+	insert /*+ parallel(6) */ /*+ append nologging */
+		into FPFX_T_QYGX_TEST select * from FPFX_T_QYGX;
+
+	select count(1) from FPFX_T_QYGX_TEST;
+	select count(1) from FPFX_T_QYGX_TEST PARTITION(P1);
+	select count(1) from FPFX_T_QYGX_TEST PARTITION(P2);
+	--创建本地分区索引,和分区数据不在同一个表空间，意为互相交叉。
+	CREATE /*+ parallel(6) */ INDEX FPFX_T_QYGX_TEST_index_NSRSBH ON FPFX_T_QYGX_TEST (NSRSBH) 
+	LOCAL (
+		PARTITION p1 TABLESPACE DB_ZGXT_INDEX,
+		PARTITION p2 TABLESPACE DB_ZGXT
+	);
+	--查询索引 
+	select * from user_extents where segment_name=upper('FPFX_T_QYGX_TEST_index_NSRSBH');
+	select * from USER_SEGMENTS where segment_name=upper('FPFX_T_QYGX_TEST_index_NSRSBH'); 
+
 
 
 
