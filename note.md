@@ -362,6 +362,13 @@ oracle分区;
 	select * from user_extents where segment_name=upper('FPFX_T_QYGX_TEST_index_NSRSBH');
 	select * from USER_SEGMENTS where segment_name=upper('FPFX_T_QYGX_TEST_index_NSRSBH'); 
 
+solr
+	1安装solr
+	2安装分词器，分词器是个jar包。
+	3配置数据库，manager-scamer，data-import
+	4集群，在tomcat的catalina.sh中java-opt设置zookeeper的ip和端口
+	 将solrhome中core的配置上传到zookeeper，使用zkcli.sh脚本
+
 
 
 
