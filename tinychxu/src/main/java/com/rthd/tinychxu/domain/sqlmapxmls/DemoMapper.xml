@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rthd.tinychxu.domain.Demo">
+    <resultMap type="com.rthd.tinychxu.domain.Demo" id="BaseResultMap"></resultMap>
+    <sql id="cols">
+        create_time,update_time,version,name,id
+    </sql>
+    <sql id="whereSql">
+        <where>
+            <if test="id != null">
+                and id=#{id}
+            </if>
+            <if test="create_time != null">
+                and create_time=#{create_time}
+            </if>
+            <if test="update_time != null">
+                and update_time=#{update_time}
+            </if>
+            <if test="name != null">
+                and name=#{name}
+            </if>
+        </where>
+    </sql>
+    <sql id="pageSql">
+        <if test="pageNo!=null and pageSize!=null">
+            limit #{pageNo},#{pageSize}
+        </if>
+    </sql>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into demo(create_time,update_time,version,name) values(now(),now(),0,#{name})
+    </insert>
+    <update id="merge">
+        update demo set create_time=#{create_time},name=#{name},version=version+1,update_time=now() where id=#{id} and version=#{version}
+    </update>
+    <update id="dynamicUpdate">
+        update ${tableName} set ${columnName}=#{value},version=version+1,update_time=now() where id = #{primaryKey} and version=#{version}
+    </update>
+    <delete id="delete">
+        delete from demo where id=#{id} and version=#{version}
+    </delete>
+    <select id="findone" resultMap="BaseResultMap">
+        select <include refid="cols"/> from demo where id=#{id} and version=#{version}
+    </select>
+    <select id="findlist" resultMap="BaseResultMap">
+        select <include refid="cols"/> from demo <include refid="whereSql"/> <include refid="pageSql"/>
+    </select>
+    <select id="findcount" resultType="java.lang.Long">
+        select count(1) from demo <include refid="whereSql"/>
+    </select>
+</mapper>

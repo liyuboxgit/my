@@ -332,6 +332,7 @@ java：RSA加减密
 			System.out.println(decodedData);
 		}
 	}
+	java bigdecimal divide use new BigDecimal(2).divide(new BigDecimal(3),2,RoundingMode.HALF_UP);
 oracle分区;
 	--建立测试表分区
 	CREATE TABLE FPFX_T_QYGX_TEST (
