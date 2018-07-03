@@ -134,6 +134,17 @@ mysql：
 	REVOKE ALL PRIVILEGES ON liyu.* FROM 'liyu'@'%';(撤销权限)
 	DROP USER 'liyu'@'%';
 	drop database liyu;
+	
+	#mysql binlog
+	编辑mysql配置文件my.cnf,在[mysqld]下加log-bin=mysql-bin  确认是打开状态(值 mysql-bin 是日志的基本名或前缀名)；
+	重启mysql服务
+	show variables like 'log_bin';
+	show master logs;
+	show master status;
+	flush logs;
+	reset master;--清空所有binlog日志
+	mysqlbinlog -d ceshi mysql-bin.000003 -r my.sql --解析binlog为sql文件
+	mysqlbinlog mysql-bin.000003 --start-position=100  --stop-position=200 -r my.sql --解析binlog的区间为sql文件
 java：RSA加减密
 	package smart;
 
@@ -362,7 +373,182 @@ oracle分区;
 	--查询索引 
 	select * from user_extents where segment_name=upper('FPFX_T_QYGX_TEST_index_NSRSBH');
 	select * from USER_SEGMENTS where segment_name=upper('FPFX_T_QYGX_TEST_index_NSRSBH'); 
+oracle install contos_7_64脚本安装oracle11
+	1. 修改主机名
+	#sed -i "s/HOSTNAME=localhost.localdomain/HOSTNAME=oracledb.01/" /etc/sysconfig/network
 
+	2.添加主机名与IP对应记录
+	# vim /etc/hosts 
+	192.168.0.71 oracledb.01
+
+	3.关闭Selinux
+	#sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config 
+	
+	4.安装依赖包
+	yum -y install binutils compat-libcap1 compat-libstdc++-33 compat-libstdc++-33*i686 compat-libstdc++-33*.devel compat-libstdc++-33 compat-libstdc++-33*.devel gcc gcc-c++ glibc glibc*.i686 glibc-devel glibc-devel*.i686 ksh libaio libaio*.i686 libaio-devel libaio-devel*.devel libgcc libgcc*.i686 libstdc++ libstdc++*.i686 libstdc++-devel libstdc++-devel*.devel libXi libXi*.i686 libXtst libXtst*.i686 make sysstat unixODBC unixODBC*.i686 unixODBC-devel unixODBC-devel*.i686
+	
+	5.检测是否31个包都有安装
+	rpm -q binutils compat-libcap1 compat-libstdc++-33 gcc gcc-c++ glibc glibc-devel ksh libaio libaio-devel libgcc libstdc++ libstdc++-devel libXi libXtst  make sysstat  unixODBC unixODBC-devel
+	
+	6.创建oracle组和用户
+	/usr/sbin/groupadd oinstall
+	/usr/sbin/groupadd dba
+
+	/usr/sbin/useradd -g oinstall -G dba oracle
+	passwd oracle
+	id oracle #验证用户是否创建正确
+	
+	7.配置内核参数：
+	[root@docker ~]# vim /etc/sysctl.conf 
+	# System default settings live in /usr/lib/sysctl.d/00-system.conf.
+	# To override those settings, enter new settings here, or in an /etc/sysctl.d/<name>.conf file
+	#
+	# For more information, see sysctl.conf(5) and sysctl.d(5).
+	fs.aio-max-nr = 1048576
+	fs.file-max = 6815744
+	kernel.shmall = 2097152
+	kernel.shmmax = 536870912  
+	kernel.shmmni = 4096
+	kernel.sem = 250 32000 100 128
+	net.ipv4.ip_local_port_range = 9000 65500
+	net.core.rmem_default = 262144
+	net.core.rmem_max = 4194304
+	net.core.wmem_default = 262144
+	net.core.wmem_max = 1048576
+	修改后使之生效
+	/sbin/sysctl -p
+	
+	8.修改用户限制及其它
+	vim  /etc/security/limits.conf
+	oracle soft nproc 2047
+	oracle hard nproc 16384
+	oracle soft nofile 1024
+	oracle hard nofile 65536
+	oracle soft stack 10240
+	oracle hard stack 10240
+	在/etc/pam.d/login 文件中：
+	session required /lib/security/pam_limits.so
+	session required pam_limits.so
+	在/etc/profile 文件：
+	if [ $USER = "oracle" ]; then
+	   if [ $SHELL = "/bin/ksh" ]; then
+		   ulimit -p 16384
+		   ulimit -n 65536
+		else
+		   ulimit -u 16384 -n 65536
+	   fi
+	fi
+	修改使之生效：source /etc/profile
+	
+	9.创建安装目录：
+	mkdir -p /u01/app/
+	chown -R oracle:oinstall /u01/app/
+	chmod -R 775 /u01/app/
+	
+	10.解压oracle软件：
+	[root@docker src]# unzip linux.x64_11gR2_database_1of2.zip
+	[root@docker src]# unzip linux.x64_11gR2_database_2of2.zip
+	
+	11.复制响应文件模板
+	[oracle@docker ~]$ mkdir etc
+	[oracle@docker ~]$ cp  /usr/local/src/database/response/* /home/oracle/etc/
+	[oracle@docker ~]$ ls etc
+	dbca.rsp  db_install.rsp  netca.rsp
+	
+	12.设置响应文件权限
+	[oracle@docker ~]$ su - root
+	[root@docker ~]# chmod 700 /home/oracle/etc/*.rsp
+	
+	13.su - oracle修改安装Oracle软件的响应文件/home/oracle/etc/db_install.rsp
+	ORACLE_HOSTNAME=oracledb.01        // 主机名称（hostname查询）
+	UNIX_GROUP_NAME=oinstall     // 安装组
+	INVENTORY_LOCATION=/u01/app/oraInventory   //INVENTORY目录（不填就是默认值）
+	SELECTED_LANGUAGES=en,zh_CN,zh_TW // 选择语言
+	ORACLE_HOME=/u01/app/oracle/product/11.2.0/db_1    //oracle_home
+	ORACLE_BASE=/u01/app/oracle     //oracle_base
+	oracle.install.db.InstallEdition=EE 　　　　// oracle版本
+	oracle.install.db.isCustomInstall=false 　　//自定义安装，否，使用默认组件
+	oracle.install.db.DBA_GROUP=dba /　　/ dba用户组
+	oracle.install.db.OPER_GROUP=oinstall // oper用户组
+	oracle.install.db.config.starterdb.type=GENERAL_PURPOSE //数据库类型
+	oracle.install.db.config.starterdb.globalDBName=orcl //globalDBName
+	oracle.install.db.config.starterdb.SID=dbsrv2      //SID
+	oracle.install.db.config.starterdb.memoryLimit=2048 //自动管理内存的内存(M)
+	oracle.install.db.config.starterdb.password.ALL=oracle //设定所有数据库用户使用同一个密码
+	SECURITY_UPDATES_VIA_MYORACLESUPPORT=false         //（手动写了false）
+	DECLINE_SECURITY_UPDATES=true 　　//设置安全更新（貌似是有bug，这个一定要选true，否则会无限提醒邮件地址有问题，终止安装。PS：不管地址对不对）
+	
+	14.开始静默安装：
+	[oracle@docker database]$ ./runInstaller -silent -responseFile /home/oracle/etc/db_install.rsp
+	出现类似如下提示表示安装完成：
+	The following configuration scripts need to be executed as the "root" user. 
+	#!/bin/sh 
+	#Root scripts to run
+
+	/u01/app/oraInventory/orainstRoot.sh
+	/u01/app/oracle/product/11.2.0/db_1/root.sh
+	To execute the configuration scripts:
+	1. Open a terminal window 
+	2. Log in as "root" 
+	3. Run the scripts 
+	4. Return to this window and hit "Enter" key to continue
+
+	Successfully Setup Software.
+
+	使用root用户执行脚本：
+
+	su - root
+	/u01/app/oraInventory/orainstRoot.sh
+	/u01/app/oracle/product/11.2.0/db_1/root.sh
+	
+	15.增加或修改oracle的环境变量：
+	su  - oracle
+	vim ~/.bash_profile
+	#for oracle
+	export ORACLE_BASE=/u01/app/oracle
+	export ORACLE_SID=dbsrv2
+	export ROACLE_PID=ora11g
+	export LD_LIBRARY_PATH=$ORACLE_HOME/lib:/usr/lib
+	export ORACLE_HOME=/u01/app/oracle/product/11.2.0/db_1
+	export PATH=$PATH:$ORACLE_HOME/bin
+	export LANG="zh_CN.UTF-8"
+	export NLS_LANG="SIMPLIFIED CHINESE_CHINA.AL32UTF8"
+	export NLS_DATE_FORMAT='yyyy-mm-dd hh24:mi:ss'
+	
+	16.配置监听程序（貌似不需要）：
+	[oracle@docker ~]$ netca /silent /responsefile /home/oracle/etc/netca.rsp
+	Parsing command line arguments:
+		Parameter "silent" = true
+		Parameter "responsefile" = /home/oracle/etc/netca.rsp
+	Done parsing command line arguments.
+	Oracle Net Services Configuration:
+	Profile configuration complete.
+	Oracle Net Listener Startup:
+		Running Listener Control: 
+		  /u01/app/oracle/product/11.2.0/db_1/bin/lsnrctl start LISTENER
+		Listener Control complete.
+		Listener started successfully.
+	Listener configuration complete.
+	Oracle Net Services configuration successful. The exit code is 0
+	
+	17.启动监控程序：
+	lsnrctl start
+	
+	18.静默dbca建库：
+	[oracle@docker ~]$ vi etc/dbca.rsp
+	[GENERAL]
+	RESPONSEFILE_VERSION = "11.2.0"
+	OPERATION_TYPE = "createDatabase"
+	[CREATEDATABASE]
+	GDBNAME = "dbsrv2"
+	SID = "dbsrv2"
+	TEMPLATENAME = "General_Purpose.dbc"
+	CHARACTERSET = "AL32UTF8"
+	
+	19.建库
+	dbca -silent -responseFile etc/dbca.rsp
+	
+	20.至此，oracle数据库安装完成，外部连接注意关闭防火墙
 solr
 	1安装solr
 	2安装分词器，分词器是个jar包。
