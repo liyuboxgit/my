@@ -1,4 +1,4 @@
-git
+﻿git
 	git rm <filename> 删除文件
 	git reset --hard <commitid>回退到某个版本
 	git log 查看commit
@@ -145,6 +145,41 @@ mysql：
 	reset master;--清空所有binlog日志
 	mysqlbinlog -d ceshi mysql-bin.000003 -r my.sql --解析binlog为sql文件
 	mysqlbinlog mysql-bin.000003 --start-position=100  --stop-position=200 -r my.sql --解析binlog的区间为sql文件
+
+	修改mysql编码使微信表情可以入库 mysql支持utf8mb4的版本是5.5.3+
+	
+	改配置文件/etc/my.cnf
+	[client]
+	default-character-set = utf8mb4
+
+	[mysql]
+	default-character-set = utf8mb4
+
+	[mysqld]
+	character-set-client-handshake = FALSE
+	character-set-server = utf8mb4
+	collation-server = utf8mb4_unicode_ci
+	init_connect='SET NAMES utf8mb4'
+	重启，确保mysql connection版本高于5.1.13
+
+	SHOW VARIABLES WHERE Variable_name LIKE ‘version%’;
+	character_set_client    utf8mb4
+	character_set_connection    utf8mb4
+	character_set_database    utf8mb4
+	character_set_filesystem    binary
+	character_set_results    utf8mb4
+	character_set_server    utf8mb4
+	character_set_system    utf8
+	character_sets_dir    /usr/share/mysql/charsets/
+	collation_connection    utf8mb4_general_ci
+	collation_database    utf8mb4_unicode_ci
+	collation_server    utf8mb4_unicode_ci
+
+	ALTER DATABASE t_yown_userdb CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+	ALTER TABLE t_yown_user CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+	alter table t_yown_user modify `NICKNAME` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '昵称';
+	重启mysql
+
 java：RSA加减密
 	package smart;
 
