@@ -5,7 +5,7 @@
 <mapper namespace="com.rthd.tinychxu.domain.Demo">
     <resultMap type="com.rthd.tinychxu.domain.Demo" id="BaseResultMap"></resultMap>
     <sql id="cols">
-        create_time,update_time,version,name,id
+        create_time,update_time,version,age,money,name,id
     </sql>
     <sql id="whereSql">
         <where>
@@ -18,6 +18,12 @@
             <if test="update_time != null">
                 and update_time=#{update_time}
             </if>
+            <if test="age != null">
+                and age=#{age}
+            </if>
+            <if test="money != null">
+                and money=#{money}
+            </if>
             <if test="name != null">
                 and name=#{name}
             </if>
@@ -29,10 +35,10 @@
         </if>
     </sql>
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into demo(create_time,update_time,version,name) values(now(),now(),0,#{name})
+        insert into demo(create_time,update_time,version,age,money,name) values(now(),now(),0,#{age},#{money},#{name})
     </insert>
     <update id="merge">
-        update demo set create_time=#{create_time},name=#{name},version=version+1,update_time=now() where id=#{id} and version=#{version}
+        update demo set create_time=#{create_time},age=#{age},money=#{money},name=#{name},version=version+1,update_time=now() where id=#{id} and version=#{version}
     </update>
     <update id="dynamicUpdate">
         update ${tableName} set ${columnName}=#{value},version=version+1,update_time=now() where id = #{primaryKey} and version=#{version}
