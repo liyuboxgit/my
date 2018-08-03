@@ -379,6 +379,35 @@ java：RSA加减密
 		}
 	}
 	java bigdecimal divide use new BigDecimal(2).divide(new BigDecimal(3),2,RoundingMode.HALF_UP);
+	
+	java spring restTemplate：
+	public static RestTemplate restTemplate() {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
+        return restTemplate;
+    }
+	//接受前端request payload，ajax中：
+	//	contentType: 'application/json',
+	//	data: JSON.stringify({
+	//		'fgk': 'e49cbdd3e13948dea1c0aa1790e652cf'
+	//	}), 
+	StringBuffer stb = new StringBuffer();
+	ServletInputStream inputStream = WebUtil.getServletRequest().getInputStream(); 
+	List<String> lines = IOUtils.readLines(inputStream, Charset.forName("UTF-8"));
+	if(lines!=null) {			
+		for(String str: lines) {
+			stb.append(str);
+		}
+	}
+	String stream = stb.toString();
+	
+	HttpHeaders headers = new HttpHeaders();
+	headers.setContentType(MediaType.valueOf("application/json;UTF-8"));
+	HttpEntity<String> strEntity = new HttpEntity<String>(stb.toString(),headers);
+	ResultData resultData = restTemplate().postForObject(req,strEntity,ResultData.class);
+	
+	//如果前端非request payload传递，param是hashmap<string,object>
+	ResultData resultData = restTemplate().postForObject(req, param, ResultData.class);
 oracle分区;
 	--建立测试表分区
 	CREATE TABLE FPFX_T_QYGX_TEST (
