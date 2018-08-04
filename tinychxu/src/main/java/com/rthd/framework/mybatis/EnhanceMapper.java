@@ -3,8 +3,11 @@ package com.rthd.framework.mybatis;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.sql.DataSource;
 
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.session.Configuration;
@@ -16,7 +19,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 @Service
 public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationContextAware {
@@ -32,7 +37,7 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 	public static final String dynamicUpdate = "dynamicUpdate";
 	@Value("${show_mapper}")
 	private String showMapper = "false";
-	
+	private JdbcTemplate jt = null;
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		SqlSessionFactory factory = applicationContext.getBean(SqlSessionFactory.class);
@@ -56,6 +61,7 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 		}
 
 		super.setSqlSessionFactory(factory);
+		this.jt = new JdbcTemplate(applicationContext.getBean(DataSource.class));
 	}
 
 	private String _all(String method, Class<?> type) {
@@ -78,7 +84,25 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 		return new Page<T>(page.getPageNo(), page.getPageSize(), this.findCount(countMethod, parameter, type).intValue(),
 				this.findList(method, parameter, type));
 	}
-
+	
+	public <T> List<Map<String,Object>> findListMap(String method, String parameter, Class<T> type) {
+		return this.getSqlSession().selectList(_all(method, type), parameter);
+	}
+	
+	public <T> List<T> jdbcFindSingelColumn(String sql, Object[] args, Class<T> columnType, boolean checkOne){
+		List<T> list = this.jt.queryForList(sql, args, columnType);
+		Assert.isTrue(list.size()<=1, "reture too many results!");
+		return list;
+	}
+	
+	public <T> List<T> jdbcFindSingelColumn(String sql, Class<T> columnType, boolean checkOne){
+		return this.jdbcFindSingelColumn(sql, null, columnType, checkOne);
+	}
+	
+	public List<Map<String,Object>> jdbcFindListMap(String sql, Object[] args){
+		return this.jt.queryForList(sql, args);
+	}
+	
 	public <T> int exccute(Class<T> type, String method, Object parameter) {
 		if (parameter instanceof UpdateColumnWapper[]) {
 			int i = 0;
@@ -171,7 +195,7 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 			this.pageSize = pageSize;
 			this.totalCount = totalCount;
 			this.elements = elements;
-			this.totalPage = totalCount / pageSize == 0 ? totalCount / pageSize : totalCount / pageSize + 1;
+			this.totalPage = totalCount % pageSize == 0 ? totalCount / pageSize : totalCount / pageSize + 1;
 			
 		}
 
