@@ -9,6 +9,10 @@
 	git checkout <name> 切换分支
 	git merge <name> 分支name，合并到当前分支上
 	git branch -d <name> 删除分支
+	
+	git branch -a 查看本地/远程分支
+	git branch -d list 删除list分支
+	git push origin --delete branch_wangzhan 删除远程分支branch_wangzhan
 
 	---解决冲突呢没有新的命令，知道其原理就能应对
 
