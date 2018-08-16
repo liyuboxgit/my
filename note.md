@@ -614,11 +614,13 @@ oracle install contos_7_64脚本安装oracle11
 	
 	20.至此，oracle数据库安装完成，外部连接注意关闭防火墙
 solr
-	1安装solr
-	2安装分词器，分词器是个jar包。
-	3配置数据库，manager-scamer，data-import
-	4集群，在tomcat的catalina.sh中java-opt设置zookeeper的ip和端口
-	 将solrhome中core的配置上传到zookeeper，使用zkcli.sh脚本
+	1安装solrCloud
+	1.1：安装zookeeper集群并启动
+	1.2：下载solr，解压，修改bin/solr.in.sh:SOLR_HOST和SOLR_TIMEZOON(UTC+8)
+             将solr scp到各台机器并修改solr.in.sh
+	1.3:启动solrCloud：/usr/local/solr-6.6.0/bin/solr start -cloud -z master:2181,slave1:2181,slave2:2181 -p 8993 -force
+	    访问地址是ip:8993/solr/index.html
+	
 
 
 
