@@ -625,7 +625,7 @@ solr
 	1.3:启动solrCloud：/usr/local/solr-6.6.0/bin/solr start -cloud -z master:2181,slave1:2181,slave2:2181 -p 8993 -force
 	    访问地址是ip:8993/solr/index.html
 		
-	2solr mysql数据同步
+	2solr mysql数据同步单机版
 	2.1创建core：$slor_home/bin/solr create_core -c user
 	2.2创建数据库表和数据，将$solr_home/dist下dataimport相关的两个jar包，和mysql的驱动jar包复制到$solr_home/server/server-web/WEB-INF/lib.
 	2.3配置solr core
@@ -662,10 +662,15 @@ solr
 	2.5后台执行定时器：
 	cat mysql-solr-data-delta-import.cron 
 	*/1 * * * * curl "http://single:8983/solr/user/mysqldataimport?command=delta-import&clean=false&commit=true" >> logs.log
-
-
 	
-	
+	3solr mysql数据同步集群版
+	3.1修改/usr/local/solr-6.6.0/server/solr/configsets/data_driven_schema_configs/conf下相关配置文件，和2中单机版一样
+	3.2命令将配置发布到zk：
+	#pwd /usr/local/solr-6.6.0/server
+	./scripts/cloud-scripts/zkcli.sh -zkhost master:2181 -cmd upconfig -confdir solr/configsets/data_driven_schema_configs/conf  -confname data_driven_schema_configs
+	3.3创建collection
+	/usr/local/solr-6.6.0/bin/solr create_collection -c user -d data_driven_schema_configs -n data_driven_schema_configs -shards 3 -replicationFactor 3 -force
+
 linux
 	定时任务：(echo 'good morning'，console会没有输出，可以重定向到文件且不需要创建文件)
 	service crond start （service crond start）
