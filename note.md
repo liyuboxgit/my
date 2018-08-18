@@ -624,6 +624,56 @@ solr
              将solr scp到各台机器并修改solr.in.sh
 	1.3:启动solrCloud：/usr/local/solr-6.6.0/bin/solr start -cloud -z master:2181,slave1:2181,slave2:2181 -p 8993 -force
 	    访问地址是ip:8993/solr/index.html
+		
+	2solr mysql数据同步
+	2.1创建core：$slor_home/bin/solr create_core -c user
+	2.2创建数据库表和数据，将$solr_home/dist下dataimport相关的两个jar包，和mysql的驱动jar包复制到$solr_home/server/server-web/WEB-INF/lib.
+	2.3配置solr core
+	2.3.1在solrconfig.xml中append
+	<requestHandler name="/mysqldataimport" class="solr.DataImportHandler"> 
+      <lst name="defaults"> 
+        <str name="config">mysql-data-config.xml</str> 
+      </lst> 
+    </requestHandler>
+	mysql-data-config.xml内容：
+	<?xml version="1.0" encoding="UTF-8" ?>  
+	<dataConfig>
+	<dataSource type="JdbcDataSource" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/liyu" user="liyu" password="liyuff"/>
+	<document name="testmysqladdDoc">
+		<entity name="tb_solr_add"
+				pk="id"
+				query="select id,name,update_time,del from user where del='0'"
+				deltaImportQuery="select id,name,update_time,del from user where id='${dih.delta.id}'"
+				deltaQuery="select id from user where update_time> '${dataimporter.last_index_time}' and del='0'"
+				deletedPkQuery="select id from user where del='1'">
+		<field column="id" name="id"/>
+		<field column="name" name="name"/>
+		<field column="update_time" name="update_time"/>
+		<field column="del" name="del"/>
+	   </entity>
+	</document>
+	</dataConfig>
+	managed-schema append如下，注意注释掉前面的filed[name="id"]默认配置。
+	<field name="id" type="int" indexed="true" stored="true" required="true" multiValued="false" />
+    <field name="name" type="string" indexed="true" stored="true" />
+    <field name="update_time" type="date" indexed="true" stored="true" />
+    <field name="del" type="boolean" indexed="true" stored="true" />
+	2.4启动solr，页面操作mysqldataimport，全量导入。
+	2.5后台执行定时器：
+	cat mysql-solr-data-delta-import.cron 
+	*/1 * * * * curl "http://single:8983/solr/user/mysqldataimport?command=delta-import&clean=false&commit=true" >> logs.log
+
+
+	
+	
+linux
+	定时任务：(echo 'good morning'，console会没有输出，可以重定向到文件且不需要创建文件)
+	service crond start （service crond start）
+	echo */1 * * * * echo 'good morning' > crontest.cron
+	crontab crontest.cron 
+	crontab -l
+	crontab -r
+	rm crontest.cron
 	
 
 
