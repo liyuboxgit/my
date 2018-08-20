@@ -167,6 +167,9 @@ mysql：
 	重启，确保mysql connection版本高于5.1.13
 
 	SHOW VARIABLES WHERE Variable_name LIKE ‘version%’;
+	show variables like 'character%' 
+	show variables like 'collation%' 
+
 	character_set_client    utf8mb4
 	character_set_connection    utf8mb4
 	character_set_database    utf8mb4
@@ -679,6 +682,10 @@ linux
 	crontab -l
 	crontab -r
 	rm crontest.cron
+	
+	修改主机名称
+	hostnamectl set-hostname xxx 
+	reboot	
 	
 
 
