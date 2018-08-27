@@ -687,6 +687,64 @@ linux
 	hostnamectl set-hostname xxx 
 	reboot	
 	
+	脚本Shell
+	#!/bin/bash
+	# ------------------------------------------------------------------hello world
+	hello=HelloWorld
+	echo "$hello ${#hello} !"
+	echo ${hello:5}
+	echo `expr index "$hello" o`
+	# ------------------------------------------------------------------拼接字符串、专义
+	echo "the PATH is: \""$PATH"\""
+	# 遍历文件
+	for file in $(ls ../)
+	do 
+		echo $file 
+	done
+	# ------------------------------------------------------------------定义数组、获取数组长度、遍历数组和while遍历数组
+	arr=("a" "b" "c" "d" "e" "f")
+	echo ${arr[2]}
+	echo "arr length："${#arr[*]}
+	for loop in ${arr[@]};do 
+		echo $loop 
+	done
+
+	i=0
+	while [[ i -lt ${#arr[@]} ]]; do
+		echo ${arr[i]}
+		let i++
+	done
+	# ------------------------------------------------------------------shell传递参数
+	echo "shell script name：$0";
+	echo "first param：$1";
+	echo "second param：$2";
+	echo "third param：$3";
+	echo "param count: $#";
+	echo "param in one string: $*"
+	# ------------------------------------------------------------------运算符及条件判断
+	echo `expr 2 + 2`
+	echo `expr 2 - 1`
+	echo `expr 2 \* 3`
+	echo `expr 6 / 2`
+	if [ 1==1 ]
+	then
+		echo '1=1'
+	fi
+	if [ 1 -lt 2 ]
+	then
+		echo '1 low then 1'
+	fi
+	if [[ 1==1 && 1 -lt 2 ]]
+	then
+		echo '1=1 1<2'
+	fi
+	if [ -e ./a.sh ]
+	then
+		echo 'file a.sh exist'
+	fi
+	# -----------------------------------------------------------------执行命令
+	echo `date`
+	
 
 
 
