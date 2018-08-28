@@ -86,16 +86,12 @@ public class IndexFiles {
 		}
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	static void indexDocs(IndexWriter writer, Path path) throws IOException {
+	static void indexDocs(final IndexWriter writer, Path path) throws IOException {
 		if (Files.isDirectory(path, new LinkOption[0])) {
-			Files.walkFileTree(path, new SimpleFileVisitor() {
-				private IndexWriter val$writer;
-
-				@SuppressWarnings("unused")
+			Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
 				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 					try {
-						IndexFiles.indexDoc(this.val$writer, file, attrs.lastModifiedTime().toMillis());
+						IndexFiles.indexDoc(writer, file, attrs.lastModifiedTime().toMillis());
 					} catch (IOException localIOException) {
 					}
 
@@ -130,8 +126,7 @@ public class IndexFiles {
 				writer.updateDocument(new Term("path", file.toString()), doc);
 			}
 		} catch (Throwable localThrowable1) {
-			localThrowable3 = localThrowable1;
-			throw localThrowable1;
+			
 
 		} finally {
 

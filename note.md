@@ -187,6 +187,37 @@ mysql：
 	alter table t_yown_user modify `NICKNAME` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '昵称';
 	重启mysql
 
+	主从复制
+	配置Master主服务器：
+	mysql>create user repl; //创建新用户
+	mysql>GRANT REPLICATION SLAVE ON *.* TO 'repl'@'192.168.126.%' IDENTIFIED BY 'mysql';
+	在my.cnf中[mysqld]下面增加下面几行代码：
+	server-id=1   
+	log-bin=master-bin
+	log-bin-index=master-bin.index
+	mysql> SHOW MASTER STATUS;
+	+-------------------+----------+--------------+------------------+
+	| File | Position | Binlog_Do_DB | Binlog_Ignore_DB |
+	+-------------------+----------+--------------+------------------+
+	| master-bin.000001 | 1285 | | |
+	+-------------------+----------+--------------+------------------+
+	重启mysql主服务器
+	配置slave从服务器
+	在my.cnf中[mysqld]下面增加下面几行代码：
+	server-id=2
+	relay-log-index=slave-relay-bin.index
+	relay-log=slave-relay-bin 
+	重启MySQL服务
+	登录从mysql，连接Master：
+	change master to master_host='192.168.126.128',
+	master_port=3306,
+	master_user='repl',
+	master_password='mysql', 
+	master_log_file='master-bin.000001',
+	master_log_pos=0;
+	启动Slave
+	start slave;
+	
 java：RSA加减密
 	package smart;
 
