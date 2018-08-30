@@ -218,6 +218,43 @@ mysql：
 	启动Slave
 	start slave;
 	
+	配置mysql-proxy
+	tar -xf mysql-proxy-0.8.4-linux-glibc2.3-x86-64bit.tar.gz 
+	mv mysql-proxy-0.8.4-linux-glibc2.3-x86-64bit/ mysql-proxy-0.8.4 
+	cd mysql-proxy-0.8.4/
+	mkdir lua
+	mkdir logs
+	cp share/doc/mysql-proxy/rw-splitting.lua ./lua
+	cp share/doc/mysql-proxy/admin-sql.lua ./lua
+	vi /etc/mysql-proxy.cnf
+	[mysql-proxy]
+	user=root
+	admin-username=root
+	admin-password=
+	proxy-address=192.168.126.128:4040
+	proxy-read-only-backend-addresses=192.168.126.129
+	proxy-backend-addresses=192.168.126.128
+	proxy-lua-script=/usr/local/mysql-proxy-0.8.4/lua/rw-splitting.lua
+	admin-lua-script=/usr/local/mysql-proxy-0.8.4/lua/admin-sql.lua
+	log-file=/usr/local/mysql-proxy-0.8.4/logs/mysql-proxy.log
+	log-level=info
+	daemon=true
+	keepalive=true
+	保存mysql-proxy.cnf
+	chmod 660 /etc/mysql-porxy.cnf
+	vim /usr/local/mysql-proxy-0.8.4/lua/rw-splitting.lua
+	if not proxy.global.config.rwsplit then
+        proxy.global.config.rwsplit = {
+        min_idle_connections = 1,
+        max_idle_connections = 1,
+        is_debug = false
+	}
+	end
+	保存rw-splitting.lua
+	启动
+	./bin/mysql-proxy --defaults-file=/etc/mysql-proxy.cnf
+	连接
+	/usr/local/mysql/bin/mysql -uproxy -P4040 -p
 java：RSA加减密
 	package smart;
 
@@ -775,6 +812,22 @@ linux
 	fi
 	# -----------------------------------------------------------------执行命令
 	echo `date`
+elasticsearch
+	基础教程
+	https://www.elastic.co/guide/cn/elasticsearch/guide/current/getting-started.html
+	对下面这个curl命令的理解：添加索引blogs，3个分片（就是把数据分成3部分），1个副本（就是为每个分片设置一个副本）
+	PUT /blogs
+	{
+		"settings" : {
+			"number_of_shards" : 3,
+			"number_of_replicas" : 1
+		}
+	}
+	改变索引blogs的副本数量
+	PUT /blogs/_settings
+	{
+		"number_of_replicas" : 2
+	}
 	
 
 
