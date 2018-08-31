@@ -229,8 +229,8 @@ mysql：
 	vi /etc/mysql-proxy.cnf
 	[mysql-proxy]
 	user=root
-	admin-username=root
-	admin-password=
+	admin-username=proxy
+	admin-password=123456
 	proxy-address=192.168.126.128:4040
 	proxy-read-only-backend-addresses=192.168.126.129
 	proxy-backend-addresses=192.168.126.128
