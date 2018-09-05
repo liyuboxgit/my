@@ -104,6 +104,6 @@ public class WebUtil {
 	}
 	
 	private static JsonRet newjsonRet() {
-		return new JsonRet(getServletRequest().getAttribute(SecurityInterceptor.Ckey));
+		return new JsonRet(getServletRequest().getAttribute(SecurityInterceptor.ckey));
 	}
 }

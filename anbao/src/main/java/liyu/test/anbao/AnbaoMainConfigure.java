@@ -13,7 +13,7 @@ import liyu.test.anbao.example.AuthImpl;
 
 @SpringBootApplication
 @Import({SpringMvcConfigrue.class})
-public class MainConfigure extends SpringBootServletInitializer{
+public class AnbaoMainConfigure extends SpringBootServletInitializer{
 	
 	@Bean
 	public JedisPoolManager jedisPoolManager() {
@@ -30,10 +30,10 @@ public class MainConfigure extends SpringBootServletInitializer{
 	
 	@Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(MainConfigure.class);
+        return application.sources(AnbaoMainConfigure.class);
     }
 	
 	public static void main(String[] args) {
-		SpringApplication.run(MainConfigure.class, args);
+		SpringApplication.run(AnbaoMainConfigure.class, args);
 	}
 }

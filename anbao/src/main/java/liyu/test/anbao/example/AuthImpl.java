@@ -16,6 +16,7 @@ import liyu.test.anbao.core.JedisPoolManager;
 import liyu.test.anbao.core.RedisCache;
 import liyu.test.anbao.core.util.ApplicationPropertes;
 import liyu.test.anbao.core.util.JsonRet;
+import liyu.test.anbao.core.util.StringUtil;
 import liyu.test.anbao.core.util.WebUtil;
 
 public class AuthImpl implements Auth{
@@ -35,7 +36,8 @@ public class AuthImpl implements Auth{
 	@Override
 	public boolean sessionCheck(HttpServletRequest request) {
 		AnbaoRedisSession session = this.getSession(request);
-		if(session!=null) {			
+		if(session!=null) {
+			request.setAttribute(AuthInterceptor.ckey, session.getUuid());
 			new RedisCache<String,AnbaoRedisSession>(jpm).reset(session.getUuid(), Integer.parseInt(ApplicationPropertes.instance().getSession_seconds()));
 			return true;
 		}
@@ -59,10 +61,13 @@ public class AuthImpl implements Auth{
 		AnbaoRedisSession instence = new AnbaoRedisSession(uuid);
 		instence.setAttribute(AnbaoRedisSession.SK, user);
 		
+		HttpServletRequest request = WebUtil.getServletRequest();
+		request.setAttribute(AuthInterceptor.ckey, uuid);
+		
 		HttpServletResponse response = WebUtil.getServletResponse();
 		new RedisCache<String,AnbaoRedisSession>(jpm).put(uuid, instence, Integer.parseInt(ApplicationPropertes.instance().getSession_seconds()));
 		
-		Cookie cookie = new Cookie(AuthInterceptor.Ckey,uuid);
+		Cookie cookie = new Cookie(AuthInterceptor.ckey,uuid);
 		cookie.setPath("/");
 		response.addCookie(cookie);
 	}
@@ -89,11 +94,35 @@ public class AuthImpl implements Auth{
 		Cookie[] cookies = request.getCookies();
 		if(cookies!=null) {
 			for(Cookie cookie:cookies){
-			    if(AuthInterceptor.Ckey.equals(cookie.getName())) {
+			    if(AuthInterceptor.ckey.equals(cookie.getName())) {
 			    	RedisCache<String,AnbaoRedisSession> redisCache = new RedisCache<String,AnbaoRedisSession>(jpm);
 			    	return redisCache.get(cookie.getValue());
 			    }
 			}
+		}
+		if(StringUtil.isNotBlank(request.getParameter(AuthInterceptor.ckey))) {
+			RedisCache<String,AnbaoRedisSession> redisCache = new RedisCache<String,AnbaoRedisSession>(jpm);
+	    	return redisCache.get(request.getParameter(AuthInterceptor.ckey).trim());
+		}
+		return null;
+	}
+
+	@Override
+	public <T> void setAttributeInSession(String key, T value, HttpServletRequest request) {
+		AnbaoRedisSession session = this.getSession(request);
+		if(session!=null) {
+			session.setAttribute(key, value);
+			RedisCache<String,AnbaoRedisSession> redisCache = new RedisCache<String,AnbaoRedisSession>(jpm);
+			redisCache.put(session.getUuid(), session, Integer.parseInt(ApplicationPropertes.instance().getSession_seconds()));
+		}
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public <T> T getAttributeInSession(String key, HttpServletRequest request) {
+		AnbaoRedisSession session = this.getSession(request);
+		if(session!=null) {
+			return (T)session.getAttribute(key);
 		}
 		return null;
 	}

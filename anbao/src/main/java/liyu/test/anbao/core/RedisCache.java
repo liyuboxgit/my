@@ -2,6 +2,9 @@ package liyu.test.anbao.core;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import liyu.test.anbao.core.JedisPoolManager;
 import liyu.test.anbao.core.SerializeUtil;
 import redis.clients.jedis.Jedis;
@@ -9,16 +12,20 @@ import redis.clients.jedis.exceptions.JedisException;
 
 public class RedisCache<K, V>{
 	
+	private static Logger logger = LoggerFactory.getLogger(RedisCache.class);
+	
 	private JedisPoolManager pm;
 	
 	public RedisCache(JedisPoolManager pm) {
 		this.pm = pm;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public V get(K key) {
 		if (key == null) {
 			return null;
 		}
+		logger.debug(key.toString());
 		V v = null;
 		Jedis jedis = pm.getJedis(0);
 		try {
@@ -34,29 +41,11 @@ public class RedisCache<K, V>{
 		return v;
 	}
 
-	public V put(K key, V value) {
-		if (key == null) {
-			return null;
-		}
-		
-		Jedis jedis = pm.getJedis(0);
-		try {
-			byte[] keys = SerializeUtil.serialize(key);
-			byte[] values = SerializeUtil.serialize(value);
-			jedis.set(keys, values);
-		} catch (JedisException e) {
-			e.printStackTrace();
-		} finally {
-			pm.releaseJedis(jedis);
-		}
-		return null;
-	}
-	
 	public V put(K key, V value, int expt) {
 		if (key == null) {
 			return null;
 		}
-		
+		logger.debug(key.toString()+"("+ value==null? "true":"false" +")");
 		Jedis jedis = pm.getJedis(0);
 		try {
 			byte[] keys = SerializeUtil.serialize(key);
@@ -84,6 +73,7 @@ public class RedisCache<K, V>{
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public V remove(K key) {
 		if (key == null) {
 			return null;

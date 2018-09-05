@@ -11,4 +11,6 @@ public interface Auth {
 	void logout(HttpServletRequest request);
 	AuthUser getSessionUser(HttpServletRequest request);
 	AnbaoRedisSession getSession(HttpServletRequest request);
+	<T> void setAttributeInSession(String key,T value,HttpServletRequest request);
+	<T> T getAttributeInSession(String key,HttpServletRequest request);
 }

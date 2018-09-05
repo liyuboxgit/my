@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,14 +35,11 @@ public class LoginController{
 	}
 	
 	@RequestMapping("/login")
-	public JsonRet login(String username, String password) throws IOException {
-		if(StringUtil.isBlank(username)||StringUtil.isBlank(password)) {
+	public JsonRet login(@RequestBody User user) throws IOException {
+		if(StringUtil.isBlank(user.getUsername())||StringUtil.isBlank(user.getPassword())) {
 			return WebUtil.fail("用户名和密码不能为空！");
 		}
 		try {
-			User user = new User();
-			user.setUsername(username);
-			user.setPassword(password);
 			auth.login(user);
 		} catch (Exception ex) {
 			return WebUtil.errorAndReture(logger, "登录失败", ex);

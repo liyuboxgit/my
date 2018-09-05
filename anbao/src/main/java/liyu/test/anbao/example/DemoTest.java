@@ -10,8 +10,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+
+import com.alibaba.fastjson.JSON;
+
+import liyu.test.anbao.core.util.JsonRet;
+import liyu.test.anbao.core.util.StringMap;
 
 public class DemoTest {
 	public static RestTemplate restTemplate() {
@@ -20,22 +28,18 @@ public class DemoTest {
         return restTemplate;
     }
 	public static void main(String[] args) throws URISyntaxException, IOException {
-		/*String url = "http://localhost:8080/anbao/login";
-		StringMap stringMap = new StringMap();
-		stringMap.put("username", "1");
-		stringMap.put("password", "2");*/
 		
-		/*Map<String,Object> stringMap = new HashMap<String,Object>();
-		stringMap.put("username", "1");
-		stringMap.put("password", "2");
-		String string = restTemplate().getForObject(url, String.class, stringMap);
-		System.out.println(string);
+		StringMap user = new StringMap();
+		user.put("username", "1");
+		user.put("password", "1");
 		
-		ResponseEntity<String> entity = restTemplate().getForEntity(url, String.class, stringMap);
-		String body = entity.getBody();
-		System.out.println(body);*/
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.valueOf("application/json;UTF-8"));
+		HttpEntity<String> strEntity = new HttpEntity<String>(JSON.toJSONString(user),headers);
+		JsonRet resultData = restTemplate().postForObject("http://localhost:8080/anbao/login",strEntity,JsonRet.class);
+		System.out.println(resultData);
 		
-		URL uri = new URL("http://localhost:8080/anbao/test");
+		URL uri = new URL("http://localhost:8080/anbao/test?ckey="+resultData.getCkey());
 		
 		URLConnection connection = uri.openConnection();
 		InputStream inputStream = connection.getInputStream();
@@ -44,6 +48,10 @@ public class DemoTest {
 			System.out.println(el);
 		});
 		inputStream.close();
+		
+		
+		
+
 		
 	}
 }
