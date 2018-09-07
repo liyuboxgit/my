@@ -19,7 +19,7 @@ public class SecurityInterceptor implements HandlerInterceptor, AuthInterceptor{
 			return true;
 		else {
 			if(!auth.sessionCheck(request)) {				
-				auth.authFaild(response);
+				auth.authFaild(request, response);
 				return false;
 			}else {
 				return true;

@@ -28,6 +28,7 @@ public class ApplicationPropertes {
 			instance.session_seconds = conf.getProperty("session_seconds");
 			instance.redis_ip = conf.getProperty("redis_ip");
 			instance.redis_port = conf.getProperty("redis_port");
+			instance.only_one_user_login = conf.getProperty("only_one_user_login");
 		} catch (Exception ex) {
 			logger.error(ApplicationPropertes.class.getName(), ex);
 		}
@@ -42,6 +43,7 @@ public class ApplicationPropertes {
 	private String session_seconds;
 	private String redis_ip;
 	private String redis_port;
+	private String only_one_user_login;
 
 	public String getLogin_url() {
 		return login_url;
@@ -88,5 +90,13 @@ public class ApplicationPropertes {
 
 	public void setRedis_port(String redis_port) {
 		this.redis_port = redis_port;
+	}
+
+	public String getOnly_one_user_login() {
+		return only_one_user_login;
+	}
+
+	public void setOnly_one_user_login(String only_one_user_login) {
+		this.only_one_user_login = only_one_user_login;
 	}
 }

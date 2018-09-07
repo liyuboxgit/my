@@ -483,6 +483,44 @@ java：RSA加减密
 	
 	//如果前端非request payload传递，param是hashmap<string,object>
 	ResultData resultData = restTemplate().postForObject(req, param, ResultData.class);
+	
+	//springboot编程是事务控制：方式一
+	@Autowired private TransactionTemplate transactionTemplate;
+	public JsonRet m() {
+		Exception ret = transactionTemplate.execute(new TransactionCallback<Exception>() {
+		    public Exception doInTransaction(TransactionStatus status) {
+		    	Exception result = null;
+		        try {
+		        	
+		        } catch (Exception ex) {
+		            status.setRollbackOnly();
+		            result = ex;
+		        }
+		        return result;
+		    }
+		});
+		
+		return WebUtil.success();
+	}
+	//方式二
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	private PlatformTransactionManager ptm;
+
+	DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+	def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+	TransactionStatus status = ptm.getTransaction(def);
+	try{
+		
+			
+	} catch (Exception e) {
+		ptm.rollback(status);
+		e.printStackTrace();
+	}
+	ptm.commit(status);
+
 oracle分区;
 	--建立测试表分区
 	CREATE TABLE FPFX_T_QYGX_TEST (

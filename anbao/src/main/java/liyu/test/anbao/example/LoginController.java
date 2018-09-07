@@ -51,10 +51,11 @@ public class LoginController{
 	
 	@RequestMapping("/test")
 	public String test() {
+		auth.setAttributeInSession("author", "liyu", WebUtil.getServletRequest());
 		return "ok";
 	}
 	@RequestMapping("/webs/test")
 	public String test_() {
-		return "ok";
+		return auth.getAttributeInSession("author", WebUtil.getServletRequest());
 	}
 }

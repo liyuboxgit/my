@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface Auth {
-	void authFaild(HttpServletResponse response);
+	void authFaild(HttpServletRequest request, HttpServletResponse response);
 	boolean sessionCheck(HttpServletRequest request);
 	boolean isStatic(String uri, String ctx);
 	void login(AuthUser authUser);
@@ -12,5 +12,5 @@ public interface Auth {
 	AuthUser getSessionUser(HttpServletRequest request);
 	AnbaoRedisSession getSession(HttpServletRequest request);
 	<T> void setAttributeInSession(String key,T value,HttpServletRequest request);
-	<T> T getAttributeInSession(String key,HttpServletRequest request);
+	<T> T getAttributeInSession(String key, HttpServletRequest request);
 }

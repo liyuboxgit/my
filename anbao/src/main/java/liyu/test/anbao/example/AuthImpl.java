@@ -26,8 +26,8 @@ public class AuthImpl implements Auth{
 	}
 	
 	@Override
-	public void authFaild(HttpServletResponse response) {
-		JsonRet ret = new JsonRet("");
+	public void authFaild(HttpServletRequest request, HttpServletResponse response) {
+		JsonRet ret = new JsonRet(request.getAttribute(AuthInterceptor.ckey));
 		ret.setSuccess(false);
 		ret.setMsg("auth faild.");
 		WebUtil.write(response, JSON.toJSONString(ret));
@@ -66,6 +66,15 @@ public class AuthImpl implements Auth{
 		
 		HttpServletResponse response = WebUtil.getServletResponse();
 		new RedisCache<String,AnbaoRedisSession>(jpm).put(uuid, instence, Integer.parseInt(ApplicationPropertes.instance().getSession_seconds()));
+		
+		if(Boolean.parseBoolean(ApplicationPropertes.instance().getOnly_one_user_login())) {
+			String old = new RedisCache<String,String>(jpm).get(user.getUsername());
+			if(StringUtil.isNotBlank(old)) {
+				new RedisCache<String,AnbaoRedisSession>(jpm).remove(old);
+			}
+			
+			new RedisCache<String,String>(jpm).put(user.getUsername(), uuid, Integer.parseInt(ApplicationPropertes.instance().getSession_seconds()));
+		}
 		
 		Cookie cookie = new Cookie(AuthInterceptor.ckey,uuid);
 		cookie.setPath("/");

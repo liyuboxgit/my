@@ -49,9 +49,14 @@ public class DemoTest {
 		});
 		inputStream.close();
 		
+		URL uri2 = new URL("http://localhost:8080/anbao/webs/test?ckey="+resultData.getCkey());
 		
-		
-
-		
+		URLConnection connection2 = uri2.openConnection();
+		InputStream inputStream2 = connection2.getInputStream();
+		List<String> list2 = IOUtils.readLines(inputStream2, Charset.forName("UTF-8"));
+		list2.forEach(el ->{
+			System.out.println(el);
+		});
+		inputStream2.close();	
 	}
 }
