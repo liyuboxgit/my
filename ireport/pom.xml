@@ -30,7 +30,11 @@
 			<artifactId>itext</artifactId>
 			<version>2.1.7</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+	  		<artifactId>ooxml-schemas</artifactId>
+	  		<version>1.1</version>
+		</dependency>
 		
 		<!-- mvn install:install-file -Dfile=liyu\rthd\work\my\ireport\src\main\webapp\WEB-INF\lib\iTextAsian.jar 
 			-DgroupId=liyu.test -DartifactId=iTextAsian -Dversion=0.0.1 -Dpackaging=jar -->

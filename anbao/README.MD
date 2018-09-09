@@ -1,0 +1,2 @@
+权限管理系统，类似于shrio，依赖于jedis的api
+见example

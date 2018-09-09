@@ -167,6 +167,9 @@ mysql：
 	重启，确保mysql connection版本高于5.1.13
 
 	SHOW VARIABLES WHERE Variable_name LIKE ‘version%’;
+	show variables like 'character%' 
+	show variables like 'collation%' 
+
 	character_set_client    utf8mb4
 	character_set_connection    utf8mb4
 	character_set_database    utf8mb4
@@ -184,6 +187,74 @@ mysql：
 	alter table t_yown_user modify `NICKNAME` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '昵称';
 	重启mysql
 
+	主从复制
+	配置Master主服务器：
+	mysql>create user repl; //创建新用户
+	mysql>GRANT REPLICATION SLAVE ON *.* TO 'repl'@'192.168.126.%' IDENTIFIED BY 'mysql';
+	在my.cnf中[mysqld]下面增加下面几行代码：
+	server-id=1   
+	log-bin=master-bin
+	log-bin-index=master-bin.index
+	mysql> SHOW MASTER STATUS;
+	+-------------------+----------+--------------+------------------+
+	| File | Position | Binlog_Do_DB | Binlog_Ignore_DB |
+	+-------------------+----------+--------------+------------------+
+	| master-bin.000001 | 1285 | | |
+	+-------------------+----------+--------------+------------------+
+	重启mysql主服务器
+	配置slave从服务器
+	在my.cnf中[mysqld]下面增加下面几行代码：
+	server-id=2
+	relay-log-index=slave-relay-bin.index
+	relay-log=slave-relay-bin 
+	重启MySQL服务
+	登录从mysql，连接Master：
+	change master to master_host='192.168.126.128',
+	master_port=3306,
+	master_user='repl',
+	master_password='mysql', 
+	master_log_file='master-bin.000001',
+	master_log_pos=0;
+	启动Slave
+	start slave;
+	
+	配置mysql-proxy
+	tar -xf mysql-proxy-0.8.4-linux-glibc2.3-x86-64bit.tar.gz 
+	mv mysql-proxy-0.8.4-linux-glibc2.3-x86-64bit/ mysql-proxy-0.8.4 
+	cd mysql-proxy-0.8.4/
+	mkdir lua
+	mkdir logs
+	cp share/doc/mysql-proxy/rw-splitting.lua ./lua
+	cp share/doc/mysql-proxy/admin-sql.lua ./lua
+	vi /etc/mysql-proxy.cnf
+	[mysql-proxy]
+	user=root
+	admin-username=proxy
+	admin-password=123456
+	proxy-address=192.168.126.128:4040
+	proxy-read-only-backend-addresses=192.168.126.129
+	proxy-backend-addresses=192.168.126.128
+	proxy-lua-script=/usr/local/mysql-proxy-0.8.4/lua/rw-splitting.lua
+	admin-lua-script=/usr/local/mysql-proxy-0.8.4/lua/admin-sql.lua
+	log-file=/usr/local/mysql-proxy-0.8.4/logs/mysql-proxy.log
+	log-level=info
+	daemon=true
+	keepalive=true
+	保存mysql-proxy.cnf
+	chmod 660 /etc/mysql-porxy.cnf
+	vim /usr/local/mysql-proxy-0.8.4/lua/rw-splitting.lua
+	if not proxy.global.config.rwsplit then
+        proxy.global.config.rwsplit = {
+        min_idle_connections = 1,
+        max_idle_connections = 1,
+        is_debug = false
+	}
+	end
+	保存rw-splitting.lua
+	启动
+	./bin/mysql-proxy --defaults-file=/etc/mysql-proxy.cnf
+	连接
+	/usr/local/mysql/bin/mysql -uproxy -P4040 -p
 java：RSA加减密
 	package smart;
 
@@ -412,6 +483,44 @@ java：RSA加减密
 	
 	//如果前端非request payload传递，param是hashmap<string,object>
 	ResultData resultData = restTemplate().postForObject(req, param, ResultData.class);
+	
+	//springboot编程是事务控制：方式一
+	@Autowired private TransactionTemplate transactionTemplate;
+	public JsonRet m() {
+		Exception ret = transactionTemplate.execute(new TransactionCallback<Exception>() {
+		    public Exception doInTransaction(TransactionStatus status) {
+		    	Exception result = null;
+		        try {
+		        	
+		        } catch (Exception ex) {
+		            status.setRollbackOnly();
+		            result = ex;
+		        }
+		        return result;
+		    }
+		});
+		
+		return WebUtil.success();
+	}
+	//方式二
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	private PlatformTransactionManager ptm;
+
+	DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+	def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+	TransactionStatus status = ptm.getTransaction(def);
+	try{
+		
+			
+	} catch (Exception e) {
+		ptm.rollback(status);
+		e.printStackTrace();
+	}
+	ptm.commit(status);
+
 oracle分区;
 	--建立测试表分区
 	CREATE TABLE FPFX_T_QYGX_TEST (
@@ -679,6 +788,84 @@ linux
 	crontab -l
 	crontab -r
 	rm crontest.cron
+	
+	修改主机名称
+	hostnamectl set-hostname xxx 
+	reboot	
+	
+	脚本Shell
+	#!/bin/bash
+	# ------------------------------------------------------------------hello world
+	hello=HelloWorld
+	echo "$hello ${#hello} !"
+	echo ${hello:5}
+	echo `expr index "$hello" o`
+	# ------------------------------------------------------------------拼接字符串、专义
+	echo "the PATH is: \""$PATH"\""
+	# 遍历文件
+	for file in $(ls ../)
+	do 
+		echo $file 
+	done
+	# ------------------------------------------------------------------定义数组、获取数组长度、遍历数组和while遍历数组
+	arr=("a" "b" "c" "d" "e" "f")
+	echo ${arr[2]}
+	echo "arr length："${#arr[*]}
+	for loop in ${arr[@]};do 
+		echo $loop 
+	done
+
+	i=0
+	while [[ i -lt ${#arr[@]} ]]; do
+		echo ${arr[i]}
+		let i++
+	done
+	# ------------------------------------------------------------------shell传递参数
+	echo "shell script name：$0";
+	echo "first param：$1";
+	echo "second param：$2";
+	echo "third param：$3";
+	echo "param count: $#";
+	echo "param in one string: $*"
+	# ------------------------------------------------------------------运算符及条件判断
+	echo `expr 2 + 2`
+	echo `expr 2 - 1`
+	echo `expr 2 \* 3`
+	echo `expr 6 / 2`
+	if [ 1==1 ]
+	then
+		echo '1=1'
+	fi
+	if [ 1 -lt 2 ]
+	then
+		echo '1 low then 1'
+	fi
+	if [[ 1==1 && 1 -lt 2 ]]
+	then
+		echo '1=1 1<2'
+	fi
+	if [ -e ./a.sh ]
+	then
+		echo 'file a.sh exist'
+	fi
+	# -----------------------------------------------------------------执行命令
+	echo `date`
+elasticsearch
+	基础教程
+	https://www.elastic.co/guide/cn/elasticsearch/guide/current/getting-started.html
+	对下面这个curl命令的理解：添加索引blogs，3个分片（就是把数据分成3部分），1个副本（就是为每个分片设置一个副本）
+	PUT /blogs
+	{
+		"settings" : {
+			"number_of_shards" : 3,
+			"number_of_replicas" : 1
+		}
+	}
+	改变索引blogs的副本数量
+	PUT /blogs/_settings
+	{
+		"number_of_replicas" : 2
+	}
 	
 
 
