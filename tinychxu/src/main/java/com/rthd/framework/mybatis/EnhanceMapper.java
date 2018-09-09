@@ -23,6 +23,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.rthd.tinychxu.util.MapUtil;
+import com.rthd.tinychxu.util.MapUtil.StringMap;
+
 @Service
 public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationContextAware {
 
@@ -91,7 +94,7 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 	
 	public <T> List<T> jdbcFindSingelColumn(String sql, Object[] args, Class<T> columnType, boolean checkOne){
 		List<T> list = this.jt.queryForList(sql, args, columnType);
-		Assert.isTrue(list.size()<=1, "reture too many results!");
+		Assert.isTrue(list.size()<=1, "too many results!");
 		return list;
 	}
 	
@@ -99,14 +102,15 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 		return this.jdbcFindSingelColumn(sql, null, columnType, checkOne);
 	}
 	
-	public List<Map<String,Object>> jdbcFindListMap(String sql, Object[] args){
-		return this.jt.queryForList(sql, args);
+	public List<StringMap> jdbcFindListMap(String sql, Object[] args){
+		List<Map<String, Object>> list = this.jt.queryForList(sql, args);
+		return MapUtil.convert(list);
 	}
 	
 	public <T> int exccute(Class<T> type, String method, Object parameter) {
-		if (parameter instanceof UpdateColumnWapper[]) {
+		if (parameter instanceof UC[]) {
 			int i = 0;
-			for (UpdateColumnWapper el : (UpdateColumnWapper[]) parameter) {
+			for (UC el : (UC[]) parameter) {
 				i += this.getSqlSession().update(_all(method, type), el);
 			}
 			return i;
@@ -144,19 +148,19 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 		}
 	}
 
-	public static class UpdateColumnWapper {
+	public static class UC {
 		private String tableName;
 		private String columnName;
 		private Object value;
-		private Object primaryKey;
-		private Object version;
+		private Integer primaryKey;
+		private Integer version;
 
-		public UpdateColumnWapper(String tableName, String columnName, Object value, Object version, Object primaryKey) {
+		public UC(String tableName, String columnName, Object value, Integer primaryKey, Integer version) {
 			this.tableName = tableName;
 			this.columnName = columnName;
+			this.value = value;
 			this.primaryKey = primaryKey;
 			this.version = version;
-			this.value = value;
 		}
 
 		public String getTableName() {

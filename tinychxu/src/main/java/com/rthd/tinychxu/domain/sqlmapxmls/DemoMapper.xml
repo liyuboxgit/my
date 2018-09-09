@@ -47,7 +47,7 @@
         delete from demo where id=#{id} and version=#{version}
     </delete>
     <select id="findone" resultMap="BaseResultMap">
-        select <include refid="cols"/> from demo where id=#{id} and version=#{version}
+        select <include refid="cols"/> from demo where id=#{id}
     </select>
     <select id="findlist" resultMap="BaseResultMap">
         select <include refid="cols"/> from demo <include refid="whereSql"/> <include refid="pageSql"/>
