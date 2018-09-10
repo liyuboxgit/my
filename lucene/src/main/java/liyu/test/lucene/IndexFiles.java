@@ -27,31 +27,16 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-
+/**
+ * 
+ * @Description 此类描述的是：创建索引，配置docsPath和indexesPath
+ * @author: you@rthdtax.com
+ * @version: 2018年9月10日 上午11:07:14
+ */
 public class IndexFiles {
-	public static void main(String[] args) {
-		String usage = "java org.apache.lucene.demo.IndexFiles [-index INDEX_PATH] [-docs DOCS_PATH] [-update]\n\nThis indexes the documents in DOCS_PATH, creating a Lucene indexin INDEX_PATH that can be searched with SearchFiles";
-
-		String indexPath = "index";
-		String docsPath = null;
-		boolean create = true;
-		for (int i = 0; i < args.length; i++) {
-			if ("-index".equals(args[i])) {
-				indexPath = args[(i + 1)];
-				i++;
-			} else if ("-docs".equals(args[i])) {
-				docsPath = args[(i + 1)];
-				i++;
-			} else if ("-update".equals(args[i])) {
-				create = false;
-			}
-		}
-
-		if (docsPath == null) {
-			System.err.println("Usage: " + usage);
-			System.exit(1);
-		}
-
+	private static String docsPath = "c:\\root\\docs";
+	private static String indexesPath = "c:\\root\\indexes";
+	public static void main(String[] args) {	
 		Path docDir = Paths.get(docsPath, new String[0]);
 		if (!Files.isReadable(docDir)) {
 			System.out.println("Document directory '" + docDir.toAbsolutePath()
@@ -61,18 +46,14 @@ public class IndexFiles {
 
 		Date start = new Date();
 		try {
-			System.out.println("Indexing to directory '" + indexPath + "'...");
+			System.out.println("Indexing to directory '" + indexesPath + "'...");
 
-			Directory dir = FSDirectory.open(Paths.get(indexPath, new String[0]));
+			Directory dir = FSDirectory.open(Paths.get(indexesPath, new String[0]));
 			Analyzer analyzer = new StandardAnalyzer();
 			IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
 
-			if (create) {
-
-				iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
-			} else {
-				iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
-			}
+			iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+			//iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
 
 			IndexWriter writer = new IndexWriter(dir, iwc);
 			indexDocs(writer, docDir);
@@ -82,7 +63,7 @@ public class IndexFiles {
 			Date end = new Date();
 			System.out.println(end.getTime() - start.getTime() + " total milliseconds");
 		} catch (IOException e) {
-			System.out.println(" caught a " + e.getClass() + "\n with message: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -93,6 +74,7 @@ public class IndexFiles {
 					try {
 						IndexFiles.indexDoc(writer, file, attrs.lastModifiedTime().toMillis());
 					} catch (IOException localIOException) {
+						localIOException.printStackTrace();
 					}
 
 					return FileVisitResult.CONTINUE;
@@ -126,10 +108,8 @@ public class IndexFiles {
 				writer.updateDocument(new Term("path", file.toString()), doc);
 			}
 		} catch (Throwable localThrowable1) {
-			
-
+			localThrowable1.printStackTrace();
 		} finally {
-
 			if (stream != null)
 				if (localThrowable3 != null)
 					try {

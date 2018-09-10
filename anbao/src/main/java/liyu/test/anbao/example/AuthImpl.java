@@ -6,6 +6,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.util.Assert;
+
 import com.alibaba.fastjson.JSON;
 
 import liyu.test.anbao.core.AnbaoRedisSession;
@@ -21,7 +23,9 @@ import liyu.test.anbao.core.util.WebUtil;
 
 public class AuthImpl implements Auth{
 	private JedisPoolManager jpm;
-	public void setJpm(JedisPoolManager jpm) {
+		
+	public AuthImpl(JedisPoolManager jpm) {
+		Assert.isNull(jpm, "jedisPoolMananger can be null.");
 		this.jpm = jpm;
 	}
 	
@@ -134,6 +138,18 @@ public class AuthImpl implements Auth{
 			return (T)session.getAttribute(key);
 		}
 		return null;
+	}
+
+	@Override
+	public <T> void setAttributeInRedis(String key, T value, int exptSecond) {
+		RedisCache<String,T> redisCache = new RedisCache<String,T>(jpm);
+		redisCache.put(key, value, exptSecond);
+	}
+
+	@Override
+	public <T> T getAttributeInRedis(String key) {
+		RedisCache<String,T> redisCache = new RedisCache<String,T>(jpm);
+		return redisCache.get(key);
 	}
 	
 }

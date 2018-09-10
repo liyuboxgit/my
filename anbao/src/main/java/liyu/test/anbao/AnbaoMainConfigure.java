@@ -23,9 +23,7 @@ public class AnbaoMainConfigure extends SpringBootServletInitializer{
 	
 	@Bean
 	public AuthImpl authImpl() {
-		AuthImpl authImpl = new AuthImpl();
-		authImpl.setJpm(jedisPoolManager());
-		return authImpl;
+		return new AuthImpl(jedisPoolManager());
 	}
 	
 	@Override

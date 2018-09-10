@@ -21,5 +21,4 @@ public class StringMap extends HashMap<String,Object>{
 	public StringMap(String keys, Object values) {
 		this.put(keys, values);
 	}
-
 }

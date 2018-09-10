@@ -13,4 +13,6 @@ public interface Auth {
 	AnbaoRedisSession getSession(HttpServletRequest request);
 	<T> void setAttributeInSession(String key,T value,HttpServletRequest request);
 	<T> T getAttributeInSession(String key, HttpServletRequest request);
+	<T> void setAttributeInRedis(String key,T value,int exptSecond);
+	<T> T getAttributeInRedis(String key);
 }

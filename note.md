@@ -733,6 +733,9 @@ solr
              将solr scp到各台机器并修改solr.in.sh
 	1.3:启动solrCloud：/usr/local/solr-6.6.0/bin/solr start -cloud -z master:2181,slave1:2181,slave2:2181 -p 8993 -force
 	    访问地址是ip:8993/solr/index.html
+	1.4:创建core和分片
+	1.5:将配置文件上传zk：
+		./server/scripts/cloud-scripts/zkcli.sh -zkhost 127.0.0.1:9983 -cmd upconfig -confname my_new_config -confdir server/solr/configsets/basic_configs/con
 		
 	2solr mysql数据同步单机版
 	2.1创建core：$slor_home/bin/solr create_core -c user
@@ -780,6 +783,18 @@ solr
 	3.3创建collection
 	/usr/local/solr-6.6.0/bin/solr create_collection -c user -d data_driven_schema_configs -n data_driven_schema_configs -shards 3 -replicationFactor 3 -force
 
+	solr 7.4创建core 定义schema http上传数据
+	./bin/solr create_core -c name -force
+	页面上core/document 定义schama
+	上传数据：(使用java，spring之restTemplate)
+	String url = "http://192.168.126.128:8983/solr/liyu/update?_=1536563699949&commitWithin=1000&overwrite=true&wt=json";
+	StringMap map = new StringMap(new String[] {"id","visit","comp"},new Object[] {"1","130","test"});
+	Object[] param = new Object[] {map};
+	HttpHeaders headers = new HttpHeaders();
+	headers.setContentType(MediaType.valueOf("application/json;UTF-8"));
+	HttpEntity<String> strEntity = new HttpEntity<String>(JSON.toJSONString(param),headers);
+	String resultData = restTemplate().postForObject(url,strEntity,String.class);
+	System.out.println(resultData);
 linux
 	定时任务：(echo 'good morning'，console会没有输出，可以重定向到文件且不需要创建文件)
 	service crond start （service crond start）
