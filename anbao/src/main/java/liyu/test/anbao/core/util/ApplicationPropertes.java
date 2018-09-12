@@ -25,10 +25,10 @@ public class ApplicationPropertes {
 			instance = new ApplicationPropertes();
 			instance.login_url = conf.getProperty("login_url");
 			instance.anon = conf.getProperty("anon");
-			instance.session_seconds = conf.getProperty("session_seconds");
+			instance.session_seconds = conf.getProperty("session_seconds","1800");
 			instance.redis_ip = conf.getProperty("redis_ip");
 			instance.redis_port = conf.getProperty("redis_port");
-			instance.only_one_user_login = conf.getProperty("only_one_user_login");
+			instance.only_one_user_login = conf.getProperty("only_one_user_login","true");
 		} catch (Exception ex) {
 			logger.error(ApplicationPropertes.class.getName(), ex);
 		}

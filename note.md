@@ -795,6 +795,13 @@ solr
 	HttpEntity<String> strEntity = new HttpEntity<String>(JSON.toJSONString(param),headers);
 	String resultData = restTemplate().postForObject(url,strEntity,String.class);
 	System.out.println(resultData);
+	IK中文分词
+	在managed-schema中添加：
+    <fieldType name="text_cn_ik" class="solr.TextField">
+        <analyzer type="index" useSmart="false" class="org.wltea.analyzer.lucene.IKAnalyzer"/>
+        <analyzer type="query" useSmart="true" class="org.wltea.analyzer.lucene.IKAnalyzer"/>
+    </fieldType>
+	在solr server lib中加入jar包 https://github.com/liyuboxgit/my
 linux
 	定时任务：(echo 'good morning'，console会没有输出，可以重定向到文件且不需要创建文件)
 	service crond start （service crond start）
