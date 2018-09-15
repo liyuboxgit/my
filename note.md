@@ -795,6 +795,55 @@ solr
 	HttpEntity<String> strEntity = new HttpEntity<String>(JSON.toJSONString(param),headers);
 	String resultData = restTemplate().postForObject(url,strEntity,String.class);
 	System.out.println(resultData);
+	查询文档：
+	String resultData = restTemplate().postForObject("http://192.168.126.128:8983/solr/liyu/select?hl=on&hl.fl=desc&q=desc:第一个数",strEntity,String.class);
+	返回{
+		"responseHeader":{
+			"status":0,
+			"QTime":2,
+			"params":{
+				"q":"desc:第一个数",
+				"hl":"on",
+				"json":"{}",
+				"hl.fl":"desc"}},
+			"response":{"numFound":3,"start":0,"docs":[
+			{
+				"id":"1",
+				"id_i":1,
+				"desc":"第一个数",
+				"_version_":1611478501195513856},
+			{
+				"id":"2",
+				"id_i":1,
+				"desc":"第二个数",
+				"_version_":1611478511193686016},
+			{
+				"id":"3",
+				"id_i":1,
+				"desc":"第三个数",
+				"_version_":1611478520807030784}]
+			},
+		"highlighting":{
+		"1":{
+		  "desc":["<em>第一个数</em>"]},
+		"2":{
+		  "desc":["第二<em>个数</em>"]},
+		"3":{
+		  "desc":["第三<em>个数</em>"]}}}
+	删除文档：
+	1)建立xml文件，内容：
+	<delete>   
+		<id>1</id>   
+		<id>2</id> 
+	</delete>
+	use commond:./post -c liyu del.xml
+	IK中文分词
+	在managed-schema中添加：
+    <fieldType name="text_cn_ik" class="solr.TextField">
+        <analyzer type="index" useSmart="false" class="org.wltea.analyzer.lucene.IKAnalyzer"/>
+        <analyzer type="query" useSmart="true" class="org.wltea.analyzer.lucene.IKAnalyzer"/>
+    </fieldType>
+	在solr server lib中加入jar包 https://github.com/liyuboxgit/my
 linux
 	定时任务：(echo 'good morning'，console会没有输出，可以重定向到文件且不需要创建文件)
 	service crond start （service crond start）
