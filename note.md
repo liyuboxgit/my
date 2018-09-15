@@ -733,7 +733,7 @@ solr
              将solr scp到各台机器并修改solr.in.sh
 	1.3:启动solrCloud：/usr/local/solr-6.6.0/bin/solr start -cloud -z master:2181,slave1:2181,slave2:2181 -p 8993 -force
 	    访问地址是ip:8993/solr/index.html
-	1.4:创建core和分片
+	1.4:创建core和分片：/bin/solr(根据命令提示help)
 	1.5:将配置文件上传zk：
 		./server/scripts/cloud-scripts/zkcli.sh -zkhost 127.0.0.1:9983 -cmd upconfig -confname my_new_config -confdir server/solr/configsets/basic_configs/con
 		
