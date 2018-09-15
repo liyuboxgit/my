@@ -844,6 +844,10 @@ solr
         <analyzer type="query" useSmart="true" class="org.wltea.analyzer.lucene.IKAnalyzer"/>
     </fieldType>
 	在solr server lib中加入jar包 https://github.com/liyuboxgit/my
+	将managed-schema文件同步到zk
+	./scripts/cloud-scripts/zkcli.sh -zkhost master:2181,slave1:2182,slave2:2181 -cmd putfile /configs/basic_configs/managed-schema  solr/configsets/basic_configs/conf/managed-schema
+	如果没有效果，执行下面
+	./scripts/cloud-scripts/zkcli.sh -zkhost master:2181,slave1:2182,slave2:2181 -cmd putfile /configs/uvpv(collection_name)/managed-schema  solr/configsets/basic_configs/conf/managed-schema
 linux
 	定时任务：(echo 'good morning'，console会没有输出，可以重定向到文件且不需要创建文件)
 	service crond start （service crond start）
