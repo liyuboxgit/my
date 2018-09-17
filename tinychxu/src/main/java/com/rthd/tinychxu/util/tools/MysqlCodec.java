@@ -159,7 +159,7 @@ public class MysqlCodec {
 			//mapperXml.append("\n    <delete id=\"delete\">\n        delete from " + Path.DB_TABLE.value + " where " + id + "=#{" + javaNaming(id) + "}\n    </delete>");
 			mapperXml.append("\n    <delete id=\"delete\">\n        delete from " + Path.DB_TABLE.value + " where " + id + "=#{" + javaNaming(id) + "} and version=#{version}\n    </delete>");
 			//mapperXml.append("\n    <delete id=\"deleteBatch\" parameterType=\"java.util.List\">\n        <foreach collection=\"list\" item=\"item\" index=\"index\" open=\"begin\" close=\";end;\" separator=\";\">\n            delete from " + Path.DB_TABLE.value + " where " + id + "=#{item." + javaNaming(id) + "}\n        </foreach>\n    </delete>");
-			mapperXml.append("\n    <select id=\"findone\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from " + Path.DB_TABLE.value + " where " + id + "=#{" + javaNaming(id) + "} and version=#{version}\n    </select>");
+			mapperXml.append("\n    <select id=\"findone\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from " + Path.DB_TABLE.value + " where " + id + "=#{" + javaNaming(id) + "} \n    </select>");
 			mapperXml.append("\n    <select id=\"findlist\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from " + Path.DB_TABLE.value + " <include refid=\"whereSql\"/> <include refid=\"pageSql\"/>\n    </select>");
 			mapperXml.append("\n    <select id=\"findcount\" resultType=\"java.lang.Long\">\n        select count(1) from " + Path.DB_TABLE.value + " <include refid=\"whereSql\"/>\n    </select>");
 			mapperXml.append("\n</mapper>");

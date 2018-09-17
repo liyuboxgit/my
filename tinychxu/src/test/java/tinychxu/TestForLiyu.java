@@ -10,10 +10,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.rthd.framework.mybatis.EnhanceMapper;
 import com.rthd.framework.mybatis.EnhanceMapper.UC;
 import com.rthd.tinychxu.MainConfigure;
 import com.rthd.tinychxu.domain.Demo;
+import com.rthd.tinychxu.domain.param.DemoParam;
 import com.rthd.tinychxu.mapper.BaseMapper;
 import com.rthd.tinychxu.util.BeanUtil;
 import com.rthd.tinychxu.util.MapUtil.StringMap;
@@ -64,12 +66,12 @@ public class TestForLiyu {
 		/*List<String> list = bm.jdbcFindSingelColumn("select name from demo where id=1", String.class, false);
 		System.out.println(list.get(0));*/
 		
-		List<StringMap> list = bm.jdbcFindListMap("select * from demo", new Object[0]);
+		/*List<StringMap> list = bm.jdbcFindListMap("select * from demo", new Object[0]);
 		try {
 			System.out.println(JSON.toJSONString(list));
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		/*Demo demo = bm.findOne(EnhanceMapper.findone, 1, Demo.class);
 		System.out.println(demo.getAge());
@@ -106,7 +108,7 @@ public class TestForLiyu {
 			
 		System.out.println(ret);*/
 		
-		TransactionUtil tc = new TransactionUtil() {
+		/*TransactionUtil tc = new TransactionUtil() {
 			public void accept(Object t) {
 				Demo demo = bm.findOne(EnhanceMapper.findone, 1, Demo.class);
 				System.out.println(demo.getAge());
@@ -121,7 +123,6 @@ public class TestForLiyu {
 		};
 		
 		Exception exception = TransactionUtil.doInOneTransaction(transactionTemplate, tc);
-		System.out.println(exception);
-		
+		System.out.println(exception);*/
 	}
 }

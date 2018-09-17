@@ -17,14 +17,13 @@ public class BaseEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@JSONField(serialize=false)  
+	@GeneratedValue(strategy=GenerationType.IDENTITY)  
 	private Integer id;
-	@JSONField(serialize=false)  
+	@JSONField(serialize=true)  
 	private Date create_time;
-	@JSONField(serialize=false)  
+	@JSONField(serialize=true)  
 	private Date update_time;
-	@JSONField(serialize=false)  
+	@JSONField(serialize=true)  
 	private Integer version;
 	
 	public Integer getId() {

@@ -520,7 +520,11 @@ java：RSA加减密
 		e.printStackTrace();
 	}
 	ptm.commit(status);
-
+	FASTJSON:
+	@JSONField(serialize=true)  
+	private Integer version;
+	JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	JSON.toJSONString(demo,SerializerFeature.WriteDateUseDateFormat,SerializerFeature.WriteMapNullValue);
 oracle分区;
 	--建立测试表分区
 	CREATE TABLE FPFX_T_QYGX_TEST (
