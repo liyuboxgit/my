@@ -12,7 +12,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 import com.rthd.framework.util.Conf;
-import com.rthd.tinychxu.domain.Demo;
+import com.rthd.tinychxu.domain.entity.Demo;
 
 public class HibernateCreateTable {
 	

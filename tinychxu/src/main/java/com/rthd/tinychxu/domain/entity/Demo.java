@@ -1,4 +1,4 @@
-package com.rthd.tinychxu.domain;
+package com.rthd.tinychxu.domain.entity;
 
 import java.math.BigDecimal;
 

@@ -85,9 +85,4 @@ public class DruidConfiguration {
         datasource.setConnectionProperties(connectionProperties);  
         return datasource;  
     } 
-    
-    @Bean   
-    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-    	return new JdbcTemplate(dataSource);
-    }
 }  
