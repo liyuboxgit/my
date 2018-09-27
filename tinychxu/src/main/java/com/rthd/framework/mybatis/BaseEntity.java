@@ -8,8 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 @MappedSuperclass  
 public class BaseEntity implements Serializable {
 	/**
@@ -19,11 +17,11 @@ public class BaseEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)  
 	private Integer id;
-	@JSONField(serialize=true)  
+	
 	private Date create_time;
-	@JSONField(serialize=true)  
+	
 	private Date update_time;
-	@JSONField(serialize=true)  
+	
 	private Integer version;
 	
 	public Integer getId() {

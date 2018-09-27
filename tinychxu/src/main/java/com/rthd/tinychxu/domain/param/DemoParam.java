@@ -1,5 +1,7 @@
 package com.rthd.tinychxu.domain.param;
 
+import java.math.BigDecimal;
+
 import com.rthd.framework.mybatis.BaseParam;
 
 public class DemoParam extends BaseParam{
@@ -7,6 +9,7 @@ public class DemoParam extends BaseParam{
 	
 	private String name;
 	private Integer age;
+	private BigDecimal money;
 
 	public String getName() {
 		return name;
@@ -22,5 +25,13 @@ public class DemoParam extends BaseParam{
 
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	public BigDecimal getMoney() {
+		return money;
+	}
+
+	public void setMoney(BigDecimal money) {
+		this.money = money;
 	}
 }

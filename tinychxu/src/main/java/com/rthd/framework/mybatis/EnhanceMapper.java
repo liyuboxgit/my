@@ -199,7 +199,7 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 			this.pageSize = pageSize;
 			this.totalCount = totalCount;
 			this.elements = elements;
-			this.totalPage = totalCount % pageSize == 0 ? totalCount / pageSize : totalCount / pageSize + 1;
+			this.totalPage = totalCount / pageSize == 0 ? totalCount / pageSize : totalCount / pageSize + 1;
 			
 		}
 

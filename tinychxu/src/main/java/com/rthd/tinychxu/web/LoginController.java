@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rthd.framework.base.BaseController;
 import com.rthd.framework.util.JsonRet;
 import com.rthd.framework.util.WebUtil;
-import com.rthd.framework.web.BaseController;
 
 @RestController
 public class LoginController extends BaseController{

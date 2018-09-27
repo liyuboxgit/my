@@ -1,19 +1,14 @@
 package com.rthd.tinychxu.web;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rthd.framework.base.BaseController;
 import com.rthd.framework.config.shiro.JedisPoolManager;
-import com.rthd.framework.mybatis.EnhanceMapper;
 import com.rthd.framework.util.JsonRet;
 import com.rthd.framework.util.WebUtil;
-import com.rthd.framework.web.BaseController;
-import com.rthd.tinychxu.domain.Demo;
-import com.rthd.tinychxu.domain.param.DemoParam;
 
 @RestController
 @RequestMapping("/webs")
@@ -32,10 +27,5 @@ public class WatchedWebserviceController extends BaseController{
 		jedisPoolManager.clearCache();
 		return WebUtil.success();
 	}
-	
-	@RequestMapping("/demo")
-	public JsonRet demo(DemoParam parameter) {		
-		List<Demo> list = em().findList(EnhanceMapper.findlist, parameter, Demo.class);
-		return WebUtil.setResult(list);
-	}
+
 }

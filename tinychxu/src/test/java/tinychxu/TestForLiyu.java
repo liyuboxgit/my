@@ -1,7 +1,5 @@
 package tinychxu;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +7,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.rthd.framework.config.shiro.JedisPoolManager;
+import com.rthd.framework.config.shiro.RedisCache;
 import com.rthd.framework.mybatis.EnhanceMapper;
 import com.rthd.framework.mybatis.EnhanceMapper.UC;
 import com.rthd.tinychxu.MainConfigure;
-import com.rthd.tinychxu.domain.Demo;
-import com.rthd.tinychxu.domain.param.DemoParam;
+import com.rthd.tinychxu.domain.entity.Demo;
 import com.rthd.tinychxu.mapper.BaseMapper;
+import com.rthd.tinychxu.service.DemoService;
 import com.rthd.tinychxu.util.BeanUtil;
-import com.rthd.tinychxu.util.MapUtil.StringMap;
-import com.rthd.tinychxu.util.TransactionUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes=MainConfigure.class)
@@ -27,6 +23,7 @@ public class TestForLiyu {
 	@Autowired
 	private BaseMapper bm;
 	@Autowired private TransactionTemplate transactionTemplate;
+	@Autowired private DemoService demoService;
 	@Test
 	public void test() {
 		/*Demo demo = new Demo();
@@ -76,7 +73,8 @@ public class TestForLiyu {
 		/*Demo demo = bm.findOne(EnhanceMapper.findone, 1, Demo.class);
 		System.out.println(demo.getAge());
 		try {
-			UC uc = BeanUtil.ucGenerate("demo", "age", 9, demo);
+			demo.setAge(10);
+			UC uc = BeanUtil.ucGenerate("demo", "age", demo);
 			bm.exccute(Demo.class, EnhanceMapper.dynamicUpdate, uc);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,5 +122,12 @@ public class TestForLiyu {
 		
 		Exception exception = TransactionUtil.doInOneTransaction(transactionTemplate, tc);
 		System.out.println(exception);*/
+		
+	}
+	
+	public static void main(String[] args) {
+		JedisPoolManager manager = new JedisPoolManager("localhost", "6379");
+		RedisCache<String,String> cache = new RedisCache<String,String>();
+		cache.setJedisPoolManager(manager);
 	}
 }

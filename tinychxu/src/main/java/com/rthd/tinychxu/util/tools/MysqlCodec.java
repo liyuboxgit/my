@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import javax.persistence.Table;
 
 import com.rthd.framework.util.Conf;
-import com.rthd.tinychxu.domain.Demo;
+import com.rthd.tinychxu.domain.entity.Demo;
 
 public class MysqlCodec {
 	private static String DB_SCHEMAs;
