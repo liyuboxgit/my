@@ -25,7 +25,7 @@ public class AuthImpl implements Auth{
 	private JedisPoolManager jpm;
 		
 	public AuthImpl(JedisPoolManager jpm) {
-		Assert.isNull(jpm, "jedisPoolMananger can be null.");
+		Assert.notNull(jpm, "jedisPoolMananger can be null.");
 		this.jpm = jpm;
 	}
 	
