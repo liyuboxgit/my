@@ -939,6 +939,58 @@ elasticsearch
 		"number_of_replicas" : 2
 	}
 	
+	单机
+	useradd es
+	chown -R es:es /usr/local/elasticsearch6.4.1
+	/usr/local/elasticsearch6.4.1/bin/elasticsearch -d
+	curl -XGET "http://localhost:9200/_cat/health?v"
+	集群
+	.添加用户和授权同单机
+	.修改配置文件/usr/local/elasticsearch6.4.1/config/elasticsearch.yml,修改完查看grep '^[a-z]' /usr/local/elk/elasticsearch/config/elasticsearch.yml
+	cluster.name: es6.2
+	node.name: node-1
+	masternode.master: true
+	node.data: true
+	path.data: /usr/local/elk/elasticsearch/data
+	path.logs: /usr/local/elk/elasticsearch/logs
+	swapbootstrap.memory_lock: true
+	network.host: 0.0.0.0
+	http.port: 9200
+	transport.tcp.port: 9300
+	discovery.zen.ping.unicast.hosts: ["192.168.8.101:9300", "192.168.8.103:9300", "192.168.8.104:9300"]
+	discovery.zen.minimum_master_nodes: 2
+	三台机器分别启动，注意看日志
+	vi /etc/security/limits.conf
+	* soft nofile 65536
+	* hard nofile 65536
+	* soft nproc 2048
+	* hard nproc 4096
+
+	es soft memlock unlimited
+	es hard memlock unlimited
+	
+	vi /etc/sysctl.conf 
+	vm.max_map_count=655360
+	fs.file-max=655360
+
+	安装head
+	.安装node 下载node 解压 设置连接到usr/bin
+	node -v 
+	mnp -v
+	npm install -g grunt-cli
+	ln -s /usr/local/node-v9.4.0-linux-x64/bin/grunt /usr/bin/grunt
+	grunt -v
+	wget  https://github.com/mobz/elasticsearch-head/archive/master.zip
+	修改Gruntfile.js 添加hostname
+	启动 grunt server
+	
+	
+	
+	
+	
+
+
+	
 
 
 
