@@ -983,16 +983,13 @@ elasticsearch
 	wget  https://github.com/mobz/elasticsearch-head/archive/master.zip
 	修改Gruntfile.js 添加hostname
 	启动 grunt server
+hadoop_2.7,6
+	启动hadoop集群：/usr/local/hadoop2.7.6/sbin/start-dfs.sh /usr/local/hadoop2.7.6/sbin/start-yarn.sh
+	创建hdfs目录：/usr/local/hadoop2.7.6/bin/hdfs dfs -mkdir input
+	上传文件：/usr/local/hadoop2.7.6/bin/hdfs dfs -put /usr/local/hadoop2.7.6/etc/hadoop/* input
+	运行wordcount之mapreduce程序： /usr/local/hadoop2.7.6/bin/hadoop jar /usr/local/hadoop2.7.6/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.6.jar grep input output 'dfs[a-z.]+'
+	（也可以自己的mapreduce程序：/usr/local/hadoop2.7.6/bin/hadoop jar xx.jar org.apche.hadoop.example.WordCount input output）
+	查看运行结果：/usr/local/hadoop2.7.6/sbin/hdfs dfs -cat output/*
 	
 	
-	
-	
-	
-
-
-	
-
-
-
-
 	
