@@ -33,7 +33,7 @@ public class AuthImpl implements Auth{
 	public void authFaild(HttpServletRequest request, HttpServletResponse response) {
 		JsonRet ret = new JsonRet(request.getAttribute(AuthInterceptor.ckey));
 		ret.setSuccess(false);
-		ret.setMsg("auth faild.");
+		ret.setMsg("auth faild. the original url is "+request.getAttribute("originalUrl"));
 		WebUtil.write(response, JSON.toJSONString(ret));
 	}
 
@@ -45,6 +45,7 @@ public class AuthImpl implements Auth{
 			new RedisCache<String,AnbaoRedisSession>(jpm).reset(session.getUuid(), Integer.parseInt(ApplicationPropertes.instance().getSession_seconds()));
 			return true;
 		}
+		request.setAttribute("originalUrl", request.getRequestURI());
 		return false;
 	}
 
