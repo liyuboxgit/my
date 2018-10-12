@@ -525,6 +525,14 @@ java：RSA加减密
 	private Integer version;
 	JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	JSON.toJSONString(demo,SerializerFeature.WriteDateUseDateFormat,SerializerFeature.WriteMapNullValue);
+
+	阿里云maven库
+ 	<mirror>
+      		<id>alimaven</id>
+      		<name>aliyun maven</name>
+      		<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+      		<mirrorOf>central</mirrorOf>        
+    	</mirror>
 oracle分区;
 	--建立测试表分区
 	CREATE TABLE FPFX_T_QYGX_TEST (
@@ -922,6 +930,10 @@ linux
 	fi
 	# -----------------------------------------------------------------执行命令
 	echo `date`
+	
+	yum groupinstall "X Window System"
+	yum groupinstall "GNOME Desktop" "Graphical Administration Tools"
+	ln -sf /lib/systemd/system/runlevel5.target /etc/systemd/system/default.target 图形桌面启动（runlevel3是命令界面）
 elasticsearch
 	基础教程
 	https://www.elastic.co/guide/cn/elasticsearch/guide/current/getting-started.html
