@@ -41,8 +41,15 @@ public class Archtype {
 		System.out.print("ÇëÊäÈëVERSION£º[0.0.1-SNAPSHOT]"); tmp = sc.nextLine();
 		String VERSION = tmp.length()==0?"0.0.1-SNAPSHOT":tmp; 
 		
-		System.out.println("create "+TYPE+" project:"+"\n"+"===========>"+"\n"+"GROUPID£º"+GROUPID+"\n"+"ARTIFACTID£º"+ARTIFACTID+"\n"+"VERSION£º"+VERSION+"\n"+"<<<<<<<<<<<"); 
+		String SPRING_BOOT_VERSION = "1.5.7.RELEASE";
+		if(TYPE.equals("spring boot")){
+			System.out.print("ÇëÊäÈëSPRING_BOOT°æ±¾,1.5.7 or 2.0.6£º[1.5.7]"); tmp = sc.nextLine();
+			SPRING_BOOT_VERSION = tmp.length()==0?"1.5.7"+".RELEASE":tmp+".RELEASE"; 
 		
+			System.out.println("create "+TYPE+" project:"+"\n"+"===========>"+"\n"+"GROUPID£º"+GROUPID+"\n"+"ARTIFACTID£º"+ARTIFACTID+"\n"+"VERSION£º"+VERSION+"\n"+"generate spring boot project,use springboot version of "+SPRING_BOOT_VERSION+"\n"+"<<<<<<<<<<<"); 
+		}else{
+			System.out.println("create "+TYPE+" project:"+"\n"+"===========>"+"\n"+"GROUPID£º"+GROUPID+"\n"+"ARTIFACTID£º"+ARTIFACTID+"\n"+"VERSION£º"+VERSION+"\n"+"generate spring cloud project\n"+"<<<<<<<<<<<"); 
+		}
   
 		
 		
@@ -75,7 +82,7 @@ public class Archtype {
 					"            <dependency>\n" + 
 					"                <groupId>org.springframework.boot</groupId>\n" + 
 					"                <artifactId>spring-boot-dependencies</artifactId>\n" + 
-					"                <version>1.5.7.RELEASE</version>\n" + 
+					"                <version>"+SPRING_BOOT_VERSION+"</version>\n" + 
 					"                <type>pom</type>\n" + 
 					"                <scope>import</scope>\n" + 
 					"            </dependency>\n" + 
@@ -102,6 +109,10 @@ public class Archtype {
 					"                        <encoding>UTF-8</encoding>\n" + 
 					"                    </configuration>\n" + 
 					"                </plugin>\n" + 
+					"				 <plugin>\n" +
+					"				 	 <groupId>org.springframework.boot</groupId>\n" +
+					"                	 <artifactId>spring-boot-maven-plugin</artifactId>\n" +
+					"                </plugin>\n" +
 					"            </plugins>\n" + 
 					"        </pluginManagement>\n" + 
 					"    </build>\n");
