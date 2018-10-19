@@ -29,33 +29,31 @@ public class Archtype {
 	public static void main(String[] args) throws IOException {
 		Scanner sc = new Scanner(System.in); String tmp = null;
 		
-		System.out.print("ÇëÊäÈëTYPE,spring boot or spring cloud£º[spring boot]"); tmp = sc.nextLine();
+		System.out.print("è¯·è¾“å…¥TYPE,spring boot or spring cloudï¼š[spring boot]"); tmp = sc.nextLine();
 		String TYPE = tmp.length()==0?"spring boot":tmp; 
 
-		System.out.print("ÇëÊäÈëGROUPID£º[liyu.test]");  tmp = sc.nextLine();
+		System.out.print("è¯·è¾“å…¥GROUPIDï¼š[liyu.test]");  tmp = sc.nextLine();
 		String GROUPID = tmp.length()==0?"liyu.test":tmp; 
 		
-		System.out.print("ÇëÊäÈëARTIFACTID£º[spring]"); tmp = sc.nextLine();
+		System.out.print("è¯·è¾“å…¥ARTIFACTIDï¼š[spring]"); tmp = sc.nextLine();
 		String ARTIFACTID = tmp.length()==0?"spring":tmp; 
 		
-		System.out.print("ÇëÊäÈëVERSION£º[0.0.1-SNAPSHOT]"); tmp = sc.nextLine();
+		System.out.print("è¯·è¾“å…¥VERSIONï¼š[0.0.1-SNAPSHOT]"); tmp = sc.nextLine();
 		String VERSION = tmp.length()==0?"0.0.1-SNAPSHOT":tmp; 
 		
 		String SPRING_BOOT_VERSION = "1.5.7.RELEASE";
 		if(TYPE.equals("spring boot")){
-			System.out.print("ÇëÊäÈëSPRING_BOOT°æ±¾,1.5.7 or 2.0.6£º[1.5.7]"); tmp = sc.nextLine();
+			System.out.print("è¯·è¾“å…¥SPRING_BOOTç‰ˆæœ¬,1.5.7 or 2.0.6ï¼š[1.5.7]"); tmp = sc.nextLine();
 			SPRING_BOOT_VERSION = tmp.length()==0?"1.5.7"+".RELEASE":tmp+".RELEASE"; 
 		
-			System.out.println("create "+TYPE+" project:"+"\n"+"===========>"+"\n"+"GROUPID£º"+GROUPID+"\n"+"ARTIFACTID£º"+ARTIFACTID+"\n"+"VERSION£º"+VERSION+"\n"+"generate spring boot project,use springboot version of "+SPRING_BOOT_VERSION+"\n"+"<<<<<<<<<<<"); 
+			System.out.println("create "+TYPE+" project:"+"\n"+"===========>"+"\n"+"GROUPIDï¼š"+GROUPID+"\n"+"ARTIFACTIDï¼š"+ARTIFACTID+"\n"+"VERSIONï¼š"+VERSION+"\n"+"generate spring boot project,use springboot version of "+SPRING_BOOT_VERSION+"\n"+"<<<<<<<<<<<"); 
 		}else{
-			System.out.println("create "+TYPE+" project:"+"\n"+"===========>"+"\n"+"GROUPID£º"+GROUPID+"\n"+"ARTIFACTID£º"+ARTIFACTID+"\n"+"VERSION£º"+VERSION+"\n"+"generate spring cloud project\n"+"<<<<<<<<<<<"); 
+			System.out.println("create "+TYPE+" project:"+"\n"+"===========>"+"\n"+"GROUPIDï¼š"+GROUPID+"\n"+"ARTIFACTIDï¼š"+ARTIFACTID+"\n"+"VERSIONï¼š"+VERSION+"\n"+"generate spring cloud project\n"+"<<<<<<<<<<<"); 
 		}
   
 		
-		
-		//ç”¨æˆ·ç©ºé—´
 		File path = new File(System.getProperty("user.home") + sp + "maven_" + new Date().getTime());
-		//å·¥ä½œç©ºé—´
+		
 		//String classPath = java.lang.Object.class.getClass().getResource("/").getFile();
 		//String src = classPath+"../../../";
 		//File path = new File(src);
