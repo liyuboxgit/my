@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!-- status=debug 可以查看log4j的装配过程 -->  
+<configuration status="off" monitorInterval="1800">
+    <properties>  
+        <property name="LOG_HOME">c:/data</property>
+        <property name="APP_NAME">log4j</property>
+    </properties>  
+    <appenders>  
+        <!-- 定义控制台输出 -->  
+        <Console name="Console" target="SYSTEM_OUT" follow="true">  
+            <PatternLayout pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n" />  
+        </Console>  
+        <!-- 程序员调试日志 -->  
+        <RollingRandomAccessFile name="DevLog" fileName="${LOG_HOME}/${APP_NAME}.log"  
+            filePattern="${LOG_HOME}/${APP_NAME}.%d{yyyy-MM-dd-HH}.log">  
+            <PatternLayout pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n" />  
+            <Policies>  
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />  
+            </Policies>  
+        </RollingRandomAccessFile>  
+    </appenders>  
+    <loggers>   
+        <logger name="org.springframework.core" level="info">
+        </logger>  
+        <logger name="org.springframework.beans" level="info">  
+        </logger>  
+        <logger name="org.springframework.context" level="info">
+        </logger>  
+        <logger name="org.springframework.web" level="info">
+        </logger>
+        <logger name="org.springframework.data" level="info">
+        </logger>
+        <logger name="org.jboss.netty" level="error">  
+        </logger>  
+        <logger name="org.apache.http" level="error">  
+        </logger>  
+	    <logger name="com.alibaba.dubbo" level="error">  
+		     <appender-ref ref="DevLog" />  
+        </logger>
+        <logger name="liyu.test" level="info" additivity="false">
+            <appender-ref ref="DevLog" />   
+        </logger>
+
+        <!-- Root Logger -->  
+        <root level="info">
+            <appender-ref ref="DevLog" />  
+            <appender-ref ref="Console" />  
+        </root>  
+    </loggers>  
+</configuration>
