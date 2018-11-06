@@ -8,7 +8,6 @@
 	<modules>
 		<module>springboot</module>
 		<module>log4j</module>
-		<module>mybatis</module>
 	    <module>ireport</module>
 	    <module>poi</module>
 	    <module>springmvc</module>

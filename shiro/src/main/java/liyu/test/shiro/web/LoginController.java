@@ -56,6 +56,8 @@ public class LoginController {
 	@RequestMapping("/query")
 	@ResponseBody
 	public AjaxResult query(){
+		if(true)
+			throw new RuntimeException("just for test.");
 		return AjaxResult.success();
 	}
 	
