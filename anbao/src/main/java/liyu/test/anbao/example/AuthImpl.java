@@ -1,5 +1,9 @@
 package liyu.test.anbao.example;
 
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
@@ -16,13 +20,14 @@ import liyu.test.anbao.core.AuthInterceptor;
 import liyu.test.anbao.core.AuthUser;
 import liyu.test.anbao.core.JedisPoolManager;
 import liyu.test.anbao.core.RedisCache;
-import liyu.test.anbao.core.util.ApplicationPropertes;
+import liyu.test.anbao.core.util.Conf;
 import liyu.test.anbao.core.util.JsonRet;
 import liyu.test.anbao.core.util.StringUtil;
 import liyu.test.anbao.core.util.WebUtil;
 
 public class AuthImpl implements Auth{
 	private JedisPoolManager jpm;
+	private Map<String,Set<String>> resource;
 		
 	public AuthImpl(JedisPoolManager jpm) {
 		Assert.notNull(jpm, "jedisPoolMananger can be null.");
@@ -33,7 +38,7 @@ public class AuthImpl implements Auth{
 	public void authFaild(HttpServletRequest request, HttpServletResponse response) {
 		JsonRet ret = new JsonRet(request.getAttribute(AuthInterceptor.ckey));
 		ret.setSuccess(false);
-		ret.setMsg("auth faild. the original url is "+request.getAttribute("originalUrl"));
+		ret.setMsg((String)request.getAttribute("msg"));
 		WebUtil.write(response, JSON.toJSONString(ret));
 	}
 
@@ -42,7 +47,7 @@ public class AuthImpl implements Auth{
 		AnbaoRedisSession session = this.getSession(request);
 		if(session!=null) {
 			request.setAttribute(AuthInterceptor.ckey, session.getUuid());
-			new RedisCache<String,AnbaoRedisSession>(jpm).reset(session.getUuid(), Integer.parseInt(ApplicationPropertes.instance().getSession_seconds()));
+			new RedisCache<String,AnbaoRedisSession>(jpm).reset(session.getUuid(), Integer.parseInt(Conf.get(Conf.SESSION_SECONDS)));
 			return true;
 		}
 		request.setAttribute("originalUrl", request.getRequestURI());
@@ -51,7 +56,7 @@ public class AuthImpl implements Auth{
 
 	@Override
 	public boolean isStatic(String uri, String ctx) {
-		String[] anonSet = ApplicationPropertes.instance().getAnonSet();
+		String[] anonSet = Conf.get(Conf.ANON).split(",");
 		for(String el:anonSet) {
 			if(uri.startsWith((ctx + el).replace("**", ""))) {
 				return true;
@@ -70,15 +75,28 @@ public class AuthImpl implements Auth{
 		request.setAttribute(AuthInterceptor.ckey, uuid);
 		
 		HttpServletResponse response = WebUtil.getServletResponse();
-		new RedisCache<String,AnbaoRedisSession>(jpm).put(uuid, instence, Integer.parseInt(ApplicationPropertes.instance().getSession_seconds()));
+		new RedisCache<String,AnbaoRedisSession>(jpm).put(uuid, instence, Integer.parseInt(Conf.get(Conf.SESSION_SECONDS)));
 		
-		if(Boolean.parseBoolean(ApplicationPropertes.instance().getOnly_one_user_login())) {
-			String old = new RedisCache<String,String>(jpm).get(user.getUsername());
-			if(StringUtil.isNotBlank(old)) {
-				new RedisCache<String,AnbaoRedisSession>(jpm).remove(old);
-			}
+		String maxSession = Conf.get(Conf.MAX_SESSION);
+		if(maxSession!=null) {
+			int maxs = Integer.parseInt(Conf.get(Conf.MAX_SESSION,"1"));
+
+			String username = user.getUsername();
+			Deque<String> deque = this.getAttributeInRedis("max-session", username);
+	        if (deque == null) {
+	            deque = new LinkedList<String>();
+	            
+	        }else {
+	        	while (deque.size() > maxs-1) {
+		            String first = (String) deque.removeFirst();
+					if(StringUtil.isNotBlank(first)) {
+						new RedisCache<String,AnbaoRedisSession>(jpm).remove(first);
+					}
+		        }
+	        }
 			
-			new RedisCache<String,String>(jpm).put(user.getUsername(), uuid, Integer.parseInt(ApplicationPropertes.instance().getSession_seconds()));
+	        deque.add(uuid);
+            this.setAttributeInRedis("max-session", username, deque, Integer.parseInt(Conf.get(Conf.SESSION_SECONDS)));
 		}
 		
 		Cookie cookie = new Cookie(AuthInterceptor.ckey,uuid);
@@ -122,6 +140,48 @@ public class AuthImpl implements Auth{
 	}
 
 	@Override
+	public boolean hasPermission(HttpServletRequest request) {
+		String uri = request.getRequestURI();
+		if(this.resource == null) {
+			return false;
+		}
+		Set<String> set = this.resource.get(uri);
+		if(set==null) {			
+			return false;
+		}else {
+			AuthUser user = this.getSessionUser(request);
+			String[] roles = user.getRoles();
+			boolean hasRole = false;
+			if(roles != null) {
+				for(String role : roles) {
+					if(set.contains(role)) {
+						hasRole = true;
+						break;
+					}
+				}
+			}
+			return hasRole;
+		}
+	}
+	
+	@Override
+	public <T> void setAttributeInRedis(String prefix, String key, T value, int exptSecond) {
+		RedisCache<String,T> redisCache = new RedisCache<String,T>(jpm);
+		redisCache.put(prefix+key, value, exptSecond);
+	}
+	
+	@Override
+	public <T> T getAttributeInRedis(String prefix, String key) {
+		RedisCache<String,T> redisCache = new RedisCache<String,T>(jpm);
+		return redisCache.get(prefix+key);
+	}
+	
+	@Override
+	public void setUrlResources(Map<String, Set<String>> res) {
+		this.resource = res;
+	}
+	
+	/*@Override
 	public <T> void setAttributeInSession(String key, T value, HttpServletRequest request) {
 		AnbaoRedisSession session = this.getSession(request);
 		if(session!=null) {
@@ -129,9 +189,9 @@ public class AuthImpl implements Auth{
 			RedisCache<String,AnbaoRedisSession> redisCache = new RedisCache<String,AnbaoRedisSession>(jpm);
 			redisCache.put(session.getUuid(), session, Integer.parseInt(ApplicationPropertes.instance().getSession_seconds()));
 		}
-	}
+	}*/
 
-	@Override
+	/*@Override
 	@SuppressWarnings("unchecked")
 	public <T> T getAttributeInSession(String key, HttpServletRequest request) {
 		AnbaoRedisSession session = this.getSession(request);
@@ -139,18 +199,6 @@ public class AuthImpl implements Auth{
 			return (T)session.getAttribute(key);
 		}
 		return null;
-	}
+	}*/
 
-	@Override
-	public <T> void setAttributeInRedis(String key, T value, int exptSecond) {
-		RedisCache<String,T> redisCache = new RedisCache<String,T>(jpm);
-		redisCache.put(key, value, exptSecond);
-	}
-
-	@Override
-	public <T> T getAttributeInRedis(String key) {
-		RedisCache<String,T> redisCache = new RedisCache<String,T>(jpm);
-		return redisCache.get(key);
-	}
-	
 }

@@ -1,8 +1,9 @@
 package liyu.test.anbao.core.util;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.nio.charset.Charset;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,12 +16,13 @@ import liyu.test.anbao.core.SecurityInterceptor;
 public class WebUtil {
 	public static void write(HttpServletResponse response,String msg) {
 		try {
+			response.reset();
 			response.setContentType("text/json; charset=UTF-8");
 			response.setHeader("Cache-Control", "no-cache");
-			PrintWriter pw = response.getWriter();
-			pw.write(msg);
-			pw.flush();
-			pw.close();
+			ServletOutputStream os = response.getOutputStream();
+			os.write(msg.getBytes(Charset.forName("UTF-8")));
+			os.flush();
+			os.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

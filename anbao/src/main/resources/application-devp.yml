@@ -1,0 +1,14 @@
+server:
+  context-path: /anbao
+
+me.anon:
+  /static/**,/static_wz/**,/favicon.ico,/login,/webs/**
+me.session_seconds:
+  1200
+me.max_session:
+  1
+
+me.redis_ip:
+  localhost
+me.redis_port:
+  6379

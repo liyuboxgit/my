@@ -1,1 +1,40 @@
-login....
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="js/jquery.js"></script>
+<title>Insert title here</title>
+</head>
+<body>
+	<input placeholder="请输入用户名">
+	<input placeholder="请输入密码" type="password">
+	<br/>
+	<button>提交</button><p msg></p>
+	<script type="text/javascript">
+		$(function(){
+			$('button').click(function(){
+				var json = {
+					username:$('input').eq(0).val(), 
+					password:$('input').eq(1).val()
+				}
+				$.ajax({
+					url:'/anbao/login',
+					type:'post',
+					contentType: "application/json;charset=utf-8",
+			        data: JSON.stringify(json),
+			        dataType:'json',
+			        success:function(ret){
+			        	if(ret.success){
+			        		$('p[msg]').text(JSON.stringify(ret)+",请访问：/anbao/test or /anbao/logout.");
+			        	}else{
+			        		$('p[msg]').text(ret.msg);
+			        	}
+			        },error:function(ret){
+			        	alert(ret);
+			        }
+				});
+			});
+		})
+	</script>
+</body>
+</html>
