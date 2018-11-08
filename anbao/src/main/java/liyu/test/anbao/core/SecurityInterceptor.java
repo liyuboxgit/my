@@ -20,7 +20,7 @@ public class SecurityInterceptor implements HandlerInterceptor, AuthInterceptor{
 			return true;
 		else {
 			if(!auth.sessionCheck(request)) {
-				request.setAttribute("msg", "auth faild. the original url is '"+request.getAttribute("originalUrl")+"'");
+				request.setAttribute("msg", "auth faild! the original url is '"+request.getAttribute("originalUrl")+"'");
 				auth.authFaild(request, response);
 				return false;
 			}else {
@@ -29,7 +29,7 @@ public class SecurityInterceptor implements HandlerInterceptor, AuthInterceptor{
 					Protection pt = hm.getMethodAnnotation(Protection.class);
 					if(pt!=null) {
 						if(!auth.hasPermission(request)) {
-							request.setAttribute("msg", "permission ckeck faild. the protected url is '"+request.getRequestURI()+"'");
+							request.setAttribute("msg", "permission ckeck faild! the protected url is '"+request.getRequestURI()+"'");
 							auth.authFaild(request, response);
 						}
 					}else {

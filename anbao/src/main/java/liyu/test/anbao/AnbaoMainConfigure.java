@@ -29,9 +29,9 @@ public class AnbaoMainConfigure extends SpringBootServletInitializer{
 	@Bean
 	public AuthImpl authImpl() {
 		AuthImpl impl = new AuthImpl(jedisPoolManager());
+		//初始的时候，应该从数据库获得，注意前缀加contextPath，即/anbao
 		Set<String> roles = new HashSet<String>();
 		Map<String,Set<String>> res = new HashMap<String,Set<String>>();
-		
 		res.put("/anbao/role", roles);
 		res.get("/anbao/role").add("ROLE3");
 		
