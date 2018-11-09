@@ -32,7 +32,7 @@ public class RedisCache<K, V>{
 		}
 		return v;
 	}
-
+	@Deprecated
 	public V put(K key, V value) throws CacheException {
 		if (key == null) {
 			return null;

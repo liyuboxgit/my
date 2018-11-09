@@ -1,5 +1,3 @@
-
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -29,26 +27,26 @@ public class Archtype {
 	public static void main(String[] args) throws IOException {
 		Scanner sc = new Scanner(System.in); String tmp = null;
 		
-		System.out.print("请输入TYPE,spring boot or spring cloud：[spring boot]"); tmp = sc.nextLine();
+		System.out.print("Please set TYPE,spring boot or spring cloud:[spring boot]"); tmp = sc.nextLine();
 		String TYPE = tmp.length()==0?"spring boot":tmp; 
 
-		System.out.print("请输入GROUPID：[liyu.test]");  tmp = sc.nextLine();
+		System.out.print("Please set GROUPID:[liyu.test]");  tmp = sc.nextLine();
 		String GROUPID = tmp.length()==0?"liyu.test":tmp; 
 		
-		System.out.print("请输入ARTIFACTID：[spring]"); tmp = sc.nextLine();
+		System.out.print("Please set ARTIFACTID:[spring]"); tmp = sc.nextLine();
 		String ARTIFACTID = tmp.length()==0?"spring":tmp; 
 		
-		System.out.print("请输入VERSION：[0.0.1-SNAPSHOT]"); tmp = sc.nextLine();
+		System.out.print("Please set VERSION:[0.0.1-SNAPSHOT]"); tmp = sc.nextLine();
 		String VERSION = tmp.length()==0?"0.0.1-SNAPSHOT":tmp; 
 		
 		String SPRING_BOOT_VERSION = "1.5.7.RELEASE";
 		if(TYPE.equals("spring boot")){
-			System.out.print("请输入SPRING_BOOT版本,1.5.7 or 2.0.6：[1.5.7]"); tmp = sc.nextLine();
+			System.out.print("Please set SPRING_BOOT version,1.5.7 or 2.0.6:[1.5.7]"); tmp = sc.nextLine();
 			SPRING_BOOT_VERSION = tmp.length()==0?"1.5.7"+".RELEASE":tmp+".RELEASE"; 
 		
-			System.out.println("create "+TYPE+" project:"+"\n"+"===========>"+"\n"+"GROUPID："+GROUPID+"\n"+"ARTIFACTID："+ARTIFACTID+"\n"+"VERSION："+VERSION+"\n"+"generate spring boot project,use springboot version of "+SPRING_BOOT_VERSION+"\n"+"<<<<<<<<<<<"); 
+			System.out.println("create "+TYPE+" project:"+"\n"+"===========>"+"\n"+"GROUPID:"+GROUPID+"\n"+"ARTIFACTID:"+ARTIFACTID+"\n"+"VERSION:"+VERSION+"\n"+"generate spring boot project,use springboot version of "+SPRING_BOOT_VERSION+"\n"+"<<<<<<<<<<<"); 
 		}else{
-			System.out.println("create "+TYPE+" project:"+"\n"+"===========>"+"\n"+"GROUPID："+GROUPID+"\n"+"ARTIFACTID："+ARTIFACTID+"\n"+"VERSION："+VERSION+"\n"+"generate spring cloud project\n"+"<<<<<<<<<<<"); 
+			System.out.println("create "+TYPE+" project:"+"\n"+"===========>"+"\n"+"GROUPID:"+GROUPID+"\n"+"ARTIFACTID:"+ARTIFACTID+"\n"+"VERSION:"+VERSION+"\n"+"generate spring cloud project\n"+"<<<<<<<<<<<"); 
 		}
   
 		
@@ -60,8 +58,11 @@ public class Archtype {
 		
 		String javapath = ARTIFACTID + ".src.main.java" +"."+GROUPID + "."+ARTIFACTID;
 		createDir(path,javapath);
+		
 		createDir(path,ARTIFACTID+".src.main.resources");
-		createDir(path,ARTIFACTID+".src.test.java");
+		
+		String testpath = ARTIFACTID + ".src.main.test" +".test";
+		createDir(path,testpath);
 		
 		StringBuffer pom = new StringBuffer();
 		if("spring boot".equals(TYPE)) {
@@ -92,8 +93,12 @@ public class Archtype {
 					"            <groupId>org.springframework.boot</groupId>\n" + 
 					"            <artifactId>spring-boot-starter-web</artifactId>\n" + 
 					"        </dependency>\n" +
+					"        <dependency>\n" + 
+					"            <groupId>org.springframework.boot</groupId>\n" + 
+					"            <artifactId>spring-boot-starter-test</artifactId>\n" + 
+					"        </dependency>\n" +
 					"    </dependencies>\n" +
-					
+		
 					"    <build>\n" + 
 					"        <pluginManagement>\n" + 
 					"            <plugins>\n" + 
@@ -226,7 +231,42 @@ public class Archtype {
 				javapath.replace(".", sp) + sp + "MainConfigure.java");
 		javafile.createNewFile();
 		Files.write(javafile.toPath(), javabytes);
-	
+		
+		StringBuffer tjava = new StringBuffer();
+		
+		tjava.append(
+				"package test;\n"+
+			    "\n"+
+
+				"import java.nio.charset.Charset;\n"+
+				"import org.junit.runner.RunWith;\n"+
+				"import org.springframework.boot.test.context.SpringBootTest;\n"+
+				"import org.springframework.http.converter.StringHttpMessageConverter;\n"+
+				"import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;\n"+
+				"import org.springframework.util.Assert;\n"+
+				"import org.springframework.web.client.RestTemplate;\n"+
+
+				"import "+GROUPID+"."+ARTIFACTID+".MainConfigure;\n"+
+
+				"@RunWith(SpringJUnit4ClassRunner.class)\n"+  
+				"@SpringBootTest(classes=MainConfigure.class)\n"+
+				"public class BaseTest {\n"+
+				"    public static void main(String[] args) {\n"+
+				"        RestTemplate rt = new RestTemplate();\n"+
+				"        rt.getMessageConverters().set(1, new StringHttpMessageConverter(Charset.forName(\"UTF-8\")));\n"+
+		
+		        "        String string = rt.getForObject(\"http://localhost:8080\", String.class);\n"+
+		        "        Assert.isTrue(\"success\".equals(string),\"\");\n"+
+	            "   }\n"+
+				"};"
+		);
+		
+		byte[] testbytes = tjava.toString().getBytes(Charset.defaultCharset());
+		File testfile = new File(path,
+				testpath.replace(".", sp) + sp + "BaseTest.java");
+		testfile.createNewFile();
+		Files.write(testfile.toPath(), testbytes);
+		
 		java.awt.Desktop.getDesktop().open(path);
 	}
 	

@@ -1,5 +1,9 @@
 package tinychxu;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import com.alibaba.fastjson.JSON;
 import com.rthd.framework.config.shiro.JedisPoolManager;
 import com.rthd.framework.config.shiro.RedisCache;
 import com.rthd.framework.mybatis.EnhanceMapper;
@@ -27,15 +32,19 @@ public class TestForLiyu {
 	@Test
 	public void test() {
 		/*Demo demo = new Demo();
-		demo.setName("name");
+		demo.setName("tom");
 		demo.setAge(10);
+		demo.setMoney(BigDecimal.valueOf(12.56));
 		bm.exccute(Demo.class, EnhanceMapper.insert, demo);*/
 		
 		/*Long count = bm.findCount(EnhanceMapper.findcount, null, Demo.class);
-		System.out.println(count);
+		System.out.println(count);*/
 		
-		Map<Object, Object> map = bm.getSqlSession().selectMap(Demo.class.getName()+"."+EnhanceMapper.findlist, "name");
+		/*Map<Object, Object> map = bm.getSqlSession().selectMap(Demo.class.getName()+"."+EnhanceMapper.findlist, "name");
 		System.out.println(JSON.toJSONString(map));*/
+		
+		List<Long> list = bm.jdbcFindSingelColumn("select count(*) from demo", Long.class, true);
+		System.out.println(list.get(0));
 		
 		/*try {
 			FileInputStream stream = new FileInputStream(new File("D:\\gitrepostary\\my\\tinychxu\\src\\test\\java\\tinychxu\\TestForLiyu.java"));
@@ -126,8 +135,21 @@ public class TestForLiyu {
 	}
 	
 	public static void main(String[] args) {
-		JedisPoolManager manager = new JedisPoolManager("localhost", "6379");
+		/*JedisPoolManager manager = new JedisPoolManager("localhost", "6379");
 		RedisCache<String,String> cache = new RedisCache<String,String>();
 		cache.setJedisPoolManager(manager);
-	}
+		cache.put("k", "v", 5);
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println(cache.get("k"));//return v
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println(cache.get("k"));//return null
+*/	}
 }
