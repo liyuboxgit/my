@@ -1,4 +1,4 @@
-package liyu.test.springbootMybatis;
+package liyu.test.springbootMybatis.druidFilter;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.annotation.WebInitParam;

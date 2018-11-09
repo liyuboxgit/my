@@ -5,8 +5,6 @@ import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
-import org.springframework.core.io.ClassPathResource;
 
 public class Conf{
 	public final static Logger logger = LoggerFactory.getLogger(Conf.class);   
@@ -31,9 +29,11 @@ public class Conf{
 			e.printStackTrace();
 		}
 		
-		YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
-	    yaml.setResources(new ClassPathResource("application-"+profile+".yml"));
-	    conf = yaml.getObject();
+		try (InputStream in = Conf.class.getResourceAsStream("/application-"+profile+".properties");) {
+			conf.load(in);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	    try {
 			instance = new Conf();
