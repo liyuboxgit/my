@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/springbootMybatis?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&autoReconnect=true 
+    username: root
+    password: liyuff
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:liyu/test/springbootMybatis/domain/sql/*.xml
+

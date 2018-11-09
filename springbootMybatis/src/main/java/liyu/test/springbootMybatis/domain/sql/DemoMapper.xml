@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liyu.test.springbootMybatis.domain.Demo">
+	<cache type="liyu.test.springbootMybatis.mybatis.MybatisEhcache"/>
+    <resultMap type="liyu.test.springbootMybatis.domain.Demo" id="BaseResultMap"></resultMap>
+    <sql id="cols">
+        create_time,update_time,version,age,birth,money,name,id
+    </sql>
+    <sql id="whereSql">
+        <where>
+            <if test="id != null">
+                and id=#{id}
+            </if>
+            <if test="create_time != null">
+                and create_time=#{create_time}
+            </if>
+            <if test="update_time != null">
+                and update_time=#{update_time}
+            </if>
+            <if test="age != null">
+                and age=#{age}
+            </if>
+            <if test="birth != null">
+                and birth=#{birth}
+            </if>
+            <if test="money != null">
+                and money=#{money}
+            </if>
+            <if test="name != null">
+                and name=#{name}
+            </if>
+        </where>
+    </sql>
+    <sql id="pageSql">
+        <if test="rowNum!=null and pageSize!=null">
+            limit #{rowNum},#{pageSize}
+        </if>
+    </sql>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into t_demo(create_time,update_time,version,age,birth,money,name) values(now(),now(),0,#{age},#{birth},#{money},#{name})
+    </insert>
+    <update id="merge">
+        update t_demo set create_time=#{create_time},age=#{age},birth=#{birth},money=#{money},name=#{name},version=version+1,update_time=now() where id=#{id} and version=#{version}
+    </update>
+    <update id="dynamicUpdate">
+        update ${tableName} set ${columnName}=#{value},version=version+1,update_time=now() where id = #{primaryKey} and version=#{version}
+    </update>
+    <delete id="delete">
+        delete from t_demo where id=#{id} and version=#{version}
+    </delete>
+    <select id="findone" resultMap="BaseResultMap">
+        select <include refid="cols"/> from t_demo where id=#{id} 
+    </select>
+    <select id="findlist" resultMap="BaseResultMap">
+        select <include refid="cols"/> from t_demo <include refid="whereSql"/> <include refid="pageSql"/>
+    </select>
+    <select id="findcount" resultType="java.lang.Long">
+        select count(1) from t_demo <include refid="whereSql"/>
+    </select>
+</mapper>
