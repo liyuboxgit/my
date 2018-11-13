@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="liyu.test.springbootMybatis.domain.Demo">
-	<cache type="liyu.test.springbootMybatis.mybatis.MybatisEhcache"/>
+	<cache type="liyu.test.springbootMybatis.mybatis.MybatisRedisCache"/>
     <resultMap type="liyu.test.springbootMybatis.domain.Demo" id="BaseResultMap"></resultMap>
     <sql id="cols">
         create_time,update_time,version,age,birth,money,name,id

@@ -533,6 +533,8 @@ java：RSA加减密
       		<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
       		<mirrorOf>central</mirrorOf>        
     	</mirror>
+	spring-web的架包下面有文件javax.servlet.ServletContainerInitallizer(SCI)文件，文件中有spring-web的实现
+	public class SpringServletContainerInitializer implements ServletContainerInitializer
 oracle分区;
 	--建立测试表分区
 	CREATE TABLE FPFX_T_QYGX_TEST (

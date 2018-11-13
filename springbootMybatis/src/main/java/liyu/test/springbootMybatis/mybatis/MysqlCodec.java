@@ -33,10 +33,10 @@ public class MysqlCodec {
 	private static String JDBC_PSWORDs;
 	static {
 		Conf conf = Conf.get(Demo.class);
-		JDBC_URLs = conf.getUrl();
-		JDBC_DRIVERs = conf.getDriver();
-		JDBC_USERs = conf.getUsername();
-		JDBC_PSWORDs = conf.getPassword();
+		JDBC_URLs = conf.getProperty("spring.datasource.url");
+		JDBC_DRIVERs = conf.getProperty("spring.datasource.driver-class-name");
+		JDBC_USERs = conf.getProperty("spring.datasource.username");
+		JDBC_PSWORDs = conf.getProperty("spring.datasource.password");
 		DB_SCHEMAs = JDBC_URLs.substring(JDBC_URLs.lastIndexOf("/")+1, JDBC_URLs.indexOf("?"));
 		DB_TABLEs = conf.getEntity().getAnnotation(Table.class).name();
 		DB_BEANs = conf.getEntity().getSimpleName();

@@ -6,6 +6,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import org.apache.ibatis.cache.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import redis.clients.jedis.Jedis;
 /**
  * 
  * @ClassName: All cache set in one redisdb using hash.
@@ -17,7 +19,7 @@ public class MybatisRedisCache implements Cache{
 	static Logger logger = LoggerFactory.getLogger(MybatisRedisCache.class);
 	private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();   
     
-	//private JedisPoolManager pm = new JedisPoolManager(Conf.get().getRedis_ip(), Conf.get(null).getRedis_port());;
+	private JedisPoolManager pm = new JedisPoolManager(Conf.get().getProperty("redis.host"), Conf.get().getProperty("redis.port"));;
 	
     private String id;
     private byte[]  key; 
@@ -38,7 +40,7 @@ public class MybatisRedisCache implements Cache{
      * @return: void
      */
     private void rebuild(){
-    	/*Jedis redisClient = pm.getJedis(0);
+    	Jedis redisClient = pm.getJedis(0);
 		try {
 			redisClient.del(this.key);
 			redisClient.hset(this.key, "".getBytes(), "".getBytes());
@@ -46,7 +48,7 @@ public class MybatisRedisCache implements Cache{
 			e.printStackTrace();
 		} finally {
 			pm.releaseJedis(redisClient);
-		}*/
+		}
     }
     
 	public String getId() {
@@ -54,32 +56,30 @@ public class MybatisRedisCache implements Cache{
 	}
 	
 	public void putObject(Object key, Object value) {
-		/*Jedis redisClient = pm.getJedis(0);
+		Jedis redisClient = pm.getJedis(0);
 		try {
 			redisClient.hset(this.key, JdkSerializeUtil.serialize(key.toString()), JdkSerializeUtil.serialize(value));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pm.releaseJedis(redisClient);
-		}*/
+		}
 	}
 
 	public Object getObject(Object key) {
-		return null;
-		/*Jedis redisClient = pm.getJedis(0);
+		Jedis redisClient = pm.getJedis(0);
 		try {
-			return JdkSerializeUtil.deserialize(redisClient.hget(this.key,SerializeUtil.serialize(key.toString())), Object.class);
+			return JdkSerializeUtil.deserialize(redisClient.hget(this.key,JdkSerializeUtil.serialize(key.toString())), Object.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		} finally {
 			pm.releaseJedis(redisClient);
-		}*/
+		}
 	}
 
 	public Object removeObject(Object key) {
-		return null;
-		/*Jedis redisClient = pm.getJedis(0);
+		Jedis redisClient = pm.getJedis(0);
 		try {
 			return redisClient.hdel(this.key, JdkSerializeUtil.serialize(key.toString()));
 		} catch (Exception e) {
@@ -87,7 +87,7 @@ public class MybatisRedisCache implements Cache{
 			return null;
 		} finally {
 			pm.releaseJedis(redisClient);
-		}*/
+		}
 	}
 
 	public void clear() {
@@ -103,6 +103,6 @@ public class MybatisRedisCache implements Cache{
 	}
 	
 	public void setJedisPoolManager(JedisPoolManager jedisPoolManager) {
-		/*this.pm = jedisPoolManager;*/
+		this.pm = jedisPoolManager;
 	}
 }

@@ -45,18 +45,15 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 		this.jdbc = new JdbcTemplate(applicationContext.getBean(DataSource.class));
 		
 		Configuration configuration = sqlSessionFactory.getConfiguration();
-		Collection<?> mappedStatements = configuration.getMappedStatements();
+		Collection<MappedStatement> mappedStatements = configuration.getMappedStatements();
 		Set<String> methods = new TreeSet<String>(new Comparator<String>() {
 			@Override
 			public int compare(String o1, String o2) {
 				return o1.compareTo(o2);
 			}
 		});
-		for (Object object : mappedStatements) {
-			if (object instanceof MappedStatement) {
-				MappedStatement m = ((MappedStatement) object);
-				methods.add(m.getId());
-			}
+		for (MappedStatement el : mappedStatements) {
+			methods.add(el.getId());
 		}
 
 		logger.info("Mybatis mepper methods =======>{}", methods);
@@ -109,7 +106,7 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 	}
 
 	public <T> int exccute(Class<T> type, String method, Object parameter) {
-		if (parameter instanceof UC[] || parameter instanceof Collection<?>) {
+		if (parameter instanceof UC[] ) {
 			int i = 0;
 			for (UC el : (UC[]) parameter) {
 				i += this.getSqlSession().update(_all(method, type), el);

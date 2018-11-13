@@ -9,13 +9,7 @@ import org.slf4j.LoggerFactory;
 public class Conf{
 	public final static Logger logger = LoggerFactory.getLogger(Conf.class);   
 	private static Conf instance;
-	/**
-	 * 属性
-	 */
-	private String url;
-	private String username;
-	private String password;
-	private String driver;
+	private Properties conf;
 	private Class<?> entity;
 	
 	static {		
@@ -30,17 +24,15 @@ public class Conf{
 		}
 		
 		try (InputStream in = Conf.class.getResourceAsStream("/application-"+profile+".properties");) {
+			conf.clear();
 			conf.load(in);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 	    try {
-			instance = new Conf();
-			instance.url = conf.getProperty("spring.datasource.url").replace("&", "&amp;");;
-			instance.username = conf.getProperty("spring.datasource.username");
-			instance.password = conf.getProperty("spring.datasource.password");
-			instance.driver = conf.getProperty("spring.datasource.driver-class-name");
+			instance = new Conf();			
+			instance.conf = conf;
 		} catch (Exception e) {
 			logger.error("", e);
 		}
@@ -54,7 +46,11 @@ public class Conf{
 		instance.entity = type;
 		return instance;
 	}
-
+	
+	public String getProperty(String confName) {
+		return instance.conf.getProperty(confName, "");
+	}
+	
 	public String toHibernateConfigString() {
 		StringBuilder builder = new StringBuilder();
 		
@@ -65,10 +61,10 @@ public class Conf{
 		
 		builder.append("<hibernate-configuration>");
 		builder.append("<session-factory>");
-		builder.append("<property name=\"connection.url\">"+url+"</property>");
-		builder.append("<property name=\"connection.username\">"+username+"</property>");
-		builder.append("<property name=\"connection.password\">"+password+"</property>");
-		builder.append("<property name=\"connection.driver_class\">"+driver+"</property>");
+		builder.append("<property name=\"connection.url\">"+conf.getProperty("spring.datasource.url").replace("&", "&amp;")+"</property>");
+		builder.append("<property name=\"connection.username\">"+conf.getProperty("spring.datasource.username")+"</property>");
+		builder.append("<property name=\"connection.password\">"+conf.getProperty("spring.datasource.password")+"</property>");
+		builder.append("<property name=\"connection.driver_class\">"+conf.getProperty("spring.datasource.driver-class-name")+"</property>");
 		builder.append("<property name=\"dialect\">org.hibernate.dialect.MySQLDialect</property>");
 		builder.append("<property name=\"show_sql\">false</property>");
 		builder.append("<property name=\"format_sql\">false</property>");
@@ -77,20 +73,8 @@ public class Conf{
 		builder.append("</hibernate-configuration>");
 		return builder.toString();
 	}
-	
-	public String getUrl() {
-		return this.url;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public String getDriver() {
-		return driver;
-	}
+
 	public Class<?> getEntity() {
-		return entity;
+		return this.entity;
 	}
 }
