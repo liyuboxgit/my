@@ -13,6 +13,7 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 import com.rthd.framework.util.Conf;
 import com.rthd.tinychxu.domain.entity.Demo;
+import com.rthd.tinychxu.domain.entity.User;
 
 public class HibernateCreateTable {
 	
@@ -23,7 +24,7 @@ public class HibernateCreateTable {
 		
 		xml.toFile().createNewFile();
 		// User needs to changed; 
-		Files.write(xml,Conf.get(Demo.class).toHibernateConfigString().getBytes());
+		Files.write(xml,Conf.get(User.class).toHibernateConfigString().getBytes());
 		ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().configure(xml.toFile()).build();
 		MetadataImplementor metadata = (MetadataImplementor) new MetadataSources(
 		serviceRegistry ).buildMetadata();

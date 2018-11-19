@@ -1,28 +1,38 @@
 package liyu.test.shiro.web;
 
+import java.util.Date;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.shiro.web.util.SavedRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import liyu.test.shiro.model.User;
-import liyu.test.shiro.service.UserService;
 import liyu.test.shiro.util.AjaxResult;
 
 @Controller
-public class LoginController {
-	@Autowired
-	private UserService userService;
-	
+public class LoginController {	
 	@RequestMapping("/")
 	public String toroot() {
+		SavedRequest savedRequest = null;  
+		Subject subject = SecurityUtils.getSubject();
+	    Session session = subject.getSession(false);  
+	    if (session != null) {  
+	        savedRequest = (SavedRequest) session.getAttribute("shiroSavedRequest");  
+	        if(savedRequest!=null) {
+	        	String url = savedRequest.getRequestUrl();
+	        	if(!"/favicon.ico".equals(url)) {
+	        		session.setAttribute("preUrl",url);
+	        	}
+	        }
+	    }   
 		return "login";
 	}
 	
@@ -39,26 +49,31 @@ public class LoginController {
 		try {
 			subject.login(token);
 		} catch (IncorrectCredentialsException ice) {
-			// 捕获密码错误异常
 			return AjaxResult.fail("捕获密码错误异常");
 		} catch (UnknownAccountException uae) {
-			// 捕获未知用户名异常
 			return AjaxResult.fail("捕获未知用户名异常");
 		} catch (ExcessiveAttemptsException eae) {
-			// 捕获错误登录过多的异常
 			return AjaxResult.fail("捕获错误登录过多的异常");
 		}
-		User user = userService.findByUsername(username);
-		subject.getSession().setAttribute("user", user);
-		return AjaxResult.success();
+		
+		String preUrl = (String) subject.getSession().getAttribute("preUrl");
+		
+		return AjaxResult.setResult(preUrl);
 	}
 	
+	@SuppressWarnings("unused")
 	@RequestMapping("/query")
 	@ResponseBody
 	public AjaxResult query(){
 		if(true)
 			throw new RuntimeException("just for test.");
 		return AjaxResult.success();
+	}
+	
+	@RequestMapping("/date")
+	@ResponseBody
+	public AjaxResult date() {
+		return AjaxResult.setResult(new Date());
 	}
 	
 	@RequestMapping("/add")

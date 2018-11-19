@@ -22,7 +22,8 @@ $(function(){
 	                alert(data.msg);
 	            }else{
 	                //登录成功
-	                window.location.href = "<%=request.getContextPath()%>/query";
+	                alert("登录成功");
+	                window.location.href = "<%=request.getContextPath()%>"+data.data;
 	            }
 	        },
 	        error: function(data) { 

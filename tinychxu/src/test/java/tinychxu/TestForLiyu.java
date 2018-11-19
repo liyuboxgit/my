@@ -18,9 +18,11 @@ import com.rthd.framework.mybatis.EnhanceMapper;
 import com.rthd.framework.mybatis.EnhanceMapper.UC;
 import com.rthd.tinychxu.MainConfigure;
 import com.rthd.tinychxu.domain.entity.Demo;
+import com.rthd.tinychxu.domain.entity.User;
 import com.rthd.tinychxu.mapper.BaseMapper;
 import com.rthd.tinychxu.service.DemoService;
 import com.rthd.tinychxu.util.BeanUtil;
+import com.rthd.tinychxu.util.MapUtil.StringMap;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes=MainConfigure.class)
@@ -45,6 +47,15 @@ public class TestForLiyu {
 		
 		List<Long> list = bm.jdbcFindSingelColumn("select count(*) from demo", Long.class, true);
 		System.out.println(list.get(0));
+		
+		/*User user = new User();
+		user.setUsername("test");
+		user.setPassword("test");
+		bm.exccute(User.class, EnhanceMapper.insert, user);*/
+		
+		List<StringMap> listMap = bm.jdbcFindListMap("select username as username,password as password,'' as roles from user", null);
+		
+		System.out.println(listMap);
 		
 		/*try {
 			FileInputStream stream = new FileInputStream(new File("D:\\gitrepostary\\my\\tinychxu\\src\\test\\java\\tinychxu\\TestForLiyu.java"));

@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import com.rthd.framework.util.Conf;
 import com.rthd.tinychxu.domain.entity.Demo;
+import com.rthd.tinychxu.domain.entity.User;
 
 public class MysqlCodec {
 	private static String DB_SCHEMAs;
@@ -28,7 +29,7 @@ public class MysqlCodec {
 	private static String JDBC_PSWORDs;
 	private static String JAVA_NAMEINGs;
 	static {
-		Conf conf = Conf.get(Demo.class);
+		Conf conf = Conf.get(User.class);
 		JDBC_URLs = conf.getUrl();
 		JDBC_DRIVERs = conf.getDriver();
 		JDBC_USERs = conf.getUsername();

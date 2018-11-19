@@ -3,8 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="js/jquery.js"></script>
 </head>
 <body>
-this is login page.
+this is login page.<button id="login">登录</button>
+<script type="text/javascript">
+	$(function(){
+		$('#login').click(function(){
+			$.ajax({
+				url:'/tinychxu/login',
+				data:{username:'test',password:'test'},
+				success:function(ret){
+					if(ret.suc){
+						window.location.href=ret.data?ret.data:"/tinychxu/index";
+					}
+				}
+			})
+		});
+	})
+</script>
 </body>
 </html>

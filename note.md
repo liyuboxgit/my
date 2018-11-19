@@ -42,10 +42,10 @@
 	项目删除，重新下载， 只此三步，基本上可以解决换行问题了，否则请深究吧
 nginx
 	1.安装nginx，参考网上资料
-	2.启动：sbin/nginx
+	2.启动：sbin/nginx -c /path/nginx.conf
 	  停止：sbin/nginx -s quit
 			sbin/nginx -s stop
-	  重置：sbin/nginx -s reload
+	  重置：sbin/nginx -s reload -c /path/nginx.conf
 	3.配置：
 	1)uncomment user nobody and set user root;
 	2)in server block add
@@ -657,6 +657,7 @@ oracle install contos_7_64脚本安装oracle11
 	SELECTED_LANGUAGES=en,zh_CN,zh_TW // 选择语言
 	ORACLE_HOME=/u01/app/oracle/product/11.2.0/db_1    //oracle_home
 	ORACLE_BASE=/u01/app/oracle     //oracle_base
+	oracle.install.option=INSTALL_DB_SWONLY
 	oracle.install.db.InstallEdition=EE 　　　　// oracle版本
 	oracle.install.db.isCustomInstall=false 　　//自定义安装，否，使用默认组件
 	oracle.install.db.DBA_GROUP=dba /　　/ dba用户组
