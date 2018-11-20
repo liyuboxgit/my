@@ -41,7 +41,73 @@
 	在eclipse中window>references>general>workspace设置new line delimiter为unix
 	项目删除，重新下载， 只此三步，基本上可以解决换行问题了，否则请深究吧
 nginx
-	1.安装nginx，参考网上资料
+	1.安装nginx
+		cd /usr/local/src
+		wget ....tar.gz
+		tar -xf ....tar.gz
+		cd nginx-x-x-x
+		./configure --prefix=/usr/local --with-http_stub_status_module --with-http_ssl_module --with-pcre
+			Configuration summary
+			  + using system PCRE library
+			  + using system OpenSSL library
+			  + using system zlib library
+
+			  nginx path prefix: "/usr/local/nginx"
+			  nginx binary file: "/usr/local/nginx/sbin/nginx"
+			  nginx modules path: "/usr/local/nginx/modules"
+			  nginx configuration prefix: "/usr/local/nginx/conf"
+			  nginx configuration file: "/usr/local/nginx/conf/nginx.conf"
+			  nginx pid file: "/usr/local/nginx/logs/nginx.pid"
+			  nginx error log file: "/usr/local/nginx/logs/error.log"
+			  nginx http access log file: "/usr/local/nginx/logs/access.log"
+			  nginx http client request body temporary files: "client_body_temp"
+			  nginx http proxy temporary files: "proxy_temp"
+			  nginx http fastcgi temporary files: "fastcgi_temp"
+			  nginx http uwsgi temporary files: "uwsgi_temp"
+			  nginx http scgi temporary files: "scgi_temp"
+		make & make install
+		openssl version -a //查询openssl之版本，-a表示全部信息，关键看编译时间
+		cd /usr/local/nginx/conf
+		openssl genrsa -des3 -out server.key 1024
+		openssl req -new -key server.key -out server.csr
+		cp server.key server.key.org
+		openssl rsa -in server.key.org -out server.key
+		openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+		vi nginx.conf
+		########################start
+		user  root;
+		worker_processes  2;
+
+		events {
+			worker_connections  1024;
+		}
+
+
+		http {
+			include       mime.types;
+			default_type  application/octet-stream;
+			sendfile        on;
+			keepalive_timeout  65;
+			server {
+				listen       443;
+				server_name  localhost;
+			ssl  on;
+			ssl_certificate /usr/local/nginx/conf/server.crt;
+			ssl_certificate_key /usr/local/nginx/conf/server.key;
+				
+			location / {
+					root   html;
+					index  index.html index.htm;
+				}
+
+
+				error_page   500 502 503 504  /50x.html;
+				location = /50x.html {
+					root   html;
+				}
+			}
+		}
+		########################end
 	2.启动：sbin/nginx -c /path/nginx.conf
 	  停止：sbin/nginx -s quit
 			sbin/nginx -s stop
@@ -84,7 +150,6 @@ nginx
 	firewall-cmd --zone=public --list-ports
 	在指定区域打开端口（记得重启防火墙）
 	firewall-cmd --zone=public --add-port=80/tcp --permanent
-
 mysql：
 	下载：mysql-5.6.40-linux-glibc2.12-x86_64.tar.gz至/usr/local
 	rpm -qa|grep mariadb 	//查看是否安装maradb
@@ -937,6 +1002,7 @@ linux
 	yum groupinstall "X Window System"
 	yum groupinstall "GNOME Desktop" "Graphical Administration Tools"
 	ln -sf /lib/systemd/system/runlevel5.target /etc/systemd/system/default.target 图形桌面启动（runlevel3是命令界面）
+	
 elasticsearch
 	基础教程
 	https://www.elastic.co/guide/cn/elasticsearch/guide/current/getting-started.html
