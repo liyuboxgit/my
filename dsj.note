@@ -1,0 +1,12 @@
+spark
+	download spark in http://spark.apache.org/
+	tar -xf spark*.tar
+	bin/spark-shell
+	in shell>
+		spark.read.textFile("README.md").count() //return 205
+spark-sql
+	bin/spark-shell bin/spark-shell --jars /usr/local/mysql/mysql-test/jdbc/mysql-connector-java-5.1.44.jar 
+	val jdbcDF = spark.read.format("jdbc").option("url", "jdbc:mysql://localhost:3306/mysql").option("dbtable", "mysql.user").option("user", "root").option("password", "liyuff").load()
+	jdbcDF.show()
+	jdbcDF.registerTempTable("test")
+	jdbcDF.sqlContext.sql("select user from test").collect.foreach(println)

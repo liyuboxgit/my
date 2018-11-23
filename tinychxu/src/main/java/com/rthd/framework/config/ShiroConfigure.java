@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Deque;
 import java.util.LinkedHashMap;
 
+import javax.servlet.DispatcherType;
+
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -14,8 +16,10 @@ import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.apache.shiro.web.session.mgt.WebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 import com.rthd.framework.config.shiro.AuthRealm;
 import com.rthd.framework.config.shiro.JedisPoolManager;
@@ -113,6 +117,16 @@ public class ShiroConfigure {
 		
 		return bean;
 	}
+	
+	@Bean
+    public FilterRegistrationBean filterRegistrationBean() {
+        FilterRegistrationBean filterRegistration = new FilterRegistrationBean();
+        filterRegistration.setFilter(new DelegatingFilterProxy("shiroFilter")); 
+        filterRegistration.setEnabled(true);
+        filterRegistration.addUrlPatterns("/*"); 
+        filterRegistration.setDispatcherTypes(DispatcherType.REQUEST);
+        return filterRegistration;
+    }
 	
 	@Bean
 	public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(
