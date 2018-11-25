@@ -4,9 +4,30 @@ spark
 	bin/spark-shell
 	in shell>
 		spark.read.textFile("README.md").count() //return 205
+apark-config
+	[root@single spark-2.1.0-bin-hadoop2.7]# cat conf/slaves
+	single
+	[root@single spark-2.1.0-bin-hadoop2.7]# cat conf/spark-env.sh
+	export JAVA_HOME=/usr/local/jdk
+	# 一般来说，spark任务有很大可能性需要去HDFS上读取文件，所以配置上
+	# 如果说你的spark就读取本地文件，也不需要yarn管理，不用配
+	export HADOOP_CONF_DIR=/usr/local/hadoop-2.7.6/etc/hadoop
+
+	# 设置Master的主机名
+	export SPARK_MASTER_HOST=single
+	# 提交Application的端口，默认就是这个，万一要改呢，改这里
+	export SPARK_MASTER_PORT=7077
+	# 每一个Worker最多可以使用的cpu core的个数，我虚拟机就一个...
+	# 真实服务器如果有32个，你可以设置为32个
+	export SPARK_WORKER_CORES=1
+	# 每一个Worker最多可以使用的内存，我的虚拟机就2g
+	# 真实服务器如果有128G，你可以设置为100G
+	export SPARK_WORKER_MEMORY=1g
+
 spark-sql
 	bin/spark-shell bin/spark-shell --jars /usr/local/mysql/mysql-test/jdbc/mysql-connector-java-5.1.44.jar 
 	val jdbcDF = spark.read.format("jdbc").option("url", "jdbc:mysql://localhost:3306/mysql").option("dbtable", "mysql.user").option("user", "root").option("password", "liyuff").load()
 	jdbcDF.show()
 	jdbcDF.registerTempTable("test")
 	jdbcDF.sqlContext.sql("select user from test").collect.foreach(println)
+	jdbcDF.toJavaRDD.saveAsTextFile("sparkuser") //写入hdfs文件至sparkuser/part-00000，当然spark连接的是hadoop
