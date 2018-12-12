@@ -9,10 +9,15 @@
 	git checkout <name> 切换分支
 	git merge <name> 分支name，合并到当前分支上
 	git branch -d <name> 删除分支
+	git push origin :<name> 删除远程分支
+	#git push origin --delete <name> 删除远程分支
 	
-	git branch -a 查看本地/远程分支
-	git branch -d list 删除list分支
-	git push origin --delete branch_wangzhan 删除远程分支branch_wangzhan
+	git push origin branch_website:branch_website 本地分支发送到远程
+	git fetch origin branch_website 拉取远程分支
+	git checkout -b branch_website origin/branch_website 创建并切换到本地分支，和远程分支相对应
+	
+	
+	
 
 	---解决冲突呢没有新的命令，知道其原理就能应对
 
