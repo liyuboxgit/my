@@ -5,6 +5,11 @@ import org.apache.spark.sql.SparkSession
 import java.util.ArrayList
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkConf
+import org.apache.spark.streaming.StreamingContext
+import org.apache.spark.streaming.Seconds
+import org.apache.spark.storage.StorageLevel
+
+
 //http://spark.apache.org/docs/latest/api/scala/index.html#package
 object Spark {
   def main(args: Array[String]) {
@@ -20,7 +25,8 @@ object Spark {
      
      sc.stop();*/
     
-     wordcount
+     //wordcount
+     wordcount_stream
   }
   
   def wordcount(){
@@ -34,6 +40,18 @@ object Spark {
     ret.foreach(f=>{
       println(f)
     })
+  }
+  //nc -lk 9999
+  def wordcount_stream(){
+    val sparkConf = new SparkConf().setAppName("NetworkWordCount")
+    val ssc = new StreamingContext(sparkConf, Seconds(5))
+
+    val lines = ssc.socketTextStream("desk", 9999, StorageLevel.MEMORY_AND_DISK_SER)
+    val words = lines.flatMap(_.split(" "))
+    val wordCounts = words.map(x => (x, 1)).reduceByKey(_ + _)
+    wordCounts.print()
+    ssc.start()
+    ssc.awaitTermination()
   }
 }
 
