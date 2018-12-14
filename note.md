@@ -590,7 +590,8 @@ java：RSA加减密
 		e.printStackTrace();
 	}
 	ptm.commit(status);
-	FASTJSON:
+	
+	阿里FASTJSON:
 	@JSONField(serialize=true)  
 	private Integer version;
 	JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -605,6 +606,10 @@ java：RSA加减密
     	</mirror>
 	spring-web的架包下面有文件javax.servlet.ServletContainerInitallizer(SCI)文件，文件中有spring-web的实现
 	public class SpringServletContainerInitializer implements ServletContainerInitializer
+	
+	spring jdbcTemplate
+	insert GeneratedKeyHolder
+	find BeanPropertyRowMapper<T>(Class<T> type)
 oracle分区;
 	--建立测试表分区
 	CREATE TABLE FPFX_T_QYGX_TEST (
