@@ -104,6 +104,12 @@ sqoop
 	bin/sqoop list-tables --username root --password 'liyuff' --connect jdbc:mysql://localhost:3306/mysql?characterEncoding=UTF-8
 	bin/sqoop create-hive-table --connect jdbc:mysql://localhost:3306/sqoop_hive?characterEncoding=UTF-8 --table test --username root -password 'liyuff' --hive-database sqoop_hive
 	bin/sqoop import --connect jdbc:mysql://localhost:3306/sqoop_hive?characterEncoding=UTF-8 --table test --username root -password  'liyuff' --fields-terminated-by ',' --hive-import --hive-database sqoop_hive  -m  1
+	
+hive
+	启动hiveserver2：./dev/apache-hive-1.2.2-bin/bin/hive --service hiveserver2
+	启动：./dev/apache-hive-1.2.2-bin/bin/beeline
+	beeline连接：!connect jdbc:hive2://<host>:<port>/<db>
+	
 
 	
 
