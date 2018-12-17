@@ -28,6 +28,9 @@ public class SimpleApp {
 	    
 	    System.out.println("Lines with a: " + numAs + ", lines with b: " + numBs);
 	    sc.stop();
+	    
+	    
+	    
 	}
 	
 	/*

@@ -9,10 +9,15 @@
 	git checkout <name> 切换分支
 	git merge <name> 分支name，合并到当前分支上
 	git branch -d <name> 删除分支
+	git push origin :<name> 删除远程分支
+	#git push origin --delete <name> 删除远程分支
 	
-	git branch -a 查看本地/远程分支
-	git branch -d list 删除list分支
-	git push origin --delete branch_wangzhan 删除远程分支branch_wangzhan
+	git push origin branch_website:branch_website 本地分支发送到远程
+	git fetch origin branch_website 拉取远程分支
+	git checkout -b branch_website origin/branch_website 创建并切换到本地分支，和远程分支相对应
+	
+	
+	
 
 	---解决冲突呢没有新的命令，知道其原理就能应对
 
@@ -585,7 +590,8 @@ java：RSA加减密
 		e.printStackTrace();
 	}
 	ptm.commit(status);
-	FASTJSON:
+	
+	阿里FASTJSON:
 	@JSONField(serialize=true)  
 	private Integer version;
 	JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -600,6 +606,10 @@ java：RSA加减密
     	</mirror>
 	spring-web的架包下面有文件javax.servlet.ServletContainerInitallizer(SCI)文件，文件中有spring-web的实现
 	public class SpringServletContainerInitializer implements ServletContainerInitializer
+	
+	spring jdbcTemplate
+	insert GeneratedKeyHolder
+	find BeanPropertyRowMapper<T>(Class<T> type)
 oracle分区;
 	--建立测试表分区
 	CREATE TABLE FPFX_T_QYGX_TEST (
