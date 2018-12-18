@@ -117,6 +117,7 @@ nginx
 	  停止：sbin/nginx -s quit
 			sbin/nginx -s stop
 	  重置：sbin/nginx -s reload -c /path/nginx.conf
+	  检查配置：sbin/nginx -t
 	3.配置：
 	1)uncomment user nobody and set user root;
 	2)in server block add
