@@ -19,7 +19,7 @@ public class MybatisRedisCache implements Cache{
 	static Logger logger = LoggerFactory.getLogger(MybatisRedisCache.class);
 	private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();   
     
-	private JedisPoolManager pm = new JedisPoolManager(Conf.get().getProperty("redis.host"), Conf.get().getProperty("redis.port"));;
+	private JedisPoolManager pm = new JedisPoolManager(Conf.get().getProperty("redis.host"), Conf.get().getProperty("redis.port"));
 	
     private String id;
     private byte[]  key; 

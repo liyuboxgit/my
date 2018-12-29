@@ -24,6 +24,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import liyu.test.springbootMybatis.mybatis.jdbc.RedisCache;
+import liyu.test.springbootMybatis.mybatis.jdbc.RedisCacheImpl;
+
 @Service
 public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationContextAware {
 
@@ -38,12 +41,13 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 	public final String dynamicUpdate = "dynamicUpdate";
 
 	private JdbcTemplate jdbc;
+	private RedisCache rc;
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		SqlSessionFactory sqlSessionFactory = applicationContext.getBean(SqlSessionFactory.class);
 		super.setSqlSessionFactory(sqlSessionFactory);
 		this.jdbc = new JdbcTemplate(applicationContext.getBean(DataSource.class));
-		
+		this.rc = applicationContext.getBean(RedisCacheImpl.class);
 		Configuration configuration = sqlSessionFactory.getConfiguration();
 		Collection<MappedStatement> mappedStatements = configuration.getMappedStatements();
 		Set<String> methods = new TreeSet<String>(new Comparator<String>() {
@@ -93,7 +97,31 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 		this.checkOne(queryForList, checkOne);
 		return queryForList;
 	}
-
+	
+	public Page<Map<String,Object>> jdbcFindMapPage(String sql,Object[] args, BaseParam baseParam) {
+		if(baseParam==null) {
+			List<Map<String,Object>> queryForList = jdbc.queryForList(sql, args);
+			return new Page<Map<String,Object>>(1,Integer.MAX_VALUE,queryForList.size(),queryForList);
+		}else {
+			String countSql = "select count(1) "+sql.substring(sql.indexOf("from"));
+			List<Long> list = jdbc.queryForList(countSql, Long.class, args);
+			
+			sql = sql + " limit ?,?";
+			
+			int args$length = args == null?0:args.length;
+			Object[] arr = new Object[args$length+2];
+			for(int i=0;i<args$length;i++) {
+				arr[i] = args[i];
+			}
+			arr[args$length] = baseParam.getRowNum();
+			arr[args$length+1] = baseParam.getPageSize();
+			
+			List<Map<String,Object>> queryForList = jdbc.queryForList(sql, arr);
+			
+			return new Page<Map<String,Object>>(baseParam.getPageNo(),baseParam.getPageSize(),list.get(0).intValue(),queryForList);
+		}
+	}
+	
 	public List<Map<String,Object>> jdbcFindMapList(String sql,Object[] args, boolean checkOne) {
 		List<Map<String,Object>> queryForList = jdbc.queryForList(sql, args);
 		this.checkOne(queryForList, checkOne);
@@ -111,19 +139,30 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 			for (UC el : (UC[]) parameter) {
 				i += this.getSqlSession().update(_all(method, type), el);
 			}
+			if(i>0) {
+				rc.clear(type);
+				logger.debug("===>cache clear[{}]",type.getName());
+			}
 			return i;
 		}
 		
 		else if(parameter instanceof Collection<?>) {
 			int i = 0;
-			for (Object el : (Collection<?>) parameter) {
-				i += this.getSqlSession().update(_all(method, type), el);
+			if(i>0) {
+				rc.clear(type);
+				logger.debug("===>cache clear[{}]",type.getName());
 			}
+			if(i>0) rc.clear(type);
 			return i;
 		}
 		
 		else {
-			return this.getSqlSession().update(_all(method, type), parameter);
+			int i = this.getSqlSession().update(_all(method, type), parameter);
+			if(i>0) {
+				rc.clear(type);
+				logger.debug("===>cache clear[{}]",type.getName());
+			}
+			return i;
 		}
 	}
 	/**
