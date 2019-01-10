@@ -147,7 +147,9 @@ nginx
 				}	
 			}
 		}
-		
+	4.nginx rewrite
+	rewrite ^(.*)/index-([0-9]+).html$ $1/index.html?offset=$2 redirect;
+	
 	spring boot
 	java -jar target/smart.jar --server.port=8080
 
