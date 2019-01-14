@@ -8,6 +8,7 @@
 	<artifactId>dubbo-demo-api</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
+	<description>https://www.cnblogs.com/smail-bao/p/6594432.html?dubbo_monitor</description>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
