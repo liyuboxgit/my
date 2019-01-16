@@ -40,8 +40,8 @@ public class BaseTest {
     		demo.setBirth(Calendar.getInstance().getTime());
     		em.exccute(Demo.class, em.insert, demo);
     	}*/
-    	/*//3，查询数量
-    	Long count = em.findCount(em.findcount, null, Demo.class);
+    	//3，查询数量
+    	/*Long count = em.findCount(em.findcount, null, Demo.class);
     	Assert.isTrue(count==53, "");
     	//4，分页查询
     	DemoParam demoParam = new DemoParam();
@@ -56,21 +56,21 @@ public class BaseTest {
     	DemoParam param = new DemoParam();
     	param.setName("test");
     	Long findCount = em.findCount(em.findcount, param, Demo.class);
-    	Assert.isTrue(findCount==1, "");
+    	Assert.isTrue(findCount==1, "");*/
     	//5，使用缓存
     	Long ret1 = em.findCount(em.findcount, null, Demo.class);
-    	Assert.isTrue(ret1==53, "");
+    	Assert.isTrue(ret1==49, "");
     	Long ret2 = em.findCount(em.findcount, null, Demo.class);
-    	Assert.isTrue(ret2==53, "");*/
-    	
-    	List<Map<String, Object>> find1 = jjq.find(new Object[] {});
+    	Assert.isTrue(ret2==49, "");
+    	//6，使用jdbcTemplate缓存
+    	/*List<Map<String, Object>> find1 = jjq.find(new Object[] {});
     	System.out.println(find1);
     	DemoParam param = new DemoParam();
-    	param.setId(50);
+    	param.setId(53);
     	param.setVersion(0);
     	em.exccute(Demo.class, em.delete, param);
     	List<Map<String, Object>> find2 = jjq.find(new Object[] {});
-    	System.out.println(find2);
+    	System.out.println(find2);*/
     }
 	
 	public static void main(String[] args) {

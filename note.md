@@ -212,6 +212,12 @@ mysql：
 	DROP USER 'liyu'@'%';
 	drop database liyu;
 	
+	mysqldump工具基本用法
+	1. 备份所有数据库: mysqldump -u root -p --all-databases > all_database_sql
+	2. 备份mysql数据库：mysqldump -u root -p --databases mysql > mysql_database_sql
+	3. 备份指定的多个数据库：mysqldump -u root -p --databases db1 db2 db3 > bak.sql
+	4. 备份mysql数据库下的user表：mysqldump -u root -p mysql user > user_table
+	
 	#mysql binlog
 	编辑mysql配置文件my.cnf,在[mysqld]下加log-bin=mysql-bin  确认是打开状态(值 mysql-bin 是日志的基本名或前缀名)；
 	重启mysql服务
@@ -613,6 +619,359 @@ java：RSA加减密
 	spring jdbcTemplate
 	insert GeneratedKeyHolder
 	find BeanPropertyRowMapper<T>(Class<T> type)
+	
+	<parent>
+		<groupId>org.apache.httpcomponents</groupId>
+		<artifactId>httpcomponents-client</artifactId>
+		<version>4.5.3</version>
+	</parent>
+	<artifactId>httpclient</artifactId>
+	import java.io.BufferedOutputStream;
+	import java.io.BufferedReader;
+	import java.io.DataOutputStream;
+	import java.io.IOException;
+	import java.io.InputStream;
+	import java.io.InputStreamReader;
+	import java.io.OutputStream;
+	import java.io.PrintStream;
+	import java.net.ConnectException;
+	import java.net.HttpURLConnection;
+	import java.net.InetAddress;
+	import java.net.URL;
+	import java.net.UnknownHostException;
+	import java.security.cert.CertificateException;
+	import java.security.cert.X509Certificate;
+	import java.util.ArrayList;
+	import java.util.List;
+	import java.util.Map;
+
+	import javax.net.ssl.HttpsURLConnection;
+	import javax.net.ssl.SSLContext;
+	import javax.net.ssl.SSLSocketFactory;
+	import javax.net.ssl.TrustManager;
+	import javax.net.ssl.X509TrustManager;
+	import javax.servlet.http.HttpServletRequest;
+
+	import org.apache.http.Consts;
+	import org.apache.http.HttpResponse;
+	import org.apache.http.HttpStatus;
+	import org.apache.http.NameValuePair;
+	import org.apache.http.client.config.RequestConfig;
+	import org.apache.http.client.entity.UrlEncodedFormEntity;
+	import org.apache.http.client.methods.CloseableHttpResponse;
+	import org.apache.http.client.methods.HttpGet;
+	import org.apache.http.client.methods.HttpPost;
+	import org.apache.http.impl.client.CloseableHttpClient;
+	import org.apache.http.impl.client.HttpClients;
+	import org.apache.http.message.BasicNameValuePair;
+	import org.apache.http.util.EntityUtils;
+	import org.apache.log4j.Logger;
+
+	import com.alibaba.fastjson.JSON;
+	import com.alibaba.fastjson.JSONObject;
+	import com.rthd.framework.util.StringUtil;
+	import com.rthd.framework.util.WebUtil;
+
+	public class HttpUtil {
+		private static Logger log= Logger.getLogger(HttpUtil.class);
+		private final static int CONNECT_TIMEOUT = 5000; 
+		private final static String DEFAULT_ENCODING = "UTF-8";
+
+		private static TrustManager myX509TrustManager = new X509TrustManager(){
+			@Override
+			public X509Certificate[] getAcceptedIssuers() {	
+				return null;		
+			}
+			@Override
+			public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+			}
+			@Override
+			public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+			}	
+		};
+		/**
+		 * 
+		 * 此方法描述的是：发送远程请求post
+		 * @author: zhupengfei@rthdtax.com
+		 * @version: 2018年7月17日 下午4:31:14
+		 */
+		public static String postData(String urlStr, String param){
+			DataOutputStream dos = null;
+			InputStream input = null;
+			try {
+				URL url = new URL(urlStr);
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				conn.setDoInput(true);
+				conn.setDoOutput(true);
+				conn.setConnectTimeout(CONNECT_TIMEOUT); 
+				conn.setReadTimeout(CONNECT_TIMEOUT);
+				conn.setRequestMethod("POST");
+				conn.setUseCaches(false);
+				conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+				conn.setRequestProperty("Connection", "Keep-Alive");
+				conn.setRequestProperty("Charset", DEFAULT_ENCODING);
+				conn.setRequestProperty("contentType", DEFAULT_ENCODING);
+				dos = new DataOutputStream(conn.getOutputStream());
+				if(StringUtil.isNotEmpty(param)) {
+					dos.writeBytes(param);
+					dos.flush();
+					dos.close();
+				}
+				input = conn.getInputStream();
+				int resLen =0;
+				byte[] res = new byte[1024];
+				StringBuffer sb = new StringBuffer();
+				while((resLen=input.read(res))!=-1){
+					sb.append(new String(res, 0, resLen));
+				}
+				return sb.toString();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}finally {
+				try { 
+					if(input != null) input.close();  
+					if(dos != null) dos.close();
+				}catch (IOException e) { 
+					e.printStackTrace();
+				}
+			}
+			return null;
+		}
+	   
+		public static String postJsonData(String urlStr, String param){
+			DataOutputStream dos = null;
+			InputStream input = null;
+			try {
+				URL url = new URL(urlStr);
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				conn.setDoInput(true);
+				conn.setDoOutput(true);
+				conn.setConnectTimeout(CONNECT_TIMEOUT); 
+				conn.setReadTimeout(CONNECT_TIMEOUT);
+				conn.setRequestMethod("POST");
+				conn.setUseCaches(false);
+				conn.setRequestProperty("Content-Type", "application/json");
+				conn.setRequestProperty("Connection", "Keep-Alive");
+				conn.setRequestProperty("Charset", DEFAULT_ENCODING);
+				dos = new DataOutputStream(conn.getOutputStream());
+				if(StringUtil.isNotEmpty(param)) {
+					dos.write(param.getBytes("UTF-8"));
+					dos.flush();
+					dos.close();
+				}
+				input = conn.getInputStream();
+				int resLen =0;
+				byte[] res = new byte[1024];
+				StringBuffer sb = new StringBuffer();
+				while((resLen=input.read(res))!=-1){
+					sb.append(new String(res, 0, resLen));
+				}
+				return sb.toString();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}finally {
+				try { 
+					if(input != null) input.close();  
+					if(dos != null) dos.close();
+				}catch (IOException e) { 
+					e.printStackTrace();
+				}
+			}
+			return null;
+		}
+		
+		public static JSONObject httpGet(String url) {
+			JSONObject jsonResult = null;
+			try {
+				CloseableHttpClient client = HttpClients.createDefault();
+				HttpGet request = new HttpGet(url);
+				HttpResponse response = client.execute(request);
+				if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+					String strResult = EntityUtils.toString(response.getEntity(),DEFAULT_ENCODING);
+					jsonResult = JSON.parseObject(strResult);
+					request.releaseConnection();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return jsonResult;
+		}
+		/**
+		 * 
+		 * 此方法描述的是：后台调用苹果接口
+		 * @author: zhupengfei@rthdtax.com
+		 * @version: 2018年10月16日 下午12:55:54
+		 */
+		public static JSONObject verify1(String url, String receipt) {
+			try {
+			HttpsURLConnection connection = (HttpsURLConnection) new URL(url).openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+			connection.setAllowUserInteraction(false); 
+			PrintStream ps = new PrintStream(connection.getOutputStream());
+			ps.print("{\"receipt-data\": \"" + receipt + "\"}");
+			ps.close();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			String str;
+			StringBuffer sb = new StringBuffer();
+			while ((str = br.readLine()) != null) {
+			sb.append(str);
+			}
+			br.close();
+			String resultStr = sb.toString();
+			JSONObject result = JSONObject.parseObject(resultStr);
+			if (result != null && result.getInteger("status") == 21007) { //递归，以防漏单
+			return verify1(url, receipt);
+			}
+			return result;
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
+			return null;
+			} 
+	  
+		public static String doPost(String url, Map<String, String> params) {
+			CloseableHttpClient httpclient = HttpClients.createDefault();
+			try {
+				HttpPost httppost = new HttpPost(url);
+
+				RequestConfig config = RequestConfig.custom()
+						.setConnectTimeout(CONNECT_TIMEOUT)
+						.setConnectionRequestTimeout(CONNECT_TIMEOUT)
+						.setSocketTimeout(CONNECT_TIMEOUT).build();
+
+				httppost.setConfig(config);
+
+				List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+				if (params != null) {
+					for (Map.Entry<String, String> entry : params.entrySet()) {
+						formparams.add(new BasicNameValuePair(entry.getKey(), entry.getValue() + ""));
+					}
+				}
+				UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams, Consts.UTF_8);
+				httppost.setEntity(entity);
+
+				log.debug("Executing request: " + httppost.getRequestLine());
+				CloseableHttpResponse response = httpclient.execute(httppost);
+				try {
+					log.debug(response.getStatusLine().toString());
+					return EntityUtils.toString(response.getEntity());
+				} finally {
+					response.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					httpclient.close();
+				} catch (IOException e) {
+					log.error("error when closing httpClient.", e);
+				}
+			}
+			return null;
+		}
+		
+		public static String sendHttpsCoon(String url, String code){
+			if(StringUtil.isEmpty(url)||StringUtil.isEmpty(code)) return "";
+			BufferedOutputStream buffOutStr = null;
+			BufferedReader reader = null;
+			HttpsURLConnection conn = null;
+			try {
+				SSLContext ssl = SSLContext.getInstance("SSL");//设置SSLContext
+				ssl.init(null, new TrustManager[]{myX509TrustManager}, null);
+				
+				conn = (HttpsURLConnection) new URL(url).openConnection();// 打开连接
+				conn.setSSLSocketFactory(ssl.getSocketFactory());// 设置套接工厂
+				conn.setRequestMethod("POST");// 加入数据
+				conn.setDoOutput(true);
+				conn.setRequestProperty("Content-type", "application/json");
+				conn.setRequestProperty("Proxy-Connection", "Keep-Alive");	
+				JSONObject obj = new JSONObject();
+				obj.put("receipt-data", code);
+				
+				buffOutStr = new BufferedOutputStream(conn.getOutputStream());
+				buffOutStr.write(obj.toString().getBytes());
+				buffOutStr.flush();
+				buffOutStr.close();
+				
+				reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				String line = null;
+				StringBuffer sb = new StringBuffer();
+				while ((line = reader.readLine()) != null){
+					sb.append(line);
+				}
+				String appStoreRet = sb.toString();
+				conn.getInputStream().close();
+				conn.getOutputStream().close();
+				return appStoreRet;
+			}catch(Exception e) {
+				e.printStackTrace();
+				return "";
+			}finally {
+				try {
+					if(buffOutStr!=null)buffOutStr.close();
+					if(reader!=null)reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		/**
+		 * 发送https请求
+		 * @param requestUrl 请求地址
+		 * @param requestMethod 请求方式（GET、POST）
+		 * @param outputStr 提交的数据
+		 * @return JSONObject(通过JSONObject.get(key)的方式获取json对象的属性值)
+		 */
+		public static JSONObject httpsRequest(String requestUrl, String requestMethod, String outputStr) {
+			JSONObject jsonObject = null;
+			try {
+				// 创建SSLContext对象，并使用我们指定的信任管理器初始化
+				TrustManager[] tm = { myX509TrustManager };
+				SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
+				sslContext.init(null, tm, new java.security.SecureRandom());
+				// 从上述SSLContext对象中得到SSLSocketFactory对象
+				SSLSocketFactory ssf = sslContext.getSocketFactory();
+				URL url = new URL(requestUrl);
+				HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+				conn.setSSLSocketFactory(ssf);
+				conn.setDoOutput(true);
+				conn.setDoInput(true);
+				conn.setUseCaches(false);
+				// 设置请求方式（GET/POST）
+				conn.setRequestMethod(requestMethod);
+				// 当outputStr不为null时向输出流写数据
+				if (null != outputStr) {
+					OutputStream outputStream = conn.getOutputStream();
+					// 注意编码格式
+					outputStream.write(outputStr.getBytes("UTF-8"));
+					outputStream.close();
+				}
+				// 从输入流读取返回内容
+				InputStream inputStream = conn.getInputStream();
+				InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
+				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+				String str = null;
+				StringBuffer buffer = new StringBuffer();
+				while ((str = bufferedReader.readLine()) != null) {
+					buffer.append(str);
+				}
+				// 释放资源
+				bufferedReader.close();
+				inputStreamReader.close();
+				inputStream.close();
+				inputStream = null;
+				conn.disconnect();
+				jsonObject = JSONObject.parseObject(buffer.toString());
+			} catch (ConnectException ce) {
+				log.error("连接超时：{}", ce);
+			} catch (Exception e) {
+				log.error("https请求异常：{}", e);
+			}
+			return jsonObject;
+		}
+	}
 oracle分区;
 	--建立测试表分区
 	CREATE TABLE FPFX_T_QYGX_TEST (
