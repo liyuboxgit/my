@@ -146,7 +146,7 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 			return i;
 		}
 		
-		else if(parameter instanceof Collection<?>) {
+		/*else if(parameter instanceof Collection<?>) {
 			int i = 0;
 			if(i>0) {
 				rc.clear(type);
@@ -154,7 +154,7 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 			}
 			if(i>0) rc.clear(type);
 			return i;
-		}
+		}*/
 		
 		else {
 			int i = this.getSqlSession().update(_all(method, type), parameter);

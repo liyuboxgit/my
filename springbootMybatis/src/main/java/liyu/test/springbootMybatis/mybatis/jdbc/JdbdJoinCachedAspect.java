@@ -30,7 +30,7 @@ public class JdbdJoinCachedAspect {
 					if(list==null) {
 						link.put(c, new ArrayList<String>());
 					}
-					link.get(c).add(cached.uuid());
+					link.get(c).add(uuid(JdbcJoinQuery.class,m));
 				}
 			}
 		}
@@ -50,16 +50,16 @@ public class JdbdJoinCachedAspect {
     	Method method = joinPoint.getTarget().getClass().getDeclaredMethod(shortName, cls);
     	Cached c = method.getDeclaredAnnotation(Cached.class);
     	
-    	//if method has 'Cache' annotation
-    	if(c!=null && (c.uuid() !=null && !"".equals(c.uuid()))) {
-    		Object ret = rc.getObject(c.uuid(), joinPoint.getArgs());
+    	if(c!=null) {
+    		String uuid = uuid(joinPoint.getTarget().getClass(),method);
+    		Object ret = rc.getObject(uuid, joinPoint.getArgs());
     		if(ret!=null) {
     			logger.debug("====>cache hit");
     			return ret;
     		}else {
     			Object obj = joinPoint.proceed();
     			if(obj!=null) {
-    				Long l = rc.putObject(c.uuid(), joinPoint.getArgs(), obj);
+    				Long l = rc.putObject(uuid, joinPoint.getArgs(), obj);
     				logger.debug("====>cache put:"+l);
     			}
     			return obj;
@@ -67,5 +67,9 @@ public class JdbdJoinCachedAspect {
     	}else {
     		return joinPoint.proceed();
     	}
+    }
+    
+    private static String uuid(Class<?> c,Method m) {
+    	return c.getName()+":"+m.getName();
     }
 }

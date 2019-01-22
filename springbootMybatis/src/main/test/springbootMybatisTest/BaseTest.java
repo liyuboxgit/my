@@ -20,6 +20,9 @@ import liyu.test.springbootMybatis.domain.Demo;
 import liyu.test.springbootMybatis.domain.param.DemoParam;
 import liyu.test.springbootMybatis.mybatis.EnhanceMapper;
 import liyu.test.springbootMybatis.mybatis.jdbc.joinQuery.JdbcJoinQuery;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes=MainConfigure.class)
 public class BaseTest {
@@ -58,25 +61,43 @@ public class BaseTest {
     	Long findCount = em.findCount(em.findcount, param, Demo.class);
     	Assert.isTrue(findCount==1, "");*/
     	//5，使用缓存
-    	Long ret1 = em.findCount(em.findcount, null, Demo.class);
+    	/*Long ret1 = em.findCount(em.findcount, null, Demo.class);
     	Assert.isTrue(ret1==49, "");
     	Long ret2 = em.findCount(em.findcount, null, Demo.class);
-    	Assert.isTrue(ret2==49, "");
+    	Assert.isTrue(ret2==49, "");*/
     	//6，使用jdbcTemplate缓存
-    	/*List<Map<String, Object>> find1 = jjq.find(new Object[] {});
+    	List<Map<String, Object>> find1 = jjq.find(new Object[] {});
     	System.out.println(find1);
     	DemoParam param = new DemoParam();
-    	param.setId(53);
+    	param.setId(7);
     	param.setVersion(0);
     	em.exccute(Demo.class, em.delete, param);
     	List<Map<String, Object>> find2 = jjq.find(new Object[] {});
-    	System.out.println(find2);*/
+    	System.out.println(find2);
     }
 	
 	public static void main(String[] args) {
-        RestTemplate rt = new RestTemplate();
+        /*RestTemplate rt = new RestTemplate();
         rt.getMessageConverters().set(1, new StringHttpMessageConverter(Charset.forName("UTF-8")));
         String string = rt.getForObject("http://localhost:8080", String.class);
-        Assert.isTrue("success".equals(string),"");
+        Assert.isTrue("success".equals(string),"");*/
+		
+		JedisPoolConfig config = new JedisPoolConfig();
+        config.setMaxTotal(20);
+        config.setMaxIdle(5);
+        config.setMaxWaitMillis(1000l);
+        config.setTestOnBorrow(false);
+        //JedisPool jedisPool = new JedisPool(config, "localhost", 6379);
+        JedisPool jedisPool = new JedisPool(config, "47.105.227.82", 6379);
+        
+        try {
+            Jedis jedis = jedisPool.getResource();
+            jedis.auth("3WXE94ffdF");
+            jedis.setex("test".getBytes(), 30, "test".getBytes());
+            jedis.close();
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+        jedisPool.close();
    }
 };

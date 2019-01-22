@@ -21,5 +21,4 @@ import liyu.test.springbootMybatis.mybatis.BaseEntity;
  */
 public @interface Cached {
 	Class<? extends BaseEntity>[] tableClasses();
-	String uuid();
 }
