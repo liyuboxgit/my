@@ -1,4 +1,6 @@
 ﻿git
+	git clone 下载master分支
+	git clone -b <branch> 下载特定分支
 	git rm <filename> 删除文件
 	git reset --hard <commitid>回退到某个版本
 	git log 查看commit
@@ -10,15 +12,12 @@
 	git merge <name> 分支name，合并到当前分支上
 	git branch -d <name> 删除分支
 	git push origin :<name> 删除远程分支
-	#git push origin --delete <name> 删除远程分支
+	git push origin --delete <name> 删除远程分支
 	
 	git push origin branch_website:branch_website 本地分支发送到远程
 	git fetch origin branch_website 拉取远程分支
 	git checkout -b branch_website origin/branch_website 创建并切换到本地分支，和远程分支相对应
 	
-	
-	
-
 	---解决冲突呢没有新的命令，知道其原理就能应对
 
 	git clone
@@ -45,6 +44,11 @@
 	$ git config --global core.autocrlf false
 	在eclipse中window>references>general>workspace设置new line delimiter为unix
 	项目删除，重新下载， 只此三步，基本上可以解决换行问题了，否则请深究吧
+
+gradle
+	
+	
+	
 nginx
 	1.安装nginx
 		cd /usr/local/src

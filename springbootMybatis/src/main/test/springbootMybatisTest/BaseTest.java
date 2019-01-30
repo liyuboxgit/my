@@ -88,11 +88,11 @@ public class BaseTest {
         config.setMaxWaitMillis(1000l);
         config.setTestOnBorrow(false);
         //JedisPool jedisPool = new JedisPool(config, "localhost", 6379);
-        JedisPool jedisPool = new JedisPool(config, "47.105.227.82", 6379);
+        JedisPool jedisPool = new JedisPool(config, "10.0.0.113", 6379);
         
         try {
             Jedis jedis = jedisPool.getResource();
-            jedis.auth("3WXE94ffdF");
+            jedis.auth("3WXE94F");
             jedis.setex("test".getBytes(), 30, "test".getBytes());
             jedis.close();
         } catch (Exception e) {
