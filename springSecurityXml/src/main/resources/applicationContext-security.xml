@@ -8,6 +8,8 @@
         http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http pattern="/static/**" security="none"/>
+    <http pattern="/ueditor/**" security="none"/>
+    <http pattern="/ueditorServer/**" security="none"/>
     <http auto-config="true" use-expressions="true">
     	<!-- <http-basic/> -->
     	<!-- <form-login/> -->

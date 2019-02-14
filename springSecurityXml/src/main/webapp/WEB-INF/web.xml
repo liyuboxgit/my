@@ -22,4 +22,14 @@
 	<listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+   
+   	<servlet>
+   		<servlet-name>jspController</servlet-name>
+   		<servlet-class>com.baidu.ueditor.Controller</servlet-class>
+   	</servlet>
+   	
+   	<servlet-mapping>
+   		<servlet-name>jspController</servlet-name>
+   		<url-pattern>/ueditorServer/Controller</url-pattern>
+   	</servlet-mapping>
 </web-app>
