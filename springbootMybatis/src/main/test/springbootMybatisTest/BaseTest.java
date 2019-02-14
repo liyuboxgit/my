@@ -60,20 +60,28 @@ public class BaseTest {
     	param.setName("test");
     	Long findCount = em.findCount(em.findcount, param, Demo.class);
     	Assert.isTrue(findCount==1, "");*/
-    	//5，使用缓存
+    	//5.1，选择性修改
+    	/*Demo demo = em.findOne(em.findone, 3, Demo.class);
+    	demo.setName("test");
+    	em.exccute(Demo.class, "mergeSelective", demo);
+    	DemoParam param = new DemoParam();
+    	param.setName("test");
+    	Long findCount = em.findCount(em.findcount, param, Demo.class);
+    	Assert.isTrue(findCount==1, "");*/
+    	//6，使用缓存
     	/*Long ret1 = em.findCount(em.findcount, null, Demo.class);
     	Assert.isTrue(ret1==49, "");
     	Long ret2 = em.findCount(em.findcount, null, Demo.class);
     	Assert.isTrue(ret2==49, "");*/
-    	//6，使用jdbcTemplate缓存
-    	List<Map<String, Object>> find1 = jjq.find(new Object[] {});
+    	//7，使用jdbcTemplate缓存
+    	/*List<Map<String, Object>> find1 = jjq.find(new Object[] {});
     	System.out.println(find1);
     	DemoParam param = new DemoParam();
     	param.setId(7);
     	param.setVersion(0);
     	em.exccute(Demo.class, em.delete, param);
     	List<Map<String, Object>> find2 = jjq.find(new Object[] {});
-    	System.out.println(find2);
+    	System.out.println(find2);*/
     }
 	
 	public static void main(String[] args) {
