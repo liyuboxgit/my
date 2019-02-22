@@ -36,6 +36,11 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.42</version>
 		</dependency>
+		<dependency>
+		 	<groupId>org.apache.solr</groupId>
+		    <artifactId>solr-solrj</artifactId>
+		    <version>6.6.5</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
 	</dependencies>
 	<build>
 		<pluginManagement>
