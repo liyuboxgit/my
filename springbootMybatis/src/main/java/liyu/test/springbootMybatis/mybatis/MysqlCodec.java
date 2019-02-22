@@ -145,6 +145,18 @@ public class MysqlCodec {
 			mapperXml.append("\n    <sql id=\"pageSql\">\n        <if test=\"rowNum!=null and pageSize!=null\">\n            " + "limit #{rowNum},#{pageSize}"+"\n        </if>\n    </sql>");
 			mapperXml.append("\n    <insert id=\"insert\" useGeneratedKeys=\"true\" keyProperty=\"id\">\n        insert into " + Path.DB_TABLE.value + "(" + columnsExceptId.join() + ") values(" + columnsExceptId.joinv() + ")\n    </insert>");
 			mapperXml.append("\n    <update id=\"merge\">\n        update " + Path.DB_TABLE.value + " set " + columnsExceptId.joinu() + ",version=version+1,update_time=now() where " + id + "=#{" + javaNaming(id) + "} and version=#{version}\n    </update>");
+			mapperXml.append("\n	<update id=\"mergeSelective\">\n");
+			mapperXml.append("        update "+Path.DB_TABLE.value);
+			mapperXml.append("\n        <set>");
+			for (String str : columnsExceptId) {
+				if(str.equals("version")||str.equals("create_time")||str.equals("update_time"))
+					continue;
+				mapperXml.append("\n            <if test=\"" + javaNaming(str) + " != null\">\n                " + javaNaming(str) + "=#{" + javaNaming(str) + "},\n            </if>");
+			}
+			mapperXml.append("\n            <if test=\"true\">\n                update_time=now(), version=version+1,\n            </if>");
+			mapperXml.append("\n        </set>\n");
+			mapperXml.append("        where id=#{" + javaNaming(id) + "} and version=#{version}");
+			mapperXml.append("\n    </update>");
 			mapperXml.append("\n    <update id=\"dynamicUpdate\">\n        update ${tableName} set ${columnName}=#{value},version=version+1,update_time=now() where " + id + " = #{primaryKey} and version=#{version}\n    </update>");
 			mapperXml.append("\n    <delete id=\"delete\">\n        delete from " + Path.DB_TABLE.value + " where " + id + "=#{" + javaNaming(id) + "}\n    </delete>");
 			mapperXml.append("\n    <select id=\"findone\" resultMap=\"BaseResultMap\">\n        select <include refid=\"cols\"/> from " + Path.DB_TABLE.value + " where " + id + "=#{" + javaNaming(id) + "} \n    </select>");

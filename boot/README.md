@@ -1,0 +1,3 @@
+springmvc webflux
+
+springboot是一个脚手架，核心就是autoConfigure，只要classpash下有就可以自动配置。spring web在servlet3.1一下使用scp方式实现spring webapplicationcontext和sevletcontontext的融合，而传统方式是使用web.xml。

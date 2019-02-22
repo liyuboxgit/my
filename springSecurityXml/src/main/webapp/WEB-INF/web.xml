@@ -3,5 +3,33 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+	<display-name>Archetype Created Web Application</display-name>
+	<context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext*.xml</param-value>
+    </context-param>
+	
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+   
+   	<servlet>
+   		<servlet-name>jspController</servlet-name>
+   		<servlet-class>com.baidu.ueditor.Controller</servlet-class>
+   	</servlet>
+   	
+   	<servlet-mapping>
+   		<servlet-name>jspController</servlet-name>
+   		<url-pattern>/ueditorServer/Controller</url-pattern>
+   	</servlet-mapping>
 </web-app>

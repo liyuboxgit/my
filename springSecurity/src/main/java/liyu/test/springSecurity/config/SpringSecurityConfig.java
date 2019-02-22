@@ -33,10 +33,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 	    	.authenticationProvider(authenticationProvider)
 	        .authorizeRequests()
+	        	.antMatchers("/static/**").permitAll()    
 	            .anyRequest().authenticated()
 	            .and()
 	        .formLogin()
 	            .and()
+	        .logout()
+	        	.and()
+        	.csrf().disable()
 	        .httpBasic();
 	}
 	

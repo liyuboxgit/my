@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<body>
+	<h2>login page!</h2>
+	<br />
+<!-- 	<form name='loginForm' -->
+<!-- 		action="/j_spring_security_check" method='POST'> -->
+	<form name='loginForm'
+		action="/login" method='POST'>
+		<table>
+			<tr>
+				<td>用户:</td>
+				<td><input type='text' name='username'></td>
+			</tr>
+			<tr>
+				<td>密码:</td>
+				<td><input type='password' name='password'/></td>
+			</tr>
+			<tr>
+				<td colspan='2'><input name="submit" type="submit" value="登录" /></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

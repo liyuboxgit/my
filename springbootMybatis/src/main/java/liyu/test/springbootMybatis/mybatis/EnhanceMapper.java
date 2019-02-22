@@ -39,6 +39,7 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 	public final String merge = "merge";
 	public final String delete = "delete";
 	public final String dynamicUpdate = "dynamicUpdate";
+	public final String mergeSelective = "mergeSelective";
 
 	private JdbcTemplate jdbc;
 	private RedisCache rc;
@@ -133,7 +134,7 @@ public class EnhanceMapper extends SqlSessionDaoSupport implements ApplicationCo
 				this.findList(method, param, type));
 	}
 
-	public <T> int exccute(Class<T> type, String method, Object parameter) {
+	public <T> int execute(Class<T> type, String method, Object parameter) {
 		if (parameter instanceof UC[] ) {
 			int i = 0;
 			for (UC el : (UC[]) parameter) {
