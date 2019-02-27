@@ -1448,5 +1448,26 @@ hadoop_2.7,6
 	（也可以自己的mapreduce程序：/usr/local/hadoop2.7.6/bin/hadoop jar xx.jar org.apche.hadoop.example.WordCount input output）
 	查看运行结果：/usr/local/hadoop2.7.6/sbin/hdfs dfs -cat output/*
 	
+phantomjs
+	wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
+	yum -y install bzip2
+	tar -xf phantomjs-2.1.1-linux-x86_64.tar.bz2
+	yum install fontconfig freetype libfreetype.so.6 libfontconfig.so.1 libstdc++.so.6
+	ln -s /usr/local/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
+	yum install bitmap-fonts bitmap-fonts-cjk
+	
+	vi in test.js
+	var page = require('webpage').create();
+	page.open('http://baidu.com', function(status) {
+	  console.log("Status: " + status);
+	  if(status === "success") {
+		page.render('example.png');
+	  }
+	  phantom.exit();
+	});
+	
+	phantomjs test.js
+
+
 	
 	
