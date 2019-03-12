@@ -3,6 +3,7 @@ package liyu.test.img;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,8 +24,10 @@ public class Example_fas {
 
 		//加字
 		Graphics2D graphics = back.createGraphics();
+		///去除毛刺
+		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		graphics.setColor(Color.BLACK);
-		graphics.setFont(new Font("宋体", Font.BOLD, 14));
+		graphics.setFont(new Font("黑体", Font.BOLD, 20));
 		graphics.drawString("北风@你，一起加入贸税帮", 30, 45);
 		
 		//输出
