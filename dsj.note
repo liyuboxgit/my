@@ -70,6 +70,23 @@ spark
 	in shell>
 		spark.read.textFile("README.md").count() //return 205
 		sc.parallelize(List("hello,how are you baby, you are right!")).flatMap(_.split(" ")).map(el=>(el,1)).reduceByKey((a,b)=>a+b).collect().foreach(el=>println(el))
+		
+	1，举例说明map，flatMap以及reduce，reduceByKey的用法。
+	 sc.textFile("text").flatMap(s=>s.split(" ")).map(e=>(e,1)).reduceByKey((a,b)=>a+b).collect()
+	 sc.parallelize(Array(1,2,3,4,5)).reduce((a,b)=>a+b)
+	map是匹配的意思，flatMap是分解的意思，reduce是计算的意思，reduceByKey是按key计算的意思
+
+	2，sortBy和sortByKey的用法
+	  sc.parallelize(Array(3,1,5,2,9)).sortBy(e=>e).collect()
+	  --the preline 也可以写成 sc.parallelize(Array(3,1,5,2,9)).sortBy(identity).collect()
+	  sc.parallelize(Array((1,2),(4,0),(1,3))).sortBy(a=>a._2).collect() 
+	  sc.parallelize(Array((1, 6, 3), (2, 3, 3), (1, 1, 2), (1, 3, 5), (2, 1, 2))).sortBy(e=>(e._1,e._2)).collect()
+	sortBy是rdd的排序，输入参数是指定的排序字段或元组
+
+	3，filter的用法
+	  sc.parallelize(Array(1,2,3,4,5,6,7,8)).filter(e=>e%2!=0).collect
+
+	4，spark读取文件textFile，输出文件saveAsTextFile([String])
 apark-config
 	[root@single spark-2.1.0-bin-hadoop2.7]# cat conf/slaves
 	single
@@ -100,15 +117,7 @@ spark-sql
 	jdbcDF.sqlContext.sql("select user,host from test").toJavaRDD.coalesce(1).saveAsTextFile("temppath")
 	
 	jdbcDF.toJavaRDD.saveAsTextFile("sparkuser") //写入hdfs文件至sparkuser/part-00000，当然spark连接的是hadoop
-sqoop
-	bin/sqoop list-tables --username root --password 'liyuff' --connect jdbc:mysql://localhost:3306/mysql?characterEncoding=UTF-8
-	bin/sqoop create-hive-table --connect jdbc:mysql://localhost:3306/sqoop_hive?characterEncoding=UTF-8 --table test --username root -password 'liyuff' --hive-database sqoop_hive
-	bin/sqoop import --connect jdbc:mysql://localhost:3306/sqoop_hive?characterEncoding=UTF-8 --table test --username root -password  'liyuff' --fields-terminated-by ',' --hive-import --hive-database sqoop_hive  -m  1
-	
-hive
-	启动hiveserver2：./dev/apache-hive-1.2.2-bin/bin/hive --service hiveserver2
-	启动：./dev/apache-hive-1.2.2-bin/bin/beeline
-	beeline连接：!connect jdbc:hive2://<host>:<port>/<db>
+
 	
 
 	
