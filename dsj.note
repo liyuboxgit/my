@@ -117,6 +117,82 @@ spark-sql
 	jdbcDF.sqlContext.sql("select user,host from test").toJavaRDD.coalesce(1).saveAsTextFile("temppath")
 	
 	jdbcDF.toJavaRDD.saveAsTextFile("sparkuser") //写入hdfs文件至sparkuser/part-00000，当然spark连接的是hadoop
+	
+	#json格式
+	var df = spark.read.json("person.json")
+	df.printSchema
+	df.registerTempTable("p")
+	spark.sql("select * from p").show()
+	spark.sql("select * from p").collect().foreach(print)
+	
+	联合查询：
+	persion.json
+	{"id":1,"name":"Tom","age":25}
+	"id":2,"name":"LiLi","age":37}
+	{"id":3,"name":"Han","age":42}
+	addr.json
+	{"id":1,"name":"中国","pid":1}
+	{"id":2,"name":"美国","pid":1}
+	{"id":3,"name":"日本","pid":4}
+
+	spark.read.json("person.json").registerTempTable("p")
+	spark.read.json("addr.json").registerTempTable("a")
+	spark.sql("select * from p join a on p.id=a.pid").show()
+	spark.sql("select * from p left join a on p.id=a.pid").show()
+	spark.sql("select * from p right join a on p.id=a.pid").show()
+	spark.sql("select * from p full outer join a on p.id=a.pid").show()
+	:quit
+
+docker
+	1，安装
+	uname -r #查看linux内核版本，高于3.10才可以安装docker
+	yum update #需要先更新一下
+    yum remove docker  docker-common docker-selinux docker-engine #如果安装过，先卸载
+    yum -y install yum-utils #为执行下一行命令
+    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+    yum list docker-ce --showduplicates | sort -r #查看版本
+    yum install docker-ce 安装
+    systemctl start docker 启动
+    docker version 
+	#执行docker version有下面两部分说明安装成功
+		Client:
+		 Version:           18.09.4
+		 API version:       1.39
+		 Go version:        go1.10.8
+		 Git commit:        d14af54266
+		 Built:             Wed Mar 27 18:34:51 2019
+		 OS/Arch:           linux/amd64
+		 Experimental:      false
+
+		Server: Docker Engine - Community
+		 Engine:
+		  Version:          18.09.4
+		  API version:      1.39 (minimum version 1.12)
+		  Go version:       go1.10.8
+		  Git commit:       d14af54
+		  Built:            Wed Mar 27 18:04:46 2019
+		  OS/Arch:          linux/amd64
+		  Experimental:     false
+	2，启动和关闭
+	systemctl start docker
+	systemctl stop docker
+	3，使用mysql(docker mysql)
+	docker images #查询本地镜像
+	docker pull mysql:5.7 #拉取镜像
+	docker run -d -i -p 3306:3306 --name=mysql --restart=no -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7 #启动容器(外部机器连接容器可能需要关闭防火墙)
+	docker ps -a #列出所有容器
+	docker ps -s #列出成功运行的容器
+	docker stop $CONTAINER_ID #停止容器，CONTAINER_ID从上一个命令中获取
+	docker rm --force $CONTAINER_ID #移除容器(不能停止的容器要使用forch参数)
+	docker rmi $image_id #删除镜像(image_id从docker images获取)
+	
+	
+	
+	
+	
+	
+	
+	
 
 	
 

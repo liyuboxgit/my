@@ -158,9 +158,15 @@ nginx
 	java -jar target/smart.jar --server.port=8080
 
 	firewalld（防火墙）
-	查看指定区域所有打开的端口
+	#查看防火墙状态
+	firewall-cmd --state
+	#停止防火墙
+	systemctl stop firewalld.service
+	#禁止防火墙开机启动
+	systemctl disable firewalld.service
+	#查看指定区域所有打开的端口
 	firewall-cmd --zone=public --list-ports
-	在指定区域打开端口（记得重启防火墙）
+	#在指定区域打开端口（记得重启防火墙）
 	firewall-cmd --zone=public --add-port=80/tcp --permanent
 mysql：
 	下载：mysql-5.6.40-linux-glibc2.12-x86_64.tar.gz至/usr/local
