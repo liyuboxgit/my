@@ -1310,7 +1310,7 @@ solr
 	./scripts/cloud-scripts/zkcli.sh -zkhost master:2181,slave1:2182,slave2:2181 -cmd putfile /configs/basic_configs/managed-schema  solr/configsets/basic_configs/conf/managed-schema
 	如果没有效果，执行下面
 	./scripts/cloud-scripts/zkcli.sh -zkhost master:2181,slave1:2182,slave2:2181 -cmd putfile /configs/uvpv(collection_name)/managed-schema  solr/configsets/basic_configs/conf/managed-schema
-linux
+linux:http://www.linuxcommand.org/lc3_learning_the_shell.php
 	定时任务：(echo 'good morning'，console会没有输出，可以重定向到文件且不需要创建文件)
 	service crond start （service crond start）
 	echo */1 * * * * echo 'good morning' > crontest.cron
@@ -1318,6 +1318,37 @@ linux
 	crontab -l
 	crontab -r
 	rm crontest.cron
+	注意minute hour day month week command，和其他的cron表达式格式不一样,此例
+	* * * * * #每1分钟执行
+	3,15 * * * * #每小时的第3和第15分钟执行
+	3,15 8-11 * * * #上午8点到11点的第3和第15分钟执行
+	3,15 8-11 */2 * * 每隔两天的上午8点到11点的第3和第15分钟执行
+	3,15 8-11 * * 1 每个星期一的上午8点到11点的第3和第15分钟执行
+	30 21 * * * 每晚的21:30执行
+	实例7：每月1、10、22日的4 : 45重启smb 
+	命令：
+	45 4 1,10,22 * * /etc/init.d/smb restart
+	实例8：每周六、周日的1 : 10重启smb
+	命令：
+	10 1 * * 6,0 /etc/init.d/smb restart
+	实例9：每天18 : 00至23 : 00之间每隔30分钟重启smb 
+	命令：
+	0,30 18-23 * * * /etc/init.d/smb restart
+	实例10：每星期六的晚上11 : 00 pm重启smb 
+	命令：
+	0 23 * * 6 /etc/init.d/smb restart
+	实例11：每一小时重启smb 
+	命令：
+	* */1 * * * /etc/init.d/smb restart
+	实例12：晚上11点到早上7点之间，每隔一小时重启smb 
+	命令：
+	* 23-7/1 * * * /etc/init.d/smb restart
+	实例13：每月的4号与每周一到周三的11点重启smb 
+	命令：
+	0 11 4 * mon-wed /etc/init.d/smb restart
+	实例14：一月一号的4点重启smb 
+	命令：
+	0 4 1 jan * /etc/init.d/smb restart
 	
 	修改主机名称
 	hostnamectl set-hostname xxx 
