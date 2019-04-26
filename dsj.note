@@ -150,6 +150,13 @@ hadoop
 	stop yarn
 	/sbin/stop-yarn.sh
 	
+	设置jvm内存：
+	set 'export HADOOP_HEAPSIZE=2000' in $HADOOP_HOME/etc/hadoop/hadoop-env.sh
+	set in $HADOOP_HOME/etc/hadoop/mapred-site.xml
+	<property>
+		<name>mapred.child.java.opts</name>
+		<value>-Xmx2000m</value>
+	</property>
 
 	/root/dev/hadoop-2.7.6/bin/hdfs dfs -du -h README.md //查看文件大小
 	/root/dev/hadoop-2.7.6/bin/hdfs dfs -rmr README //删除文件夹
@@ -227,11 +234,18 @@ hive2
 	初始化
 	$HIVE_HOME/schematool -dbType mysql -initSchema
 	
+	启动hive
+	$HIVE_HOME/hive
+
 	hql:
 	CREATE TABLE pokes (foo INT, bar STRING);
 	insert into pokes values(3,'三');
+	insert into pokes values(4,'四');
 	DESCRIBE pokes;
-
+	
+	启动hibeserver2和beeline
+	$HIVE_HOME/bin/hiveserver2
+	$HIVE_HOME/bin/beeline -u jdbc:hive2://
 spark
 	download spark in http://spark.apache.org/
 	tar -xf spark*.tar
