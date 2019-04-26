@@ -61,8 +61,177 @@ python
 	定制类
 	元类
 hadoop 
+	单节点安装：
+	set hostname
+	/usr/hadoop/hadoop2.8.3/etc/hadoop/slaves
+	
+	set JAVA_HOME
+	/usr/hadoop/hadoop2.8.3/etc/hadoop/hadoop-env.sh
+	
+	set PORT and TMPDIR
+	/usr/hadoop/hadoop2.8.3/etc/hadoop/core-site.xml 
+	<configuration>
+		<!-- 指定HDFS老大（namenode）的通信地址 -->
+		<property>
+			<name>fs.defaultFS</name>
+			<value>hdfs://127.0.0.1:9000</value>
+		</property>
+		<!-- 指定hadoop运行时产生文件的存储路径 -->
+		<property>
+			<name>hadoop.tmp.dir</name>
+			<value>/usr/local/hadoop-2.8.5.data/tmp</value>
+		</property>
+	</configuration>
+
+	
+	
+	set namenode and datanode dir
+	/usr/hadoop/hadoop2.8.3/etc/hadoop/hdfs-site.xml
+	<configuration>
+		<property>
+			<name>dfs.name.dir</name>
+			<value>/usr/local/hadoop-2.8.5.data/name</value>
+			<description>namenode上存储hdfs名字的物理存储位置 </description>
+		</property>
+		<property>
+			<name>dfs.data.dir</name>
+			<value>/usr/local/hadoop-2.8.5.data/data</value>
+			<description>datanode上数据块的物理存储位置</description>
+		</property>
+		<!-- 设置hdfs副本数量,默认为3,设置为1 这样每个block只会存在一份 -->
+		<property>
+			<name>dfs.replication</name>
+			<value>1</value>
+		</property>
+		<property>
+			<name>dfs.permissions</name>
+			<value>false</value>
+			<description>对hdfs上的文件进行读写时,是否检查权限</description>
+		</property>
+	</configuration>
+
+	set no password login
+	ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
+	cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+	chmod 0600 ~/.ssh/authorized_keys
+	format namenode
+	bin/hdfs namenode -format
+	startup dfs 
+	sbin/start-dfs.sh 
+	browser with: http://192.168.2.5:50070
+	create fileholder in hdfs 
+	/bin/hdfs dfs -mkdir /test 
+	browser get the hileholder
+	stop hdfs
+	/sbin/stop-dfs.sh
+	set yarn
+	mapred-site.xml
+	<configuration>
+		<!-- 启用yarn作为资源管理框架 -->
+		<property>
+			<name>mapreduce.framework.name</name>
+			<value>yarn</value>
+		</property>
+	</configuration>
+	
+	set mapreduce_shuffle
+	yarn-site.xml
+	<configuration>
+		<!-- NodeManager上运行的附属服务。需配置成mapreduce_shuffle，才可运行MapReduce程序 -->
+		<property>
+			<name>yarn.nodemanager.aux-services</name>
+			<value>mapreduce_shuffle</value>
+		</property>
+	</configuration>
+
+	startup yarn 
+	/sbin/start-yarn.sh
+	browser with: http://192.168.2.5:8088
+	stop yarn
+	/sbin/stop-yarn.sh
+	
+
 	/root/dev/hadoop-2.7.6/bin/hdfs dfs -du -h README.md //查看文件大小
 	/root/dev/hadoop-2.7.6/bin/hdfs dfs -rmr README //删除文件夹
+mysql yum install
+	rpm -qa|grep -i mysql #检查是否安装过
+	yum -y remove mysql-community-client-5.6.38-2.el7.x86_64
+	wget http://repo.mysql.com/mysql57-community-release-el7-8.noarch.rpm
+	rpm -ivh mysql57-community-release-el7-8.noarch.rpm
+	yum -y install mysql-server
+	ls /etc/my.cnf
+	ls /var/log/var/log/mysqld.log
+	ls /usr/lib/systemd/system/mysqld.service
+	cat /etc/my.cnf
+	service mysqld restart
+	grep "password" /var/log/mysqld.log #随机密码：Nm.eSljs#042
+	mysql -uroot -p
+	登录后修改密码： alter user 'root'@'localhost' identified by 'Root!!2018';
+hive2
+	修改conf/hive-env.xml中的HADOOP_HOME
+	
+	创建文件：
+	cd /tmp
+	mkdir hive 
+	mkdir hive/operation_logs 
+	mkdir hive/resources
+	
+	修改conf/hive-site.xml(conf/hive-default.xml.tmplate)中的：
+	${system:Java.io.tmpdir}/${hive.session.id}_resources替换为本机路径/tmp/hive/resources 
+	${system:java.io.tmpdir}/${system:user.name}/operation_logs替换为本机路径/tmp/hive/operation_logs
+	${system:java.io.tmpdir}/${system:user.name}替换为本机路径 /tmp/hive
+
+	修改conf/hive-site.xml(conf/hive-default.xml.tmplate)中的：
+	<configuration>
+		<property>
+			<name>hive.metastore.warehouse.dir</name>
+			<value>/user/hive/warehouse</value>
+			<description>location of default database for the warehouse</description>
+		</property>
+		<property>
+			<name>hive.metastore.local</name>hive_db
+			<value>true</value>
+			<description>Use false if a production metastore server is used</description>
+		</property>
+		<property>
+			<name>hive.exec.scratchdir</name>
+			<value>/tmp/hive</value>
+			<description>HDFS root scratch dir for Hive jobs which gets created with write all (733) permission. For each connecting user, an HDFS scratch dir: ${hive.exec.scratchdir}/<username> is created, with ${hive.scratch.dir.permission}.</description>
+		</property>
+		<property>
+			<name>javax.jdo.option.ConnectionURL</name>
+			<value>jdbc:mysql://localhost:3306/hive?createDatabaseIfNoExist=true&amp;useSSL=false</value>
+			<description> Roy
+		  JDBC connect string for a JDBC metastore.
+		  To use SSL to encrypt/authenticate the connection, provide database-specific SSL flag in the connection URL.
+		  For example, jdbc:postgresql://myhost/db?ssl=true for postgres database.
+		</description>
+		</property>
+		<property>
+			<name>javax.jdo.option.ConnectionDriverName</name>
+			<value>com.mysql.jdbc.Driver</value>
+			<description>User-Defined(Roy) Driver class name for a JDBC metastore</description>
+		</property>
+		<property>
+			<name>javax.jdo.option.ConnectionUserName</name>
+			<value>hive</value>
+			<description>User-defined(Roy)Username to use against metastore database</description>
+		</property>
+		<property>
+			<name>javax.jdo.option.ConnectionPassword</name>
+			<value>hive</value>
+			<description>User-defined(Roy)password to use against metastore database</description>
+		</property>
+	</configuration>
+	
+	初始化
+	$HIVE_HOME/schematool -dbType mysql -initSchema
+	
+	hql:
+	CREATE TABLE pokes (foo INT, bar STRING);
+	insert into pokes values(3,'三');
+	DESCRIBE pokes;
+
 spark
 	download spark in http://spark.apache.org/
 	tar -xf spark*.tar
