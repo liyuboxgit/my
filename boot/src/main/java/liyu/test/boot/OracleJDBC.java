@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class OracleJDBC {
-	static String jdbcUrl = "jdbc:oracle:thin:@10.0.0.249:1521:orcl";
-	static String user = "fpfx";
-	static String password = "vD_p_90";
+	static String jdbcUrl = "jdbc:oracle:thin:@10.0.0.113:1521:dbsrv2";
+	static String user = "xmcktssb";
+	static String password = "xmcktssb";
 	public static void main(String[] args) {
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
@@ -23,7 +23,7 @@ public class OracleJDBC {
             conn = DriverManager.getConnection(jdbcUrl, user, password);
             System.out.println(conn);
             Statement statement = conn.createStatement();
-            ResultSet set = statement.executeQuery("select * from FPFX_DM_BIZ");
+            ResultSet set = statement.executeQuery("select * from SBPC");
             
             ResultSetMetaData rsmd = set.getMetaData(); 
             
