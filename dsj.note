@@ -79,7 +79,7 @@ hadoop
 		<!-- 指定hadoop运行时产生文件的存储路径 -->
 		<property>
 			<name>hadoop.tmp.dir</name>
-			<value>/usr/local/hadoop-2.8.5.data/tmp</value>
+			<value>/root/datahadoop/tmp</value>
 		</property>
 	</configuration>
 
@@ -90,12 +90,12 @@ hadoop
 	<configuration>
 		<property>
 			<name>dfs.name.dir</name>
-			<value>/usr/local/hadoop-2.8.5.data/name</value>
+			<value>/root/datahadoop/name</value>
 			<description>namenode上存储hdfs名字的物理存储位置 </description>
 		</property>
 		<property>
 			<name>dfs.data.dir</name>
-			<value>/usr/local/hadoop-2.8.5.data/data</value>
+			<value>/root/datahadoop/data</value>
 			<description>datanode上数据块的物理存储位置</description>
 		</property>
 		<!-- 设置hdfs副本数量,默认为3,设置为1 这样每个block只会存在一份 -->
@@ -174,60 +174,35 @@ mysql yum install
 	grep "password" /var/log/mysqld.log #随机密码：Nm.eSljs#042
 	mysql -uroot -p
 	登录后修改密码： alter user 'root'@'localhost' identified by 'Root!!2018';
-hive2
-	修改conf/hive-env.xml中的HADOOP_HOME
-	
-	创建文件：
-	cd /tmp
-	mkdir hive 
-	mkdir hive/operation_logs 
-	mkdir hive/resources
-	
-	修改conf/hive-site.xml(conf/hive-default.xml.tmplate)中的：
-	${system:Java.io.tmpdir}/${hive.session.id}_resources替换为本机路径/tmp/hive/resources 
-	${system:java.io.tmpdir}/${system:user.name}/operation_logs替换为本机路径/tmp/hive/operation_logs
-	${system:java.io.tmpdir}/${system:user.name}替换为本机路径 /tmp/hive
-
+hive-1.1.0（基于hadoop 2.6）
+	修改conf/hive-env.xml中的HADOOP_HOME，HIVE_CONF_DIR
 	修改conf/hive-site.xml(conf/hive-default.xml.tmplate)中的：
 	<configuration>
+		<!--一般启动报错，需要加入下面2property-->
 		<property>
-			<name>hive.metastore.warehouse.dir</name>
-			<value>/user/hive/warehouse</value>
-			<description>location of default database for the warehouse</description>
+			<name>system:java.io.tmpdir</name>
+			<value>/root/hive/tmpdir</value>
 		</property>
 		<property>
-			<name>hive.metastore.local</name>hive_db
-			<value>true</value>
-			<description>Use false if a production metastore server is used</description>
+			<name>system:user.name</name>
+			<value>hive</value>
 		</property>
-		<property>
-			<name>hive.exec.scratchdir</name>
-			<value>/tmp/hive</value>
-			<description>HDFS root scratch dir for Hive jobs which gets created with write all (733) permission. For each connecting user, an HDFS scratch dir: ${hive.exec.scratchdir}/<username> is created, with ${hive.scratch.dir.permission}.</description>
-		</property>
+		
 		<property>
 			<name>javax.jdo.option.ConnectionURL</name>
 			<value>jdbc:mysql://localhost:3306/hive?createDatabaseIfNoExist=true&amp;useSSL=false</value>
-			<description> Roy
-		  JDBC connect string for a JDBC metastore.
-		  To use SSL to encrypt/authenticate the connection, provide database-specific SSL flag in the connection URL.
-		  For example, jdbc:postgresql://myhost/db?ssl=true for postgres database.
-		</description>
 		</property>
 		<property>
 			<name>javax.jdo.option.ConnectionDriverName</name>
 			<value>com.mysql.jdbc.Driver</value>
-			<description>User-Defined(Roy) Driver class name for a JDBC metastore</description>
 		</property>
 		<property>
 			<name>javax.jdo.option.ConnectionUserName</name>
 			<value>hive</value>
-			<description>User-defined(Roy)Username to use against metastore database</description>
 		</property>
 		<property>
 			<name>javax.jdo.option.ConnectionPassword</name>
 			<value>hive</value>
-			<description>User-defined(Roy)password to use against metastore database</description>
 		</property>
 	</configuration>
 	
@@ -240,10 +215,32 @@ hive2
 	hql:
 	CREATE TABLE pokes (foo INT, bar STRING);
 	insert into pokes values(3,'三');
-	insert into pokes values(4,'四');
+	insert into pokes values(4,'四');//1.1.0不支持
 	DESCRIBE pokes;
 	
-	启动hibeserver2和beeline
+	CREATE TABLE `stu3`(
+	  `id` int,
+	  `name` string,
+	  `age` int)
+	ROW FORMAT DELIMITED
+	  FIELDS TERMINATED BY ',';
+	  
+	load data local inpath '/root/t' overwrite into table stu3;
+	
+	t文件内容:
+	3,往来,5
+	4,来往,5
+	
+	csv文件（下面这条才能正确加载csv文件,文件中有逗号，用双引号包裹，双引号需要转义）
+	create table csv_t1(a string,b string,c string) row format serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde' with serdeproperties ("separatorChar"=",") stored as textfile;
+	
+	t文件内容
+	3,往来,5
+	4,abc,5
+	6,'abc',7
+	9,"你好,世界",9
+	
+	启动hibeserver2和beeline //1.1.0不支持
 	$HIVE_HOME/bin/hiveserver2
 	$HIVE_HOME/bin/beeline -u jdbc:hive2://
 spark
