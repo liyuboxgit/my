@@ -233,16 +233,76 @@ hive-1.1.0（基于hadoop 2.6）
 	
 	csv文件（下面这条才能正确加载csv文件,文件中有逗号，用双引号包裹，双引号需要转义）
 	create table csv_t1(a string,b string,c string) row format serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde' with serdeproperties ("separatorChar"=",") stored as textfile;
-	
 	t文件内容
 	3,往来,5
 	4,abc,5
 	6,'abc',7
 	9,"你好,世界",9
 	
+	create table csv_t2(a string,b string,c string) PARTITIONED BY (ds STRING) row format serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde' with serdeproperties ("separatorChar"=",") stored as textfile;
+	load data local inpath '/root/t' overwrite into table csv_t2 PARTITION (ds='2008-08-18');--文件内容还是上面的一样
+	SELECT a.foo FROM csv_t2 a WHERE a.ds='2008-08-15';
+	hdfs中目录结构：
+	/user/hive/warehouse/csv_t2/ds=2008-08-15/t
+	/user/hive/warehouse/csv_t2/ds=2008-08-18/t
+	
+	使用spark读取hive数据：
+	概述，首先要启动hadoop，hive metastore，spark，必要是还需要mysql的驱动jar放入spark的jars目录下
+	1，拷贝hive-site.xml到spark/conf
+	2，开启hive元数据服务：hive  --service metastore
+	3，开启hadoop服务：sh  $HADOOP_HOME/sbin/start-all.sh
+	4.开启spark服务：sh $SPARK_HOME/sbin/start-all.sh
+	5.进入spark-shell：spark-shell
+		val sqlContext = new org.apache.spark.sql.hive.HiveContext(sc)
+		sqlContext.sql("SELECT * FROM csv_t2 where ds='2008-08-15'").collect().foreach(println)
+	6.退出:quit
+	
 	启动hibeserver2和beeline //1.1.0不支持
 	$HIVE_HOME/bin/hiveserver2
 	$HIVE_HOME/bin/beeline -u jdbc:hive2://
+hbase-1.2.0(基于hadoop-2.6)
+	1，download tar -xf cd hbase
+	2，edit conf/hbase-env.sh JAVA_HOME
+	3. edit conf/hbase-site.xml
+	<configuration>
+        <property>
+                <name>hbase.cluster.distributed</name>
+                <value>true</value>
+        </property>
+        <property>
+                <name>hbase.rootdir</name>
+                <value>hdfs://localhost:9000/hbase</value>
+        </property>
+	</configuration>
+	4. bin/start-hbase.sh
+	5. 进入shell
+		bin/hbase shell
+		
+		create 'test', 'cf'
+		--添加数据
+		put 'test', 'row1', 'cf:a', '大数据'
+		--查询列簇
+		get 'test','row1','cf'
+		--查询列
+		get 'test','row1','cf:a'
+		--扫描列
+		scan 'test',{COLUMN=>'cf'} or scan 'test',{COLUMNS=>'cf:a'}
+		--增加列簇
+		alter 'test', 'id'
+		--删除列簇
+		alter 'test', {NAME => 'id', METHOD => 'delete’}
+		--删除列
+		delete 'test','row1','cf:a'
+		--删除行
+		deleteall 'test','row1'
+		--全表扫描
+		scan 'test'
+		//如果出现乱码，在python中：print '\xe4\xb8\xad\xe6\x96\x87'.decode('utf-8')查看
+		
+		--禁用和删除表
+		disable 'test'
+		drop 'test'
+	6. 退出shell :quit
 spark
 	download spark in http://spark.apache.org/
 	tar -xf spark*.tar
