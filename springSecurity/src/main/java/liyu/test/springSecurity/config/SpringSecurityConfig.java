@@ -6,16 +6,24 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 
     private UserDetailsService getUserDetailService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("user").password("password").roles("USER").build());
+        UserDetailsService manager = new UserDetailsService() {
+			@Override
+			public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+				return User.withUsername("user").password("password").roles("USER").build();
+			}
+		};
+    	
+    	//InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        //manager.createUser(User.withUsername("user").password("password").roles("USER").build());
         return manager;
     }
 	
