@@ -99,26 +99,30 @@ public class Archtype {
 					"        </dependency>\n" +
 					"    </dependencies>\n" +
 		
-					"    <build>\n" + 
-					"        <pluginManagement>\n" + 
-					"            <plugins>\n" + 
-					"                <plugin>\n" + 
-					"                    <groupId>org.apache.maven.plugins</groupId>\n" + 
-					"                    <artifactId>maven-compiler-plugin</artifactId>\n" + 
-					"                    <version>3.6.1</version>\n" + 
-					"                    <configuration>\n" + 
-					"                        <source>1.8</source>\n" + 
-					"                        <target>1.8</target>\n" + 
-					"                        <encoding>UTF-8</encoding>\n" + 
-					"                    </configuration>\n" + 
-					"                </plugin>\n" + 
-					"				 <plugin>\n" +
-					"				 	 <groupId>org.springframework.boot</groupId>\n" +
-					"                	 <artifactId>spring-boot-maven-plugin</artifactId>\n" +
-					"                </plugin>\n" +
-					"            </plugins>\n" + 
-					"        </pluginManagement>\n" + 
-					"    </build>\n");
+					"	 <build>\n"+
+					"		 <plugins>\n"+
+					"            <plugin>\n"+
+					"               <groupId>org.apache.maven.plugins</groupId>\n"+
+					"               <artifactId>maven-compiler-plugin</artifactId>\n"+
+					"               <configuration>\n"+
+					"                   <source>1.8</source>\n"+
+					"                   <target>1.8</target>\n"+
+					"                   <encoding>UTF-8</encoding>\n"+
+					"               </configuration>\n"+
+					"            </plugin>\n"+
+					"			 <plugin>\n"+
+					"				 <groupId>org.springframework.boot</groupId>\n"+
+					"				 <artifactId>spring-boot-maven-plugin</artifactId>\n"+
+					"				 <executions>\n"+
+					"					 <execution>\n"+
+					"						 <goals>\n"+
+					"							 <goal>repackage</goal>\n"+
+					"						 </goals>\n"+
+					"					 </execution>\n"+
+					"				 </executions>\n"+
+					"			 </plugin>\n"+
+					"		 </plugins>\n"+
+					"	 </build>\n");
 			pom.append("</project>");
 		}else{
 			pom.append(
@@ -176,12 +180,8 @@ public class Archtype {
 					"            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>\n"+
 					"        </pluginRepository>\n"+
 					"    </pluginRepositories>\n"+
-					"    <build>\n"+
-					"        <plugins>\n"+
-					"            <plugin>\n"+
-					"                <groupId>org.springframework.boot</groupId>\n"+
-					"                <artifactId>spring-boot-maven-plugin</artifactId>\n"+
-					"            </plugin>\n"+
+					"	 <build>\n"+
+					"		 <plugins>\n"+
 					"            <plugin>\n"+
 					"               <groupId>org.apache.maven.plugins</groupId>\n"+
 					"               <artifactId>maven-compiler-plugin</artifactId>\n"+
@@ -191,8 +191,19 @@ public class Archtype {
 					"                   <encoding>UTF-8</encoding>\n"+
 					"               </configuration>\n"+
 					"            </plugin>\n"+
-					"        </plugins>\n"+
-					"    </build>\n"+
+					"			 <plugin>\n"+
+					"				 <groupId>org.springframework.boot</groupId>\n"+
+					"				 <artifactId>spring-boot-maven-plugin</artifactId>\n"+
+					"				 <executions>\n"+
+					"					 <execution>\n"+
+					"						 <goals>\n"+
+					"							 <goal>repackage</goal>\n"+
+					"						 </goals>\n"+
+					"					 </execution>\n"+
+					"				 </executions>\n"+
+					"			 </plugin>\n"+
+					"		 </plugins>\n"+
+					"	 </build>\n"+
 					"</project>");
 		}
 		
