@@ -1,0 +1,1 @@
+hbaseclient whth springboot.note config the jdk tool.jar in pom.xml
