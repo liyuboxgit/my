@@ -5,3 +5,5 @@ springboot是一个脚手架，核心就是autoConfigure，只要classpash下有就可以自动配置。
 urlconn是一个java.net.Url发送http请求
 
 oraclejdbc是一个连接oracle的jdbc
+
+commonCsv是使用common-csv.jar读写csv样例
