@@ -982,6 +982,38 @@ java：RSA加减密
 			return jsonObject;
 		}
 	}
+	CSV读写
+	/*<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-csv</artifactId>
+    <version>1.4</version>
+    </dependency>*/
+    public static void writeCsv(Object[] headers,List<Object[]> data,String filePath) throws IOException{
+        CSVFormat formator = CSVFormat.DEFAULT.withRecordSeparator(NEW_LINE_SEPARATOR);
+        FileWriter fileWriter=new FileWriter(filePath);
+        CSVPrinter printer=new CSVPrinter(fileWriter,formator);
+        printer.printRecord(headers);
+        if(data != null){
+            for(Object[] lineData:data){
+                printer.printRecord(lineData);
+            }
+        }
+        printer.close();
+    }
+ 
+    public static List<CSVRecord> readCSV(String filePath,String[] headers) throws IOException{
+        CSVFormat formator = CSVFormat.DEFAULT.withHeader(headers);
+        FileReader fileReader=new FileReader(filePath);
+        CSVParser parser=new CSVParser(fileReader,formator);
+        List<CSVRecord> records = null;
+        try {			
+        	records=parser.getRecords();
+		} finally {
+			parser.close();
+			fileReader.close();
+		}
+        return records;    
+    }
 oracle分区;
 	--建立测试表分区
 	CREATE TABLE FPFX_T_QYGX_TEST (
@@ -1437,7 +1469,208 @@ elasticsearch
 	useradd es
 	chown -R es:es /usr/local/elasticsearch6.4.1
 	/usr/local/elasticsearch6.4.1/bin/elasticsearch -d
-	curl -XGET "http://localhost:9200/_cat/health?v"
+		curl -XGET "http://localhost:9200/_cat/health?v"
+		curl -XGET 'localhost:9200/_count?pretty' -d '
+		{
+			"query": {
+				"match_all": {}
+			}
+		}' -H 'Content-Type:application/json'
+		//如果添加文档失败，type=cluster_block_exception, reason=blocked by，执行 curl -XPUT 'http://localhost:9200/_settings' -d '{"index": {"blocks": {"read_only_allow_delete": "false"}}}' -H 'Content-Type:application/json'
+		//如果添加不指定id，则用post操作，而不是put
+		curl -XPUT 'localhost:9200/megacorp/employee/1' -d '
+		{
+			"first_name" : "John",
+			"last_name" :  "Smith",
+			"age" :        25,
+			"about" :      "I love to go rock climbing",
+			"interests": [ "sports", "music" ]
+		}' -H 'Content-Type:application/json'
+		curl -XPUT 'localhost:9200/megacorp/employee/2' -d '
+		{
+			"first_name" :  "Jane",
+			"last_name" :   "Smith",
+			"age" :         32,
+			"about" :       "I like to collect rock albums",
+			"interests":  [ "music" ]
+		}' -H 'Content-Type:application/json'
+		curl -XPUT 'localhost:9200/megacorp/employee/3' -d '
+		{
+			"first_name" :  "Douglas",
+			"last_name" :   "Fir",
+			"age" :         35,
+			"about":        "I like to build cabinets",
+			"interests":  [ "forestry" ]
+		}' -H 'Content-Type:application/json'
+		
+		curl -XGET 'http://localhost:9200/megacorp/employee/3?pretty'
+										 /megacorp/employee/_search
+										 /megacorp/employee/_search?q=last_name:Smith
+		或者
+		GET /megacorp/employee/_search
+		{
+			"query" : {
+				"match" : {
+					"last_name" : "Smith"
+				}
+			}
+		}
+		GET /megacorp/employee/_search
+		{
+			"query" : {
+				"bool": {
+					"must": {
+						"match" : {
+							"last_name" : "smith" 
+						}
+					},
+					"filter": {
+						"range" : {
+							"age" : { "gt" : 30 } 
+						}
+					}
+				}
+			}
+		}
+		//下面是全文索引的示例，返回结果按匹配得分排序
+		GET /megacorp/employee/_search
+		{
+			"query" : {
+				"match" : {
+					"about" : "rock climbing"
+				}
+			}
+		}
+		GET /megacorp/employee/_search
+		{
+			"query" : {
+				"match_phrase" : { //比about更严格，rock climbing作为整体去匹配
+					"about" : "rock climbing"
+				}
+			}
+		}
+		GET /megacorp/employee/_search //高亮显示
+		{
+			"query" : {
+				"match_phrase" : {
+					"about" : "rock climbing"
+				}
+			},
+			"highlight": {
+				"fields" : {
+					"about" : {}
+				}
+			}
+		}
+		GET /website/blog/123?_source=title,text //定制输出格式
+		GET /website/blog/123/_source
+		curl -i -XHEAD http://localhost:9200/website/blog/123 //检查文档是否存在
+		DELETE /website/blog/123 //删除文档
+		PUT /website/blog/1?version=1 //更新文档，指定version，如果成功，如果version成为旧数据则返回409状态码和version conflict的错误说明
+		---------------------------------------------------------------------------------------------------------------------------------上面是整体文档操作，下面是局部文档操作
+		POST /website/blog/1/_update //局部更新文档，必须指定doc或者script
+		{
+		   "doc" : {
+			  "tags" : [ "testing" ],
+			  "views": 0
+		   }
+		}
+		POST /website/blog/1/_update //局部更新文档
+		{
+		   "script" : "ctx._source.views+=1"
+		}
+		POST /website/blog/1/_update //局部更新文档，新加标签
+		{
+		   "script" : "ctx._source.tags+=new_tag",
+		   "params" : {
+			  "new_tag" : "search"
+		   }
+		}
+		POST /website/blog/1/_update //删除基于其局部的文档
+		{
+		   "script" : "ctx.op = ctx._source.views == count ? 'delete' : 'none'",
+			"params" : {
+				"count": 1
+			}
+		}
+		POST /website/pageviews/1/_update //局部更新文档，没有先创建它
+		{
+		   "script" : "ctx._source.views+=1",
+		   "upsert": {
+			   "views": 1
+		   }
+		}
+		练习，在上面的文档中新加一个属性：
+		curl -XPOST 'localhost:9200/megacorp/employee/3/_update' -d '
+		{
+			"doc":{"note" :  "do insert an updae and its version added"}
+		}' -H 'Content-Type:application/json'
+		再此新加一个属性，并指定version
+		curl -XPOST 'localhost:9200/megacorp/employee/3/_update?version=1' -d '
+		{
+			"doc":{"tag" :  []}
+		}' -H 'Content-Type:application/json'
+		将上面的version设置为2,执行成功
+		curl -XPOST 'localhost:9200/megacorp/employee/3/_update?version=2' -d '
+		{
+			"doc":{"tag" :  []}
+		}' -H 'Content-Type:application/json'
+		将上面新加属性note和tag设为null
+		curl -XPOST 'localhost:9200/megacorp/employee/3/_update' -d '
+		{
+		   "doc":{"tag" :  null}
+		}' -H 'Content-Type:application/json'
+		curl -XPOST 'localhost:9200/megacorp/employee/3/_update' -d '
+		{
+		   "doc":{"note" :  null}
+		}' -H 'Content-Type:application/json'
+		将上面新加属性note和tag移除
+		curl -XPOST 'localhost:9200/megacorp/employee/3/_update' -d '
+		{
+			"script" : "ctx._source.remove(\"note\")"
+		}' -H 'Content-Type:application/json'
+		curl -XPOST 'localhost:9200/megacorp/employee/3/_update' -d '
+		{
+			"script" : "ctx._source.remove(\"tag\")"
+		}' -H 'Content-Type:application/json'
+		----------------------------------------------------------------------------
+		GET /megacorp/employee/_search //聚合 count group by
+		{
+		  "aggs": {
+			"all_interests": {
+			  "terms": { "field": "interests" }
+			}
+		  }
+		}
+		GET /megacorp/employee/_search //聚合 count where group by
+		{
+		  "query": {
+			"match": {
+			  "last_name": "smith"
+			}
+		  },
+		  "aggs": {
+			"all_interests": {
+			  "terms": {
+				"field": "interests"
+			  }
+			}
+		  }
+		}
+		GET /megacorp/employee/_search //聚合 count avg where group by
+		{
+			"aggs" : {
+				"all_interests" : {
+					"terms" : { "field" : "interests" },
+					"aggs" : {
+						"avg_age" : {
+							"avg" : { "field" : "age" }
+						}
+					}
+				}
+			}
+		}
+	
 	集群
 	.添加用户和授权同单机
 	.修改配置文件/usr/local/elasticsearch6.4.1/config/elasticsearch.yml,修改完查看grep '^[a-z]' /usr/local/elk/elasticsearch/config/elasticsearch.yml
