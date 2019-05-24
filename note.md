@@ -1567,7 +1567,7 @@ elasticsearch
 		curl -i -XHEAD http://localhost:9200/website/blog/123 //检查文档是否存在
 		DELETE /website/blog/123 //删除文档
 		PUT /website/blog/1?version=1 //更新文档，指定version，如果成功，如果version成为旧数据则返回409状态码和version conflict的错误说明
-		---------------------------------------------------------------------------------------------------------------------------------上面是整体文档操作，下面是局部文档操作
+		--------------------------------------------------------------------上面是整体文档操作，下面是局部文档操作
 		POST /website/blog/1/_update //局部更新文档，必须指定doc或者script
 		{
 		   "doc" : {
@@ -1633,7 +1633,7 @@ elasticsearch
 		{
 			"script" : "ctx._source.remove(\"tag\")"
 		}' -H 'Content-Type:application/json'
-		----------------------------------------------------------------------------
+		---------------------------------------------------------------------------下面是聚合分析
 		GET /megacorp/employee/_search //聚合 count group by
 		{
 		  "aggs": {
@@ -1670,6 +1670,10 @@ elasticsearch
 				}
 			}
 		}
+		-------------------------------------------------------------------------------下面是中文分词
+		./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.7.2/elasticsearch-analysis-ik-6.7.2.zip #安装分词器
+		curl -XPOST http://localhost:9200/_analyze?pretty -H 'Content-Type:application/json' -d'{ "analyzer": "ik_smart", "text": "手机充值" }' #分词测试
+		https://github.com/medcl/elasticsearch-analysis-ik/tree/6.x #分词的github地址，有详细的文档说明
 	
 	集群
 	.添加用户和授权同单机
