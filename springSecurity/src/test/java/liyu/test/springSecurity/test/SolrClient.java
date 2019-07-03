@@ -19,12 +19,12 @@ public class SolrClient {
 		q.setStart(0);
 		// 每页显示条数
 		q.setRows(10);
-		// 设置查询关键字
-		q.setQuery("个数");
+		// 设置查询关键字,setQuery("*") or setQuery("*:*") than all result returned.but no highlight.
+		q.setQuery("des:2");
 		// 开启高亮
 		q.setHighlight(true);
 		// 高亮字段
-		q.addHighlightField("des");
+		q.addHighlightField("des,name");
 		// 高亮单词的前缀
 		q.setHighlightSimplePre("<span style='color:red'>");
 		// 高亮单词的后缀

@@ -1742,6 +1742,9 @@ phantomjs
 	
 	phantomjs test.js
 
+spring security
+	DelegatingFilterProxy
+	org.springframework.security.authentication.encoding.PlaintextPasswordEncoder@3a8aaea6
 
 	
 	
