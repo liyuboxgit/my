@@ -330,7 +330,7 @@ mysql：
 	daemon=true
 	keepalive=true
 	保存mysql-proxy.cnf
-	chmod 660 /etc/mysql-porxy.cnf
+	chmod 660 /etc/mysql-proxy.cnf
 	vim /usr/local/mysql-proxy-0.8.4/lua/rw-splitting.lua
 	if not proxy.global.config.rwsplit then
         proxy.global.config.rwsplit = {
@@ -344,6 +344,9 @@ mysql：
 	./bin/mysql-proxy --defaults-file=/etc/mysql-proxy.cnf
 	连接
 	/usr/local/mysql/bin/mysql -uproxy -P4040 -p
+	在master中对proxy授权，授权时注意删除mysql.user中user为空的row(防止匿名登录产生的奇怪现象)：
+	grant all on *.* to 'proxy'@'%' identified by '123456';
+	
 java：RSA加减密
 	package smart;
 
