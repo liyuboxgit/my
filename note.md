@@ -346,7 +346,66 @@ mysql：
 	/usr/local/mysql/bin/mysql -uproxy -P4040 -p
 	在master中对proxy授权，授权时注意删除mysql.user中user为空的row(防止匿名登录产生的奇怪现象)：
 	grant all on *.* to 'proxy'@'%' identified by '123456';
+
+	配置mycat
+	cat version.txt
+	BuildTime  2016-10-28 12:47:06
+	GitVersion   460930bb32b0007597796369bc92daa8428d8787
+	MavenVersion 1.6-RELEASE
+	GitUrl https://github.com/MyCATApache/Mycat-Server.git
+	MyCatSite http://www.mycat.org.cn
+	QQGroup 106088787
 	
+	cat conf/schema.xml
+	<?xml version="1.0"?>
+	<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+	<mycat:schema xmlns:mycat="http://io.mycat/">
+        <!-- 定义MyCat的逻辑库 -->
+        <schema name="pcx_schema" checkSQLschema="false" sqlMaxLimit="100" dataNode="pcxNode"></schema>
+        <!-- 定义MyCat的数据节点 -->
+        <dataNode name="pcxNode" dataHost="dtHost" database="test" />
+
+        <!-- 定义数据主机dtHost，连接到MySQL读写分离集群 ,schema中的每一个dataHost中的host属性值必须唯一-->
+        <!-- dataHost实际上配置就是后台的数据库集群，一个datahost代表一个数据库集群 -->
+        <!-- balance="1"，全部的readHost与stand by writeHost参与select语句的负载均衡-->
+        <!-- writeType="0"，所有写操作发送到配置的第一个writeHost，这里就是我们的hostmaster，第一个挂了切到还生存的第二个writeHost-->
+        <dataHost name="dtHost" maxCon="500" minCon="20" balance="1"
+                writeType="0" dbType="mysql" dbDriver="native" switchType="2" slaveThreshold="100">
+                <!--心跳检测 -->
+                <heartbeat>select 1</heartbeat>
+
+                <!--配置后台数据库的IP地址和端口号，还有账号密码 -->
+                <writeHost host="hostMaster" url="192.168.145.132:3306" user="liyu" password="liyu" />
+                <writeHost host="hostSlave" url="192.168.145.133:3306" user="liyu" password="liyu" />
+        </dataHost>
+	</mycat:schema>
+	cat conf/server.xml
+	<?xml version="1.0" encoding="UTF-8"?>
+
+	<!DOCTYPE mycat:server SYSTEM "server.dtd">
+	<mycat:server xmlns:mycat="http://io.mycat/">
+        <system>
+                <!-- 这里配置的都是一些系统属性，可以自己查看mycat文档 -->
+                <property name="defaultSqlParser">druidparser</property>
+                <property name="charset">utf8</property>
+        </system>
+        <!-- 用户1，对应的MyCat逻辑库连接到的数据节点对应的主机为主从复制集群 -->
+        <user name="user1">
+                <property name="password">root</property>
+                <property name="schemas">pcx_schema</property>
+        </user>
+
+        <!-- 用户2，只读权限-->
+        <user name="user2">
+                <property name="password">root</property>
+                <property name="schemas">pcx_schema</property>
+                <property name="readOnly">true</property>
+        </user>
+	</mycat:server>
+	
+	启动./mycat start
+	连接(密码是server xml中的root) /usr/local/mysql/bin/mysql -uuser1 -h192.168.145.133 -P8066 -p 
+	or /usr/local/mysql/bin/mysql -uuser2 -h192.168.145.133 -P8066 -p
 java：RSA加减密
 	package smart;
 
