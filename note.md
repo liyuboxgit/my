@@ -1510,6 +1510,12 @@ linux:http://www.linuxcommand.org/lc3_learning_the_shell.php
 	yum groupinstall "GNOME Desktop" "Graphical Administration Tools"
 	ln -sf /lib/systemd/system/runlevel5.target /etc/systemd/system/default.target 图形桌面启动（runlevel3是命令界面）
 	
+	# 查看当前运行级别
+	systemctl get-default
+	# 设置当前运行级别为3 （开机为命令行模式）
+	systemctl set-default multi-user.target
+	# 设置当前运行级别为5 （开机为图形界面）
+	systemctl set-default graphical.target
 elasticsearch
 	基础教程
 	https://www.elastic.co/guide/cn/elasticsearch/guide/current/getting-started.html

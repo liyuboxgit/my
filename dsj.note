@@ -426,6 +426,17 @@ docker
 	docker rm --force $CONTAINER_ID #移除容器(不能停止的容器要使用forch参数)
 	docker rmi $image_id #删除镜像(image_id从docker images获取)
 	
+	通过修改启动脚本配置加速站点
+	vim /usr/lib/systemd/system/docker.service 
+	ExecStart=/usr/bin/dockerd --registry-mirror=https://3laho3y3.mirror.aliyuncs.com/
+	
+	docker进入容器，CONTAINER_ID从docker ps中获取
+	docker exec -it $CONTAINER_ID /bin/bash
+	
+	docker拷贝
+	docker cp $CONTAINER_ID:/xx ./
+	
+	
 	
 	
 	
