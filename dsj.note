@@ -433,9 +433,41 @@ docker
 	docker进入容器，CONTAINER_ID从docker ps中获取
 	docker exec -it $CONTAINER_ID /bin/bash
 	
-	docker拷贝
+	docker双向拷贝
 	docker cp $CONTAINER_ID:/xx ./
 	
+	构建镜像
+	vi Dockerfile
+	From nginx
+	RUN echo 'welcome'>/usr/share/nginx/html/index.html
+	docker built -t nginx:my .
+	
+	maven构建镜像
+	<plugin>
+		<groupId>com.spotify</groupId>
+		<artifactId>docker-maven-plugin</artifactId>
+		<version>0.4.12</version>
+		<configuration>
+			<imageName>eureka-server:0.0.1</imageName>
+			<baseImage>tomcat</baseImage>
+			<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+			<resources>
+				<resource>
+					<targetPath>/</targetPath>
+					<directory>${project.build.directory}</directory>
+					<include>${project.build.finalName}.jar</include>
+				</resource>
+			</resources>
+		</configuration>
+	</plugin>
+	..
+	<finalName>eureka-server</finalName>
+	mvn clean package docker:build
+	docker run -d -p 80:8762 eureka-server:0.0.1
+	docker logs --since 30 $CONTAINER_ID
+	
+	
+
 	
 	
 	
