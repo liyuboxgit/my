@@ -481,3 +481,774 @@ docker
 
 	
 
+    1  ip addr
+    2  ping baidu.com
+    3  exit
+    4  ll
+    5  rz
+    6  ll
+    7  ll /home/liyu/
+    8  ll /home/liyu/ä¸‹è½½/
+    9  init 0
+   10  ll
+   11  rz
+   12  ll
+   13  wget http://mirrors.shu.edu.cn/apache/hive/hive-2.3.3/apache-hive-2.3.3-bin.tar.gz
+   14  ping baidu.com
+   15  clear
+   16  ll
+   17  ll
+   18  ll /root/
+   19  ll /home/liyu/
+   20  ll dev
+   21  clear
+   22  yum install lrzsz
+   23  ll
+   24  rm /home/liyu/dev/
+   25  rm -rf /home/liyu/dev/
+   26  ll
+   27  ll /usr/local/
+   28  ll /dev/
+   29  ll
+   30  mkdir app
+   31  ll
+   32  cd app/
+   33  rz
+   34  ;;
+   35  ;ll
+   36  ll
+   37  tar -xf jdk-8u171-linux-x64.tar.gz 
+   38  ll
+   39  rm jdk-8u171-linux-x64.tar.gz 
+   40  ll
+   41  mv jdk1.8.0_171/ jdk
+   42  ll
+   43  vi /etc/profile
+   44  source /etc/profile
+   45  java
+   46  java -x
+   47  java -X
+   48  LL
+   49  ll
+   50  hostname
+   51  ls /usr/local/
+   52  ls /
+   53  java
+   54  ls /usr/local/
+   55  ls 
+   56  ls app/
+   57  ls app/jdk/
+   58  ls app/
+   59  clear
+   60  ll
+   61  locate hadoop
+   62  ps -ef|grep mysql
+   63  clear
+   64  ll
+   65  clear
+   66  ls
+   67  ll
+   68  ls Music/
+   69  CLEAR
+   70  clear
+   71  ll
+   72  rm apache-hive-2.3.3-bin.tar.gz /usr/local/src/
+   73  clear
+   74  ls 
+   75  mv apache-hive-2.3.3-bin.tar.gz /usr/local/src/
+   76  mv hadoop-2.7.6.tar.gz /usr/local/src/
+   77  ls
+   78  mv mysql-5.6.41-linux-glibc2.12-x86_64.tar.gz /usr/local/src/
+   79  clear
+   80  ls
+   81  ll
+   82  echo $JAVA_HOME
+   83  ls
+   84  ping baidu.com
+   85  ip addr
+   86  clear
+   87  ls Downloads/
+   88  mv Downloads/spark-2.4.0-bin-hadoop2.7.tgz  app
+   89  ll
+   90  ll app/
+   91  ls /
+   92  tar -xf app/spark-2.4.0-bin-hadoop2.7.tgz 
+   93  cd app/
+   94  ls
+   95  ll
+   96  mv spark-2.4.0-bin-hadoop2.7.tgz /usr/local/src/
+   97  ll
+   98  cd ..
+   99  ll
+  100  mv spark-2.4.0-bin-hadoop2.7/ app/
+  101  ll
+  102  cd app/
+  103  ll
+  104  clar
+  105  clear
+  106  vi spark-2.4.0-bin-hadoop2.7/conf/slaves.template 
+  107  cp spark-2.4.0-bin-hadoop2.7/conf/slaves.template spark-2.4.0-bin-hadoop2.7/conf/slaves
+  108  ll spark-2.4.0-bin-hadoop2.7/conf/
+  109  cd spark-2.4.0-bin-hadoop2.7/conf/
+  110  ll
+  111  cp spark-env.sh.template spark-env.sh
+  112  vi spark-env.sh
+  113  clear
+  114  cd ..
+  115  ls
+  116  bin/spark-shell
+  117  ls
+  118  bin/spark-shell
+  119  python
+  120  bin/pyspark 
+  121  ll
+  122  vi p.py
+  123  ./bin/spark-submit p.py 
+  124  clear
+  125  ll
+  126  cat p.py 
+  127  bin/pyspark 
+  128  clear
+  129  ll
+  130  rm p.py 
+  131  clear
+  132  ll
+  133  ls jars/
+  134  ll
+  135  ls python/
+  136  ls python/lib/
+  137  ls python/dist/
+  138  ls python/pyspark
+  139  clear
+  140  cd ..
+  141  ll
+  142  cd Downloads/
+  143  ll
+  144  mv spring-tool-suite-3.9.6.RELEASE-e4.9.0-linux-gtk-x86_64.tar.gz ../app/
+  145  cd ../app/
+  146  ls
+  147  tar -xf spring-tool-suite-3.9.6.RELEASE-e4.9.0-linux-gtk-x86_64.tar.gz 
+  148  ll
+  149  mv spring-tool-suite-3.9.6.RELEASE-e4.9.0-linux-gtk-x86_64.tar.gz  /usr/local/src/
+  150  ll
+  151  clear
+  152  ll
+  153  cat spark-2.4.0-bin-hadoop2.7/examples/
+  154  cat spark-2.4.0-bin-hadoop2.7/examples/src/main/python/wordcount.py 
+  155  clear
+  156  locate
+  157  yum install mlocate
+  158  updatedb
+  159  locate liyu.py
+  160  cd spark-2.4.0-bin-hadoop2.7/
+  161  ll
+  162  cp /root/Documents/spark/liyu.py ./
+  163  ll
+  164  ./bin/spark-submit --master local[1] liyu.py README.md
+  165  clear
+  166  ll
+  167  rm liyu.py 
+  168  history 
+  169  cp /root/Documents/spark/liyu.py ./
+  170  ./bin/spark-submit --master local[1] liyu.py liyu.py 
+  171  clear
+  172  ./bin/spark-submit --master local[1] liyu.py liyu.py 
+  173  rm liyu.py 
+  174  history 
+  175  cp /root/Documents/spark/liyu.py ./
+  176  ./bin/spark-submit --master local[1] liyu.py liyu.py 
+  177  cp /root/Documents/spark/liyu.py ./
+  178  ./bin/spark-submit --master local[1] liyu.py liyu.py 
+  179  init 0
+  180  clear
+  181  hostnamectl
+  182  ping localhost
+  183  ping localhost.localdomain
+  184  clear
+  185  ls app/spark-2.4.0-bin-hadoop2.7/examples/src/main/python/
+  186  ls app/spark-2.4.0-bin-hadoop2.7/examples/src/main/python/wordcount.py 
+  187  sz app/spark-2.4.0-bin-hadoop2.7/examples/src/main/python/wordcount.py 
+  188  sz app/spark-2.4.0-bin-hadoop2.7/python/
+  189  **01000000039a32Š
+  190  clear
+  191   app/spark-2.4.0-bin-hadoop2.7/python/
+  192  zip app/spark-2.4.0-bin-hadoop2.7/python/* spark.zip 
+  193  ll
+  194  ls app/spark-2.4.0-bin-hadoop2.7/python/* spark.zip 
+  195  ls app/spark-2.4.0-bin-hadoop2.7/python/
+  196  ls
+  197  ll
+  198  ls app/spark-2.4.0-bin-hadoop2.7/python/
+  199  tar -cvf app/spark-2.4.0-bin-hadoop2.7/python/* spark.jar
+  200  tar -cvf app/spark-2.4.0-bin-hadoop2.7/python/**/* spark.ja
+  201  ls app/spark-2.4.0-bin-hadoop2.7/python/
+  202  ll
+  203  ls app/spark-2.4.0-bin-hadoop2.7/python/
+  204  ls app/spark-2.4.0-bin-hadoop2.7/
+  205  sz app/spark-2.4.0-bin-hadoop2.7/python.zip 
+  206  ls 
+  207  cd ..
+  208  ls
+  209  ip addr
+  210  init 0
+  211  ip addr
+  212  ip addr
+  213  ping baidu.com
+  214  route
+  215  ls
+  216  ls /
+  217  ls /usr/local/
+  218  ls /home
+  219  ls /home/liyu
+  220  jps
+  221  java
+  222  java -v
+  223  java -version
+  224  echo $JAVA_HOME
+  225  ls
+  226  ls app/
+  227  ls app/spark-2.4.0-bin-hadoop2.7/
+  228  ls app/spark-2.4.0-bin-hadoop2.7/liyu.py 
+  229  cat app/spark-2.4.0-bin-hadoop2.7/liyu.py 
+  230  ls app/spark-2.4.0-bin-hadoop2.7/conf/
+  231  cat app/spark-2.4.0-bin-hadoop2.7/conf/spark-env.sh
+  232  maiclaclear
+  233  clar
+  234  clear
+  235  more app/spark-2.4.0-bin-hadoop2.7/conf/spark-env.sh
+  236  more app/spark-2.4.0-bin-hadoop2.7/conf/slaves
+  237  hostname
+  238  clear
+  239  app/spark-2.4.0-bin-hadoop2.7/bin/spark-shell 
+  240  jps
+  241  clear
+  242  systemctl stop firewalld
+  243  ls app/
+  244  ip addr
+  245  ls
+  246  jps
+  247  cd /usr/local/
+  248  ls
+  249  ls src/
+  250  ls nginx-1.8.1/
+  251  cd src/
+  252  ls
+  253  cd nginx-1.8.1/
+  254  ls
+  255  ./configure --prefix=/usr/local --with-http_stub_status_module --with-http_ssl_module --with-pcre
+  256  ls /usr/local/
+  257  ls /usr/local/nginx-1.8.1/
+  258  ls /usr/local/sbin/
+  259  ls /usr/local/conf
+  260  ./configure --prefix=/usr/local/nginx-1.8.1 --with-http_stub_status_module --with-http_ssl_module --with-pcre
+  261  ls /usr/local/
+  262  ls /usr/local/nginx-1.8.1/
+  263  ll
+  264  cd /usr/local/
+  265  ll
+  266  rm nginx-1.8.1/
+  267  ls nginx-1.8.1/
+  268  rm -rf nginx-1.8.1/
+  269  cd src/
+  270  ls
+  271  cd nginx-1.8.1/
+  272  ls
+  273  ./configure --prefix=/usr/local --with-http_stub_status_module --with-http_ssl_module --with-pcre
+  274  make & make install
+  275  cd ..
+  276  cd //
+  277  cd ..
+  278  pwd
+  279  cd ~/
+  280  ls
+  281  clear
+  282  cd /usr/local/
+  283  ls
+  284  ll
+  285  ls conf/
+  286  ./sbin/nginx 
+  287  systemctl stop firewalld
+  288  ls logs/
+  289  tail -f logs/access.log 
+  290  cat logs/error.log 
+  291  clear
+  292  ls
+  293  ls conf/
+  294  vim conf/nginx.conf
+  295  sbin/nginx -t
+  296  sbin/nginx -s reload
+  297  cat logs/error.log 
+  298  jps
+  299  cd ~/
+  300  ls
+  301  clear
+  302  ls
+  303  java -jar server-0.0.1-SNAPSHOT.jar --server.port=8080 &
+  304  jps
+  305  java -jar server-0.0.1-SNAPSHOT.jar --server.port=8081 &
+  306  java -jar server-0.0.1-SNAPSHOT.jar --server.port=8082 &
+  307  clear
+  308  tail -f /usr/local/logs/access.log 
+  309  ls
+  310  jps
+  311  kill -9 8544
+  312  jps
+  313  kill -9 8507
+  314  jps
+  315  pkill java
+  316  ps -ef|grep nginx
+  317  /usr/local/sbin/nginx -s quit
+  318  ps -ef|grep nginx
+  319  ls /usr/local/
+  320  ll /usr/local/
+  321  ll /usr/local/logs/
+  322  ll /usr/local/uwsgi_temp/
+  323  ll /usr/local/src/
+  324  rm -rf /usr/local/src/nginx-1.8.1
+  325  ll
+  326  vi riji
+  327  ll
+  328  clear
+  329  init 0
+  330  ip addr
+  331  ls
+  332  cd /usr/local/
+  333  ls
+  334  ls sbin/
+  335  ls bin/
+  336  ls conf/nginx.conf
+  337  wget http://download.redis.io/releases/redis-5.0.5.tar.gz
+  338  ll
+  339  tar -xf redis-5.0.5.tar.gz 
+  340  mv redis-5.0.5.tar.gz src/
+  341  cd redis-5.0.5/
+  342  make
+  343  cd src/
+  344  ll
+  345  make install PREFIX=/usr/local/redis
+  346  cd ..
+  347  ls ../
+  348  mkdir /usr/local/redis/etc
+  349  mv redis.conf /usr/local/redis/etc
+  350  ls
+  351  ls ../redis
+  352  ls ../redis/bin/
+  353  ls ../redis/etc/
+  354  cd ../redis
+  355  ll
+  356  ./bin/redis-server etc/redis.conf 
+  357  ls
+  358  vi etc/redis.conf 
+  359  ./bin/redis-server etc/redis.conf 
+  360  ps -ef|grep redis
+  361  ./bin/redis-cli 
+  362  ./bin/redis-cli --help
+  363  ./bin/redis-cli -h 192.168.145.137
+  364  clear
+  365  cd ..
+  366  ls
+  367  rm -rf redis-5.0.5/
+  368  ll
+  369  ls logs/
+  370  ls redis/
+  371  clear
+  372  ps -ef|grep redis
+  373  kill 7176
+  374  ls
+  375  ps -ef|grep redis
+  376  vi redis/etc/redis.conf 
+  377  cd ..
+  378  cd `/
+  379  cd ~/
+  380  ll
+  381  cat riji 
+  382  vi riji
+  383  /usr/local/redis/bin/redis-server 
+  384  /usr/local/redis/bin/redis-server /usr/local/redis/etc/redis.conf 
+  385  /usr/local/redis/bin/redis-cli 
+  386  clear
+  387  ll
+  388  mkdir tomcat1
+  389  mv kebaitomcat-8.5.42.zip tomcat1/
+  390  cd tomcat1/
+  391  ll
+  392  unzip kebaitomcat-8.5.42.zip 
+  393  ll
+  394  mv kebaitomcat-8.5.42.zip ../
+  395  mkdir tomcat2
+  396  ll
+  397  ls tomcat2/
+  398  mv tomcat2/ ../
+  399  ls
+  400  cd ..
+  401  ll
+  402  mv kebaitomcat-8.5.42.zip tomcat2
+  403  cd tomcat2
+  404  ls
+  405  unzip kebaitomcat-8.5.42.zip 
+  406  ls
+  407  mv kebaitomcat-8.5.42.zip ../
+  408  ll
+  409  vi conf/server.xml 
+  410  vim conf/server.xml 
+  411  ls
+  412  ls bin/
+  413  ./bin/startup.sh
+  414  ll bin/*.sh
+  415  chmod 744 bin/*.sh
+  416  ll bin/*.sh
+  417  ./bin/startup.sh 
+  418  cd ../tomcat1
+  419  ls
+  420  chmod 744 bin/*.sh
+  421  ./bin/startup.sh 
+  422  jps
+  423  pkill java
+  424  jps
+  425  cd ..
+  426  ls
+  427  systemctl stop firewalld
+  428  ll
+  429  rm -rf tomcat1/webapps/ROOT/
+  430  rm -rf tomcat2/webapps/ROOT/
+  431  cp ROOT.war tomcat1/webapps/
+  432  mv ROOT.war tomcat2/webapps/
+  433  ll
+  434  ps -ef|grep redis
+  435  tomcat1/bin/startup.sh 
+  436  tomcat2/bin/startup.sh 
+  437  jps
+  438  ls tomcat1/webapps/
+  439  ls tomcat2/webapps/
+  440  tail tomcat1/logs/catalina.out 
+  441  clear
+  442  ls
+  443  cd /usr/local/
+  444  ls
+  445  vim conf/nginx.conf
+  446  ./sbin/nginx -c conf/nginx.conf
+  447  init 0
+  448  rm -rf tomcat1/webapps/*
+  449  rm -rf tomcat2/webapps/*
+  450  ls tomcat1/
+  451  ls tomcat1/webapps/
+  452  ls tomcat2/webapps/
+  453  ll
+  454  rm -rf D:
+  455  LL
+  456  ll
+  457  rm kebaitomcat-8.5.42.zip 
+  458  ll
+  459  rm caipos-0.0.1-SNAPSHOT.war 
+  460  ll
+  461  mv caipos-0.0.1-SNAPSHOT.war ROOT.war
+  462  ll
+  463  cp ROOT.war tomcat1/webapps/
+  464  cp ROOT.war tomcat2/webapps/
+  465  cd /usr/local/redis/
+  466  ./bin/redis-server etc/redis.conf 
+  467  cd ..
+  468  sbin/nginx -c conf/nginx.conf
+  469  cd ~/
+  470  tomcat1/bin/startup.sh 
+  471  tomcat2/bin/startup.sh 
+  472  top
+  473  systemctl stop firewalld
+  474  top
+  475  ll
+  476  rm -rf D:
+  477  LL
+  478  ll
+  479  ls app/
+  480  rm ROOT.war 
+  481  LS
+  482  LL
+  483  ll
+  484  cat riji 
+  485  free
+  486  ls /usr/local/
+  487  ps -ef|grep redis
+  488  ps -ef|grep mysql
+  489  clear
+  490  date
+  491  init 0
+  492  ip addr
+  493  clear
+  494  cat /etc/inittab 
+  495  systemctl get-default
+  496  cat /etc/inittab 
+  497  vi /etc/inittab 
+  498  systemctl set-default multi-user.target
+  499  reboot
+  500  startx
+  501  ps -ef|grep docker
+  502  systemctl docker start
+  503  systemctl start docker
+  504  docker images
+  505  docker seearch nginx
+  506  docker search nginx
+  507  docker pull nginx
+  508  docker imagem
+  509  docker image
+  510  docker images
+  511  vim /usr/lib/systemd/system/docker.service
+  512  systemctl stop docker
+  513  systemctl daemon-reload
+  514  systemctl stop docker
+  515  systemctl start docker
+  516  docker imges
+  517  docker images
+  518  docker search nginx
+  519  docker pull nginx
+  520  docker images
+  521  docker run 
+  522  docker run --help
+  523  docker ps
+  524  docker run -d -p 90:80 nginx
+  525  docker ps
+  526  ps -ef|grep nginx
+  527  docker stop b777a420aeca
+  528  ps -ef|grep nginx
+  529  docker ps
+  530  docker run -d -p 90:80 nginx
+  531  systemctl stop firewalld
+  532  updatedb
+  533  locate nginx.conf
+  534  docker ps
+  535  docker exec --help
+  536  docker exec -it a4c8ff3a378d /bin/bash
+  537  RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak &&     echo "deb http://mirrors.163.com/debian/ jessie main non-free contrib" >/etc/apt/sources.list &&     echo "deb http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" >>/etc/apt/sources.list &&     echo "deb-src http://mirrors.163.com/debian/ jessie main non-free contrib" >>/etc/apt/sources.list &&     echo "deb-src http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" >>/etc/apt/sources.list
+  538  docker RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak &&     echo "deb http://mirrors.163.com/debian/ jessie main non-free contrib" >/etc/apt/sources.list &&     echo "deb http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" >>/etc/apt/sources.list &&     echo "deb-src http://mirrors.163.com/debian/ jessie main non-free contrib" >>/etc/apt/sources.list && cd ~/
+  539  RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak &&     echo "deb http://mirrors.163.com/debian/ jessie main non-free contrib" >/etc/apt/sources.list &&     echo "deb http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" >>/etc/apt/sources.list &&     echo "deb-src http://mirrors.163.com/debian/ jessie main non-free contrib" >>/etc/apt/sources.list &&     echo "deb-src http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" >>/etc/apt/sources.list
+  540  docker RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak &&     echo "deb http://mirrors.163.com/debian/ jessie main non-free contrib" >/etc/apt/sources.list &&     echo "deb http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" >>/etc/apt/sources.list &&     echo "deb-src http://mirrors.163.com/debian/ jessie main non-free contrib" >>/etc/apt/sources.list &&     echo "deb-src http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" >>/etc/apt/sources.list
+  541  docker run mv /etc/apt/sources.list /etc/apt/sources.list.bak &&     echo "deb http://mirrors.163.com/debian/ jessie main non-free contrib" >/etc/apt/sources.list &&     echo "deb http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" >>/etc/apt/sources.list &&     echo "deb-src http://mirrors.163.com/debian/ jessie main non-free contrib" >>/etc/apt/sources.list &&     echo "deb-src http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" >>/etc/apt/sources.list
+  542  docker exec -it a4c8ff3a378d /bin/bash
+  543   echo "deb http://mirrors.163.com/debian/ jessie main non-free contrib" >/etc/apt/sources.list &&     echo "deb http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" >>/etc/apt/sources.list &&     echo "deb-src http://mirrors.163.com/debian/ jessie main non-free contrib" >>/etc/apt/sources.list &&     echo "deb-src http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" >>/etc/apt/sources.list
+  544  touch /etc/apt/sources.list
+  545  vi /etc/apt/sources.list
+  546  mkdir /etc/apt
+  547  touch /etc/apt/sources.list
+  548   echo "deb http://mirrors.163.com/debian/ jessie main non-free contrib" >/etc/apt/sources.list &&     echo "deb http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" >>/etc/apt/sources.list &&     echo "deb-src http://mirrors.163.com/debian/ jessie main non-free contrib" >>/etc/apt/sources.list &&     echo "deb-src http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" >>/etc/apt/sources.list
+  549  cat /etc/apt/sources.list 
+  550  docker exec -it a4c8ff3a378d /bin/bash
+  551  docker ps
+  552  docker cp /etc/apt/sources.list a4c8ff3a378d:/etc/apt/
+  553  docker exec -it a4c8ff3a378d /bin/bash
+  554  ls /
+  555  ls /etc/
+  556  locate nginx.conf
+  557  docker exec -it a4c8ff3a378d /bin/bash
+  558  rm /etc/apt/sources.list 
+  559  ls
+  560  docker cp a4c8ff3a378d:/etc/nginx/conf.d/default.conf ./
+  561  ls
+  562  vi default.conf 
+  563  cat default.conf 
+  564  docker cp ./default.conf a4c8ff3a378d:/etc/nginx/conf.d/
+  565  docker ps
+  566  docker stop a4c8ff3a378d
+  567  docker run -d -p 80:81 nginx
+  568  docker ps
+  569  docker run -d -i -p 80:80 nginx
+  570  docker exec -it a4c8ff3a378d /bin/bash
+  571  docker run -d -p 80:81 nginx
+  572  history
+  573  history|grep docker run
+  574  history |grep docker run
+  575  history 
+  576  clear
+  577  docker -d -p 80:80 nginx
+  578  docker run -d -p 80:80 nginx
+  579  systemctl stop docker
+  580  systemctl start docker
+  581  docker run -d -p 80:80 nginx
+  582  docker ps
+  583  curl localhost
+  584  history
+  585  docker exec -it a4c8ff3a378d /bin/bash
+  586  ps -ef|grep nginx
+  587  clear
+  588  init 0
+  589  docker ps
+  590  ipaddr
+  591  ip addr
+  592  systemctl start docker
+  593  docker images
+  594  ll
+  595  vi riji
+  596  clear
+  597  ls
+  598  ls app/
+  599  mkdir docker-test
+  600  cd docker-test/
+  601  touch Dockerfile
+  602  vi Dockerfile 
+  603  docker build -t nginx:my .
+  604  vi Dockerfile 
+  605  docker build -t nginx:my .
+  606  docker ps
+  607  docker images
+  608  docker ps
+  609  docker run -d -p 81:80 nginx:my
+  610  docker ps
+  611  curl localhost:81
+  612  docker ps
+  613  docker stop nginx:my
+  614  docker stop 57d25110496b
+  615  docker images
+  616  docker ps
+  617  cls
+  618  clear
+  619  ls
+  620  cat Dockerfile 
+  621  docker build --help
+  622  ls
+  623  docker ps
+  624  docker imanges
+  625  docker images
+  626  docker search tomcat
+  627  docker pull consol/tomcat-7.0 
+  628  docker search tomcat
+  629  docker images
+  630  docker pull tomcat
+  631  docker images
+  632  docker ps
+  633  docker run -d -p 80:80 nginx:my
+  634  docker exec -it 
+  635  docker ps
+  636  docker exec -it 7e3a14b3628b /bin/bash
+  637  docker ps
+  638  docker stop 7e3a14b3628b
+  639  docker images
+  640  docker run -d -p 81:80 nginx
+  641  curl localhost 81
+  642  curl localhost:81
+  643  docker ps
+  644  docker exec -it 5621aeee7547 /bin/bash
+  645  docker run -d -p 91:80 nginx:my
+  646  docker ps
+  647  curl localhost:91
+  648  docker exec -it f0722544a824 /bin/bash
+  649  docker ps
+  650  top
+  651  docker ps
+  652  systemctl stop docker
+  653  systemctl start docker
+  654  docker ps
+  655  docker images
+  656  docker run -d -p 8080:8080 tomcat
+  657  docker ps
+  658  curl localhost:8080
+  659  systemctl stop firewalld
+  660  docker ps
+  661  docker exec -it 965af2000927 /bin/bash
+  662  docker ps
+  663  docker stop 965af2000927
+  664  docker ps
+  665  clear
+  666  cd ..
+  667  ll
+  668  ls /usr/local/
+  669  echo $JAVA_HOME
+  670  ls /root/app/jdk/
+  671  ls /root/app/
+  672  ls /root/app/sts-bundle/
+  673  ls /root/app/sts-bundle/sts-3.9.6.RELEASE/
+  674  ls /root/app/sts-bundle/
+  675  ls /root/app/sts-bundle/pivotal-tc-server/
+  676  ls /root/app/sts-bundle/legal/
+  677  locate maven
+  678  clear
+  679  ll
+  680  mv apache-maven-3.6.1-bin.zip /usr/local/
+  681  cd /usr/local/
+  682  ls
+  683  unzip apache-maven-3.6.1-bin.zip 
+  684  ls
+  685  mv apache-maven-3.6.1-bin.zip src/
+  686  ls
+  687  ll
+  688  vi apache-maven-3.6.1/conf/settings.xml 
+  689  apache-maven-3.6.1/bin/mvn
+  690  apache-maven-3.6.1/bin/mvn -version
+  691  history
+  692  startx
+  693  ps -er grep docker
+  694  ps -ef|grep docker
+  695  systemctl start docker
+  696  systemctl stop firewalld
+  697  ls
+  698  vi riji
+  699  ls app/
+  700  cd app/gitrepostory/
+  701  ls
+  702  cd spring-cloud/
+  703  ls
+  704  cd eureka-server/
+  705  ls
+  706  /usr/local/apache-maven-3.6.1/bin/mvn clean
+  707  cls
+  708  clear
+  709  curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+  710  chmod +x /usr/local/bin/docker-compose
+  711  docker-compose -v
+  712  ls
+  713  touch Dockerfile
+  714  vim Dockerfile 
+  715  tail -n 400 pom.xml 
+  716  cat Dockerfile 
+  717  vi Dockerfile 
+  718  touch docker-compose.yml
+  719  vi docker-compose.yml 
+  720  cat src/main/resources/application.properties 
+  721  cat docker-compose.yml 
+  722  docker-compose up -d
+  723  docker-compose up 
+  724  systemctl stop docker
+  725  systemctl start docker
+  726  docker-compose up 
+  727  cat Dockerfile 
+  728  vi Dockerfile 
+  729  docker-compose up 
+  730  docker ps
+  731  docker pull daocloud.io/library/java:8
+  732  clear
+  733  docker ps
+  734  vi Dockerfile 
+  735  docker pull daocloud.io/library/java:8
+  736  clear
+  737  docker-compose up 
+  738  ls
+  739  vi docker-compose.yml 
+  740  vi Dockerfile 
+  741  /usr/local/apache-maven-3.6.1/bin/mvn clean package
+  742  docker-compose up 
+  743  clear
+  744  jps
+  745  docker-compose up -d
+  746  jps
+  747  docker ps
+  748  docker ps -a
+  749  cat pom.xml 
+  750  cat Dockerfile 
+  751  cat docker-compose.yml 
+  752  docker ps -a
+  753  systemctl stop docker
+  754  clear
+  755  ll
+  756  cd ..
+  757  git status
+  758  cd spring-cloud/
+  759  git status
+  760  cd ..
+  761  git remote -t
+  762  git remote -v
+  763  git remote 
+  764  cd spring-cloud/
+  765  git remote
+  766  git remote -v
+  767   https://github.com/liyuboxgit/spring-cloud.git
+  768  cd ..
+  769  git clone  https://github.com/liyuboxgit/my.git
+  770  dir
+  771  history>>my/dsj.note 
