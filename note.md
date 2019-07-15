@@ -1810,9 +1810,30 @@ phantomjs
 	
 	phantomjs test.js
 
-spring security
+node
+	安装
+	下载最新版https://nodejs.org/dist/v10.9.0/node-v10.9.0-linux-x64.tar.xz
+	mkdir /opt/software/ && cd  /opt/software/
+	tar -xvf node-v10.9.0-linux-x64.tar.xz
+	mv node-v10.9.0-linux-x64 nodejs
+	建立软连接，变为全局
+   	①ln -s /opt/software/nodejs/bin/npm /usr/local/bin/ 
+   	②ln -s /opt/software/nodejs/bin/node /usr/local/bin/
+	查看安装的版本
+	[root@localhost]# node -v
+	v10.9.0
+	[root@localhost]# npm -v 
+	6.2.0
+	
+	安装webpack
+	npm i -g webpack webpack-dev-server
+
+	
+spring security and outh2
 	DelegatingFilterProxy
 	org.springframework.security.authentication.encoding.PlaintextPasswordEncoder@3a8aaea6
+	
+	
 
 	
 	
