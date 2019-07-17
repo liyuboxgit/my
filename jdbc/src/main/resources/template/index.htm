@@ -6,8 +6,12 @@
     <script type="text/javascript" src="../static/jquery-2.1.1.js"></script>
     <script type="text/javascript">
     	$(function(){
-    		$('#tj').click(function(){
+    		$('div.cmd>button').eq(1).click(function(){
     			var sql = $('#sql').val();
+    			if(sql==''){
+    				alert('请输入正确的sql语句');
+    				return
+    			}
     			$.ajax({
     				url:'/sql',
     				type:'post',
@@ -18,14 +22,146 @@
     					alert(JSON.stringify(e));
     				}
     			});
-    		})
+    		}).end().eq(2).click(function(){
+    			$('#sql').val('');
+    			$('#ret').empty();
+    		}).end().eq(0).click(function(){
+    			$.ajax({
+    				url:'/config',
+    				type:'post',
+    				data:{rw:1},
+    				success:function(ret){
+    					var link = ret.split(' ');
+    					$('#config>input').eq(0).val(link[0])
+    						.end().eq(1).val(link[1])
+    						.end().eq(2).val(link[2]);
+    					$('#config').show();
+    				},error:function(e){
+    					alert(JSON.stringify(e));
+    				}
+    			})
+    		});
+    		
+    		$('#config>button').eq(0).click(function(){
+    			var p = $('#config>input');
+    			$.ajax({
+    				url:'/config',
+    				type:'post',
+    				data:{rw:2,url:p.eq(0).val(),username:p.eq(1).val(),password:p.eq(2).val()},
+    				success:function(ret){
+    					alert(ret);
+    					$('#config').hide();
+    					initt();
+    				},error:function(e){
+    					alert(JSON.stringify(e));
+    				}
+    			})
+    		});
+    		
+    		function insert(n){
+    			var cmd = $('#sql');
+    			cmd.val(cmd.val() + n + ' ');
+    		}
+    		
+    		$('div.cmd>span').click(function(){
+    			var m = $(this);
+    			if(m.hasClass('zn')){
+   					if(m.hasClass("z1")) insert('>');
+   					if(m.hasClass("z2")) insert('<');
+   					if(m.hasClass("z3")) insert('>=');
+   					if(m.hasClass("z4")) insert('<=');
+    			}else{
+    				insert(m.text());
+    			}
+    		});
+    		
+    		function initt(){
+	    		$.ajax({
+					url:'/sql',
+					type:'post',
+					data:{sql:'show tables'},
+					dataType:'json',
+					success:function(ret){
+						var ops = ['<option value="all">database</option>'];
+						var key = null;
+						if(ret.length>0){
+							var e1 = ret[0];
+							for(var e in e1){
+								key = e;
+							}
+						}
+						for(var i=0;i<ret.length;i++){
+							var t = ret[i][key];
+							ops.push('<option value="'+t+'">'+t+'</option>');				
+						}
+						$('#sle').empty().append(ops.join('\n'));
+					},error:function(e){
+						alert(JSON.stringify(e));
+					}
+				});
+    		}
+    		
+    		initt();
+    		
+    		$('#import').click(function(e){
+    			var fl = $('#sql_file');
+    			if(fl.val()){
+    				var formData = new FormData();
+    			    formData.append("sql_file",$('#sql_file')[0].files[0]);
+    			    
+    				$.ajax({
+    			        url:'/upload',
+    			        dataType:'json',
+    			        type:'POST',
+    			        async: false,
+    			        data: formData,
+    			        processData : false,
+    			        contentType : false,
+    			        success: function(data){
+    			        	alert('上传成功！');
+    			        },
+    			        error:function(response){
+    			        	alert(JSON.stringify(response))
+    			        }
+    			    });
+
+    			}else{    				
+    				fl.click();
+    			}
+    			e.preventDefault();
+    		});
+    		
+    		$('#export').click(function(e){
+    			$(this).attr('href','/export?name='+$('#sle').val()).click();
+    			e.preventDefault();
+    		});
     	})
     </script>
+    <style type="text/css">
+    	.cmd span{cursor: pointer;}
+    	.cmd span:hover{
+    		color: rgba(43, 143, 243, 0.63);
+    		font-weight: bold;
+    	}
+    	.cmd a{
+    		cursor: pointer;
+    		border: 1px solid gray;
+    	}
+    </style>
 </head>
 <body>
-<h1>${title}</h1>
-<textarea id="sql" style="margin: 0px; width: 1280px; height: 156px;"></textarea><br/>
-<button id="tj" style="margin-left: 1195px;">提交</button><br/><br/>
+<div class="cmd" style="height: 30px;">${title} <span>select</span> <span>*</span> <span>from</span> <span>where</span> <span>join</span> <span>on</span> <span>and</span> <span>count(1)</span> <span>show tables;</span> <span>=</span> <span>!=</span> <span class="zn z1">大于</span> <span class="zn z2">小于</span> <span class="zn z3">大于等于</span> <span class="zn z4">小于等于</span> &nbsp;&nbsp;&nbsp;&nbsp;<a id="import">导入</a>&nbsp;<a id="export" download="">导出</a>
+	<select id="sle"></select>
+</div>
+<input type="file" accept=".sql" id="sql_file" name="sql_file" style="display: none;">
+<textarea id="sql" style="margin: 0px; width: 1280px; height: 156px;font-size: 24px;"></textarea><br/>
 <div id="ret"></div>
+<div id="config" style="display: none;">
+	<input name="url" style="width: 800px;" autocomplete="off" placeholder="数据库连接url"><br/>
+	<input name="username" style="width: 600px;" autocomplete="off" placeholder="用户名"><br/>
+	<input name="password" style="width: 600px;" autocomplete="off" placeholder="密码"><br/>
+	<div style="height: 4px;"></div>
+	<button id="tj">提交</button>&nbsp;&nbsp;<button onclick="javascript:$(this).parent().hide();">关闭</button>
+</div>
 </body>
 </html>

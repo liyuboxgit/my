@@ -3,8 +3,12 @@ package liyu.test.jdbc;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
+import java.sql.Statement;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -15,6 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -118,7 +125,7 @@ public class MainConfigure extends WebMvcConfigurerAdapter{
 	
 	@RequestMapping("/")
 	public String sccess(ModelMap map) {
-		 map.addAttribute("title","请输入正确的可执行的sql，点击提交，查看结果");
+		 map.addAttribute("title","请输入正确的可执行的sql，=><button>配置</button>&nbsp;<button>查看结果</button>&nbsp;<button>清空</button>");
 		 return "index";
 	}
 	
@@ -127,6 +134,84 @@ public class MainConfigure extends WebMvcConfigurerAdapter{
 	public String sccess(String sql) throws JsonProcessingException {
 		 List<Map<String, Object>> ret = jt.queryForList(sql);
 		 return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(ret);
+	}
+	
+	@RequestMapping(path="/config",method= {RequestMethod.POST})
+	@ResponseBody
+	public String config(String url,String username,String password,int rw) {
+		if(rw==1) {
+			return this.url+" "+this.username+" "+this.password;
+		}else {			
+			try {
+				Class.forName(driverClass);
+				Connection conn = DriverManager.getConnection(url, username, password);
+				this.url = url;
+				this.username = username;
+				this.password = password;
+				return "config success:"+conn.getMetaData().getDatabaseProductName();
+			}catch(Exception e){
+				e.printStackTrace();
+				return "config faild:"+e.getMessage();
+			}
+		}
+	}
+	
+	@RequestMapping(path="/export")
+	public ResponseEntity<byte[]> export(String name) {
+		try {
+			StringBuffer sb = new StringBuffer();
+			
+			List<Map<String,Object>> list = this.jt.queryForList("show create table "+name);
+			String ct = (String) list.get(0).get("Create Table");
+			sb.append(ct);
+			sb.append(";\n\n\n");
+			Connection c = this.jt.getDataSource().getConnection();
+			
+			Statement s = c.createStatement();
+			ResultSet r = s.executeQuery("select * from "+name);
+			
+			ResultSetMetaData data = r.getMetaData();
+			int count = data.getColumnCount();
+			String[] l = new String[count];
+			for(int i=0;i<count;i++) {
+				l[i] = data.getColumnLabel(i+1);
+			}
+			
+			while(r.next()) {
+				InsertSqlBean bean = new InsertSqlBean();
+				bean.setSize(count);
+				bean.setLabels(l);
+				bean.setName(name);
+				
+				Object[] values = new Object[bean.getSize()];
+				for(int i=0;i<count;i++) {
+					values[i] = r.getObject(data.getColumnName(i+1));
+				}
+				bean.setValues(values);
+				sb.append(bean.sql());
+				sb.append("\n");
+			}
+			
+			HttpHeaders headers=new HttpHeaders();
+			headers.add("Content-Disposition", "attachment;filename="+name+".sql");
+			HttpStatus statusCode = HttpStatus.OK;
+			ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(sb.toString().getBytes(), headers, statusCode);
+			return response;
+		} catch (Exception e) {
+			HttpHeaders headers=new HttpHeaders();
+			headers.add("Content-Disposition", "attachment;filename="+name+".sql");
+			HttpStatus statusCode = HttpStatus.BAD_REQUEST;
+			ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(e.toString().getBytes(), headers, statusCode);
+			return response;
+		}
+	}
+	
+	@RequestMapping(path="/upload")
+	@ResponseBody
+	public Map<String,String> upload() {
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("succss", "true");
+		return map;
 	}
 	
 	public static void main(String[] args) {
