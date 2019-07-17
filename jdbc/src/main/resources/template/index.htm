@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title></title>
+    <script type="text/javascript" src="../static/jquery-2.1.1.js"></script>
+    <script type="text/javascript">
+    	$(function(){
+    		$('#tj').click(function(){
+    			var sql = $('#sql').val();
+    			$.ajax({
+    				url:'/sql',
+    				type:'post',
+    				data:{sql:sql},
+    				success:function(ret){
+    					$('#ret').empty().html('<pre>'+ret+'</pre>');
+    				},error:function(e){
+    					alert(JSON.stringify(e));
+    				}
+    			});
+    		})
+    	})
+    </script>
+</head>
+<body>
+<h1>${title}</h1>
+<textarea id="sql" style="margin: 0px; width: 1280px; height: 156px;"></textarea><br/>
+<button id="tj" style="margin-left: 1195px;">提交</button><br/><br/>
+<div id="ret"></div>
+</body>
+</html>

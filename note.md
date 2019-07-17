@@ -46,8 +46,16 @@
 	项目删除，重新下载， 只此三步，基本上可以解决换行问题了，否则请深究吧
 
 gradle
-	
-	
+	gradle tasks
+	gradle build
+	在.gradle目录下建立init.gradle文件
+	allprojects {
+		repositories {
+			maven {
+				url "http://maven.aliyun.com/nexus/content/groups/public"
+			}
+		}
+	}
 	
 nginx
 	1.安装nginx
