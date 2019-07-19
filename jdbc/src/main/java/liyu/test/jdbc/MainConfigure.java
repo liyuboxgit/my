@@ -52,21 +52,38 @@ public class MainConfigure extends WebMvcConfigurerAdapter{
 	public DataSource dataSource() {
 		return new MySimpleDataSource() {
 			@Override
-			public Connection getConnection() throws SQLException {
-				try {
-					Class.forName(driverClass);
-					return DriverManager.getConnection(url, username, password);
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
+			public synchronized Connection getConnection() throws SQLException {
+				Connection conn = null;
+	            if(super.getPools().size() == 0) {
+	            	conn = super.build(driverClass, url, username, password);
+	            } else {
+	                conn = super.getPools().remove(0);
+	            }
+	            return conn;	
+			}
+
+			@Override
+			public void init() {
+				for(int i=0;i<super.getMinCount();i++)
+					super.getPools().add(super.build(driverClass, url, username, password));
+			}
+
+			@Override
+			public synchronized void close(Connection conn) {
+				if(super.getPools().size() <= super.getMaxCount()) {
+					super.getPools().add(conn);
+				}else {
+					try {
+						conn.close();
+					} catch (SQLException e) {}
 				}
-				return null;
 			}
 		};
 	}
 	
 	@Bean
 	public JdbcTemplate JdbcTemplate(DataSource dataSource) {
-		return new JdbcTemplate(dataSource);
+		return new DonotCloseJdbcTemplate(dataSource);
 	}
 	
 	@Autowired
@@ -108,7 +125,9 @@ public class MainConfigure extends WebMvcConfigurerAdapter{
 				this.url = url;
 				this.username = username;
 				this.password = password;
-				return Ret.success("","config success:"+conn.getMetaData().getDatabaseProductName());
+				conn.close();
+				((MySimpleDataSource)jt.getDataSource()).distroy();
+				return Ret.success("","config success");
 			}catch(Exception e){
 				e.printStackTrace();
 				return Ret.fail("config faild:"+e.getMessage());
@@ -117,7 +136,10 @@ public class MainConfigure extends WebMvcConfigurerAdapter{
 	}
 	
 	@RequestMapping(path="/export")
-	public ResponseEntity<byte[]> export(String name) {
+	public ResponseEntity<byte[]> export(String name) throws Exception{
+		Connection c = this.jt.getDataSource().getConnection();
+		Statement s = null;
+		ResultSet r = null;
 		try {
 			StringBuffer sb = new StringBuffer();
 			
@@ -125,10 +147,10 @@ public class MainConfigure extends WebMvcConfigurerAdapter{
 			String ct = (String) list.get(0).get("Create Table");
 			sb.append(ct.replace("\n", ""));
 			sb.append(";\n\n\n");
-			Connection c = this.jt.getDataSource().getConnection();
+
 			
-			Statement s = c.createStatement();
-			ResultSet r = s.executeQuery("select * from "+name);
+			s = c.createStatement();
+			r = s.executeQuery("select * from "+name);
 			
 			ResultSetMetaData data = r.getMetaData();
 			int count = data.getColumnCount();
@@ -163,6 +185,10 @@ public class MainConfigure extends WebMvcConfigurerAdapter{
 			HttpStatus statusCode = HttpStatus.BAD_REQUEST;
 			ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(e.toString().getBytes(), headers, statusCode);
 			return response;
+		} finally {
+			r.close();
+			s.close();
+			((MySimpleDataSource)this.jt.getDataSource()).close(c);
 		}
 	}
 	
