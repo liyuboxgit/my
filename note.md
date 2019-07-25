@@ -1084,6 +1084,14 @@ java：RSA加减密
 		}
         return records;    
     }
+	JDK工具keytool
+	keytool -genkey -alias zuul -keyalg RSA -keystore zuul.keystore
+	将生成的文件copy到项目classpath，加入如下配置
+	server.port=444
+	server.ssl.key-store=classpath:zuul.keystore
+	server.ssl.key-password=123456
+	server.ssl.key-store-type=JKS
+	server.ssl.key-alias=zuul
 oracle分区;
 	--建立测试表分区
 	CREATE TABLE FPFX_T_QYGX_TEST (

@@ -2,6 +2,8 @@ springsecurity defined a filter named FilterChainProxy.
 this filter as normal filter,but it can invoke some springsecurity's filter which implication Filter interface looped.
 after all the filters invoke finished.than execute the normal Filter. additional the servlet filter like a stack data strut.  
 
+EnableWebSecurity=>WebSecurityConfiguration, public Filter springSecurityFilterChain(), this method ruturn DelegatingFilterProxy(FilterChainProxy)
+
 FilterChainProxy[Filter Chains: [[ 
 org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [
 	 org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@571a01f9,

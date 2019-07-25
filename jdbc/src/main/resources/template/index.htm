@@ -55,6 +55,18 @@
 	    				}
 	    			});
     			}
+    		}).end().eq(4).click(function(){
+    			var pkg = $('#codec');
+    			pkg.show();
+    			var sv = $('#sle').val();
+    			if(sv && sv!='all'){
+    				$.ajax({
+    					url:'/camel?name='+sv,
+    					success:function(ret){    						
+		    				$('input[name=package]').val(ret.msg);
+    					}
+    				});
+    			}
     		});
     		
     		$('#config>button').eq(0).click(function(){
@@ -71,6 +83,18 @@
     					alert(JSON.stringify(e));
     				}
     			})
+    		});
+    		
+    		$('#codec>a').eq(0).click(function(){
+    			var clz = $('input[name=package]').val();
+    			var tableName = $('#sle').val();
+    			if(clz){
+	    			$(this).attr('href','/codec?tableName='+tableName+'&name='+clz).click();
+    			}else{
+    				alert('请输入类路径');
+    			}
+    			
+    			e.preventDefault();
     		});
     		
     		function insert(n){
@@ -90,7 +114,13 @@
     				var sv = $('#sle').val();
     				//便利性操作
     				if((m.text()=='from'||m.text()=='drop table'||m.text()=='desc') && sv!='all'){
-    					insert(sv);			
+    					insert(sv);	
+    					if(m.text()=='from'){
+    						var cmd = $('#sql');
+    						if(cmd.val().indexOf('from')==0){
+    							cmd.val('select * '+cmd.val());
+    						}
+    					}
     				}
     				if(m.text()=='show tables;'){
     					$('div.cmd>button').eq(1).click();
@@ -179,7 +209,7 @@
     		color: rgba(43, 143, 243, 0.63);
     		font-weight: bold;
     	}
-    	.cmd a{
+    	a{
     		cursor: pointer;
     		border: 1px solid gray;
     	}
@@ -201,6 +231,10 @@
 	<input name="password" style="width: 600px;" autocomplete="off" placeholder="密码"><br/>
 	<div style="height: 4px;"></div>
 	<button id="tj">提交</button>&nbsp;&nbsp;<button onclick="javascript:$(this).parent().hide();">关闭</button>
+</div>
+<div id="codec" style="display: none;">
+	<input name="package" style="width: 800px;" autocomplete="off" placeholder="类路径"><br/>
+	<a id="tj_">提交</a>&nbsp;&nbsp;<button onclick="javascript:$(this).parent().hide();">关闭</button>
 </div>
 </body>
 </html>

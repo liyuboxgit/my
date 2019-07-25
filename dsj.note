@@ -419,7 +419,7 @@ docker
 	3，使用mysql(docker mysql)
 	docker images #查询本地镜像
 	docker pull mysql:5.7 #拉取镜像
-	docker run -d -i -p 3306:3306 --name=mysql --restart=no -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7 #启动容器(外部机器连接容器可能需要关闭防火墙)
+	docker run -d -i -p 3306:3306 --name=mysql --restart=no -e MYSQL_ROOT_PASSWORD=liyuff -d mysql:5.7 #启动容器(外部机器连接容器可能需要关闭防火墙)
 	docker ps -a #列出所有容器
 	docker ps -s #列出成功运行的容器
 	docker stop $CONTAINER_ID #停止容器，CONTAINER_ID从上一个命令中获取
@@ -479,3 +479,30 @@ docker
 	/usr/local/apache-maven-3.6.1/bin/mvn clean package
 	docker-compose up 
   
+	docker-compose编排微服务
+	各服务运行maven生成镜像：mvn clean package docker:build
+	查看镜像：docker images
+	编写docker-compose.yml文件：
+	version: '2'
+	services:
+	  eureka-server:
+		image: liyu/eureka-server:0.0.1-SNAPSHOT
+		ports:
+		  - "8762:8762"
+
+	  eureka-provider:
+		image: liyu/eureka-provider:0.0.1-SNAPSHOT
+		links:
+		  - eureka-server:liyu
+
+	  eureka-consumer:
+		image: liyu/eureka-consumer:0.0.1-SNAPSHOT
+		ports:
+		  - "10002:10002"
+		links:
+		  - eureka-server:liyu
+	运行镜像：docker-compose up
+	动态扩容：docker-compose scale eureka-provider=3
+	在服务注册首页可见：
+	EUREKA-CONSUMER	n/a (1)	(1)	UP (1) - 184463db264e:eureka-consumer:10002
+	EUREKA-PROVIDER	n/a (3)	(3)	UP (3) - e6cdf0f76cfe:eureka-provider:10001 , 6a9e4ed2bec8:eureka-provider:10001 , 0e400b56161e:eureka-provider:10001
