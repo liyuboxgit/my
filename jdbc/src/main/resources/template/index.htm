@@ -5,6 +5,8 @@
     <title></title>
     <script type="text/javascript" src="../static/jquery-2.1.1.js"></script>
     <script type="text/javascript">
+    	var sql$array = [];
+    	var index = 0;
     	$(function(){
     		$('div.cmd>button').eq(1).click(function(){
     			var sql = $('#sql').val();
@@ -19,6 +21,8 @@
     				success:function(ret){
     					$('#ret').empty().text(JSON.stringify(ret.data));
     					if(ret.msg=='ddl') initt();
+    					sql$array.push(sql);
+    					index++;
     				},error:function(e){
     					alert(JSON.stringify(e));
     				}
@@ -67,7 +71,23 @@
     					}
     				});
     			}
+    		}).end().eq(5).click(function(){
+    			search('left');
+    		}).end().eq(6).click(function(){
+    			search('right')
     		});
+    		
+    		function search(f){
+    			if(f=='left'){
+    				if(sql$array[index-1]){
+    					$('#sql').val(sql$array[--index]);
+    				}
+    			}else{
+    				if(sql$array[index+1]){
+    					$('#sql').val(sql$array[++index]);
+    				}
+    			}
+    		}
     		
     		$('#config>button').eq(0).click(function(){
     			var p = $('#config>input');
@@ -124,6 +144,9 @@
     				}
     				if(m.text()=='show tables;'){
     					$('div.cmd>button').eq(1).click();
+    				}
+    				if(m.text()=='date_format'){
+    					insert("(now(),'%Y-%m-%d %H:%i:%s')");
     				}
     			}
     		});
@@ -219,7 +242,7 @@
     </style>
 </head>
 <body>
-<div class="cmd" style="height: 30px;">${title} <br/><span>select</span> <span>*</span> <span>from</span> <span>where</span> <span>limit 5</span> <span>join</span> <span>on</span> <span>and</span> <span>order by</span> <span>count(1)</span> <span>drop table</span> <span>create table as</span> <span>desc</span> <span>show tables;</span> <span>=</span> <span>!=</span> <span class="zn z1">大于</span> <span class="zn z2">小于</span> <span class="zn z3">大于等于</span> <span class="zn z4">小于等于</span> &nbsp;&nbsp;&nbsp;&nbsp;<a id="import">导入</a>&nbsp;<a id="export" download="">导出</a>
+<div class="cmd" style="height: 30px;">${title} <br/><span>select</span> <span>*</span> <span>from</span> <span>where</span> <span>limit 5</span> <span>join</span> <span>on</span> <span>and</span> <span>order by</span> <span>date_format</span> <span>count(1)</span> <span>drop table</span> <span>create table as</span> <span>desc</span> <span>show tables;</span> <span>=</span> <span>!=</span> <span class="zn z1">大于</span> <span class="zn z2">小于</span> <span class="zn z3">大于等于</span> <span class="zn z4">小于等于</span> &nbsp;&nbsp;&nbsp;&nbsp;<a id="import">导入</a>&nbsp;<a id="export" download="">导出</a>
 	<select id="sle"></select>
 </div>
 <input type="file" accept=".sql" id="sql_file" name="sql_file" style="display: none;">

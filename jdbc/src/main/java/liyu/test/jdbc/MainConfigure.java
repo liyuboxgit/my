@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -33,9 +34,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -108,7 +106,7 @@ public class MainConfigure extends WebMvcConfigurerAdapter{
 	
 	@RequestMapping("/")
 	public String sccess(ModelMap map) {
-		 map.addAttribute("title","请输入正确的可执行的sql，=><button>配置</button>&nbsp;<button>查看结果</button>&nbsp;<button>清空</button>&nbsp;<button>格式化</button>&nbsp;<button>逆向</button>");
+		 map.addAttribute("title","请输入正确的可执行的sql，=><button>配置</button>&nbsp;<button>查看结果</button>&nbsp;<button>清空</button>&nbsp;<button>格式化</button>&nbsp;<button>逆向</button>&nbsp;<button>《</button>&nbsp;<button>》</button>");
 		 return "index";
 	}
 	
@@ -153,7 +151,8 @@ public class MainConfigure extends WebMvcConfigurerAdapter{
 	}
 	
 	@RequestMapping(path="/export")
-	public ResponseEntity<byte[]> export(String name) throws Exception{
+	@ResponseBody
+	public void export(String name,HttpServletResponse response) throws Exception{
 		Connection c = this.jt.getDataSource().getConnection();
 		Statement s = null;
 		ResultSet r = null;
@@ -191,17 +190,22 @@ public class MainConfigure extends WebMvcConfigurerAdapter{
 				sb.append("\n");
 			}
 			
-			HttpHeaders headers=new HttpHeaders();
-			headers.add("Content-Disposition", "attachment;filename="+name+".sql");
-			HttpStatus statusCode = HttpStatus.OK;
-			ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(sb.toString().getBytes(), headers, statusCode);
-			return response;
+			response.reset();
+            String resultFileName = name+".sql";
+            response.setCharacterEncoding("UTF-8");  
+            response.setHeader("Content-disposition", "attachment;filename=" + resultFileName);
+            response.setContentType("application/plain");
+              
+            PrintWriter out = response.getWriter();
+            
+            out.print(sb.toString());
+            out.flush();
+            out.close();
 		} catch (Exception e) {
-			HttpHeaders headers=new HttpHeaders();
-			headers.add("Content-Disposition", "attachment;filename="+name+".sql");
-			HttpStatus statusCode = HttpStatus.BAD_REQUEST;
-			ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(e.toString().getBytes(), headers, statusCode);
-			return response;
+			PrintWriter out = response.getWriter();
+            out.print(e.toString());
+            out.flush();
+            out.close();
 		} finally {
 			r.close();
 			s.close();
