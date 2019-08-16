@@ -394,7 +394,7 @@ docker
     yum install docker-ce 安装
     systemctl start docker 启动
     docker version 
-	#执行docker version有下面两部分说明安装成功
+	#执行docker version有下面两部分说明安装成功,如报prior storage driver devicemapper failed: Device is Busy，执行yum update xfsprogs
 		Client:
 		 Version:           18.09.4
 		 API version:       1.39
@@ -424,6 +424,7 @@ docker
 	docker ps -s #列出成功运行的容器
 	docker stop $CONTAINER_ID #停止容器，CONTAINER_ID从上一个命令中获取
 	docker rm --force $CONTAINER_ID #移除容器(不能停止的容器要使用forch参数)
+		docker rm `docker ps -a -q` #移除所有容器
 	docker rmi $image_id #删除镜像(image_id从docker images获取)
 	
 	通过修改启动脚本配置加速站点
@@ -435,6 +436,17 @@ docker
 	
 	docker双向拷贝
 	docker cp $CONTAINER_ID:/xx ./
+	
+	docker执行java命令
+	docker run java java -version
+	
+	docker文件挂载
+	docker run -v "$PWD":/root -w /root java java T //将当前目录挂载到镜像/root目录，并进入该目录，运行java容器，执行java命令java T
+	chmod 0777 data/ -R && chmod 0777 logs/ -R //如果挂载出现权限问题，可以如此授权
+	docker run -d -v /root/data/:/usr/share/elasticsearch/data -v /root/logs/:/usr/share/elasticsearch/logs -p 9200:9200 --privileged=true elasticsearch:6.5.0 //示例
+	
+	docker日志跟踪
+	docker logs -f 42dq //容器id随机串的前几位
 	
 	构建镜像
 	vi Dockerfile
@@ -656,5 +668,18 @@ netstat -ntlp|grep 30001
 kubectl create serviceaccount  dashboard-admin -n kube-system
 kubectl create clusterrolebinding  dashboard-admin --clusterrole=cluster-admin --serviceaccount=kube-system:dashboard-admin
 kubectl describe secrets -n kube-system $(kubectl -n kube-system get secret | awk '/dashboard-admin/{print $1}')
-	
 
+单机版上命令：https://blog.csdn.net/u013355826/article/details/82801482	
+journalctl -f -u kubelet
+swapoff -a	
+systemctl status|enable|start kubelet	
+systemctl status|enable|start docker
+
+kubectl get cs
+kubectl get service
+kubectl get pod
+
+大数据
+apache Mahout
+自动化运维
+Saltstack

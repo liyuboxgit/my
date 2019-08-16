@@ -106,7 +106,7 @@ public class MainConfigure extends WebMvcConfigurerAdapter{
 	
 	@RequestMapping("/")
 	public String sccess(ModelMap map) {
-		 map.addAttribute("title","请输入正确的可执行的sql，=><button>配置</button>&nbsp;<button>查看结果</button>&nbsp;<button>清空</button>&nbsp;<button>格式化</button>&nbsp;<button>逆向</button>&nbsp;<button>《</button>&nbsp;<button>》</button>");
+		 map.addAttribute("title","请输入正确的可执行的sql，=><button>配置</button>&nbsp;<button>增加</button>&nbsp;<button>删除</button>&nbsp;<button>格式化</button>&nbsp;<button>逆向</button>&nbsp;<button>清理</button>&nbsp;<button>清空</button>");
 		 return "index";
 	}
 	
@@ -512,7 +512,20 @@ public class MainConfigure extends WebMvcConfigurerAdapter{
 	public String jsonFormat(String str) {
 		return JsonTool.formatJson(str, "        ");
 	}
-	
+
+	@RequestMapping("/sqlformat")
+	@ResponseBody
+	public String sqlformat(String str) {
+		try {
+			String ret = new SqlFormatterUtils().format(str.trim());
+            return ret.replaceAll("\n", "\r\n");
+		}catch (Exception e){
+            e.printStackTrace();
+            return "error parse";
+		}
+
+	}
+
 	public static class Ret{
 		private boolean success;
 		private String msg = "ok";

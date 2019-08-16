@@ -5,15 +5,8 @@
     <title></title>
     <script type="text/javascript" src="../static/jquery-2.1.1.js"></script>
     <script type="text/javascript">
-    	var sql$array = [];
-    	var index = 0;
     	$(function(){
-    		$('div.cmd>button').eq(1).click(function(){
-    			var sql = $('#sql').val();
-    			if(sql==''){
-    				alert('请输入正确的sql语句');
-    				return
-    			}
+    		function executeSql(sql){
     			$.ajax({
     				url:'/sql',
     				type:'post',
@@ -21,18 +14,42 @@
     				success:function(ret){
     					$('#ret').empty().text(JSON.stringify(ret.data));
     					if(ret.msg=='ddl') initt();
-    					sql$array.push(sql);
-    					index++;
     				},error:function(e){
     					alert(JSON.stringify(e));
     				}
     			});
-    		}).end().eq(2).click(function(){
-    			$('#sql').val('');
+    		}
+    			
+    		$(document).on("blur", "textarea[name=sql]", function () {
+                window.selectedTA = this;
+    			if(!($(this).val()=="")) {
+                    executeSql($(this).val());
+                }
+			}).on("dblclick","textarea[name=sql]",function () {
+				var that = $(this);
+				$.ajax({
+				    url:'/sqlformat',
+					type:'post',
+					data:{str:that.val()},
+					success:function (ret) {
+						if(ret=='error parse'){
+						    alert(ret);
+						}else{
+							console.log(ret);							
+						    that.val('').val(ret);
+						}
+                    }
+				})
+            })
+    		
+    		$('div.cmd>button').eq(1).click(function(){//增加
+    			var p = $('textarea[name=sql]').eq(0).clone();
+    			$('textarea[name=sql]').eq(0).before(p.val(""));
+    		}).end().eq(6).click(function(){//清空
     			$('#ret').empty();
     			$('#sql_file').val('');
 	        	$('#import').css({'color':'black'});
-    		}).end().eq(0).click(function(){
+    		}).end().eq(0).click(function(){//配置
     			$.ajax({
     				url:'/config',
     				type:'post',
@@ -47,7 +64,7 @@
     					alert(JSON.stringify(e));
     				}
     			})
-    		}).end().eq(3).click(function(){
+    		}).end().eq(3).click(function(){//格式化
     			var s = $('#ret').text();
     			if(s.length>0 && $('#ret').children('pre').length==0){    				
 	    			$.ajax({
@@ -59,7 +76,7 @@
 	    				}
 	    			});
     			}
-    		}).end().eq(4).click(function(){
+    		}).end().eq(4).click(function(){//逆向
     			var pkg = $('#codec');
     			pkg.show();
     			var sv = $('#sle').val();
@@ -71,23 +88,15 @@
     					}
     				});
     			}
-    		}).end().eq(5).click(function(){
-    			search('left');
-    		}).end().eq(6).click(function(){
-    			search('right')
-    		});
-    		
-    		function search(f){
-    			if(f=='left'){
-    				if(sql$array[index-1]){
-    					$('#sql').val(sql$array[--index]);
-    				}
-    			}else{
-    				if(sql$array[index+1]){
-    					$('#sql').val(sql$array[++index]);
-    				}
-    			}
-    		}
+    		}).end().eq(5).click(function(){//清理
+    			$('textarea[name=sql]').eq(0).val('');
+    		}).end().eq(2).click(function(){//删除
+    		    if(window.selectedTA) {
+					if($('textarea[name=sql]').length>1){
+					    $(window.selectedTA).remove();
+					}
+                }
+            });
     		
     		$('#config>button').eq(0).click(function(){
     			var p = $('#config>input');
@@ -105,7 +114,7 @@
     			})
     		});
     		
-    		$('#codec>a').eq(0).click(function(){
+    		$('#codec>a').eq(0).click(function(e){
     			var clz = $('input[name=package]').val();
     			var tableName = $('#sle').val();
     			if(clz){
@@ -113,12 +122,11 @@
     			}else{
     				alert('请输入类路径');
     			}
-    			
     			e.preventDefault();
     		});
     		
     		function insert(n){
-    			var cmd = $('#sql');
+    			var cmd = $('textarea[name=sql]').eq(0);
     			cmd.val(cmd.val() + n + ' ');
     		}
     		
@@ -136,15 +144,13 @@
     				if((m.text()=='from'||m.text()=='drop table'||m.text()=='desc') && sv!='all'){
     					insert(sv);	
     					if(m.text()=='from'){
-    						var cmd = $('#sql');
+    						var cmd = $('textarea[name=sql]').eq(0);
     						if(cmd.val().indexOf('from')==0){
     							cmd.val('select * '+cmd.val());
     						}
     					}
     				}
-    				if(m.text()=='show tables;'){
-    					$('div.cmd>button').eq(1).click();
-    				}
+    				
     				if(m.text()=='date_format'){
     					insert("(now(),'%Y-%m-%d %H:%i:%s')");
     				}
@@ -158,7 +164,7 @@
 					data:{sql:'show tables'},
 					dataType:'json',
 					success:function(ret){
-						var ops = ['<option value="all">database</option>'];
+						var ops = ['<option value="all">全部</option>'];
 						var ret = ret.data;
 						var key = null;
 						if(ret.length>0){
@@ -242,16 +248,16 @@
     </style>
 </head>
 <body>
-<div class="cmd" style="height: 30px;">${title} <br/><span>select</span> <span>*</span> <span>from</span> <span>where</span> <span>limit 5</span> <span>join</span> <span>on</span> <span>and</span> <span>order by</span> <span>date_format</span> <span>count(1)</span> <span>drop table</span> <span>create table as</span> <span>desc</span> <span>show tables;</span> <span>=</span> <span>!=</span> <span class="zn z1">大于</span> <span class="zn z2">小于</span> <span class="zn z3">大于等于</span> <span class="zn z4">小于等于</span> &nbsp;&nbsp;&nbsp;&nbsp;<a id="import">导入</a>&nbsp;<a id="export" download="">导出</a>
+<div class="cmd" style="height: 30px;">${title} <br/><span>select</span> <span>*</span> <span>from</span> <span>where</span> <span>limit 5</span> <span>join</span> <span>on</span> <span>and</span> <span>order by</span> <span>date_format</span> <span>count(1)</span> <span>drop table</span> <span>create table as</span> <span>update</span> <span>delete</span> <span>desc</span> <span>show tables;</span> <span>=</span> <span>!=</span> <span class="zn z1">大于</span> <span class="zn z2">小于</span> <span class="zn z3">大于等于</span> <span class="zn z4">小于等于</span> &nbsp;&nbsp;&nbsp;&nbsp;<a id="import">导入</a>&nbsp;<a id="export" download="">导出</a>
 	<select id="sle"></select>
 </div>
 <input type="file" accept=".sql" id="sql_file" name="sql_file" style="display: none;">
-<textarea id="sql" style="margin: 0px; width: 1280px; height: 156px;font-size: 24px;margin-top: 20px;"></textarea><br/>
+<textarea name="sql" style="margin: 0px; width: 1468px; height: 266px;font-size: 24px;margin-top: 20px;"></textarea><br/>
 <div id="ret"></div>
 <div id="config" style="display: none;">
 	<input name="url" style="width: 800px;" autocomplete="off" placeholder="数据库连接url"><br/>
 	<input name="username" style="width: 600px;" autocomplete="off" placeholder="用户名"><br/>
-	<input name="password" style="width: 600px;" autocomplete="off" placeholder="密码"><br/>
+	<input name="password" style="width: 600px;" autocomplete="off" type="password"><br/>
 	<div style="height: 4px;"></div>
 	<button id="tj">提交</button>&nbsp;&nbsp;<button onclick="javascript:$(this).parent().hide();">关闭</button>
 </div>
