@@ -1532,6 +1532,9 @@ linux:http://www.linuxcommand.org/lc3_learning_the_shell.php
 	systemctl set-default multi-user.target
 	# 设置当前运行级别为5 （开机为图形界面）
 	systemctl set-default graphical.target
+	
+	#安装netstat
+	yum install web-tolls
 elasticsearch
 	基础教程
 	https://www.elastic.co/guide/cn/elasticsearch/guide/current/getting-started.html
