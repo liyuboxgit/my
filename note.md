@@ -128,6 +128,7 @@ nginx
 	2.启动：sbin/nginx -c /path/nginx.conf
 	  停止：sbin/nginx -s quit
 			sbin/nginx -s stop
+			taskkill /f /t /im nginx.exe(window停止nginx)
 	  重置：sbin/nginx -s reload -c /path/nginx.conf
 	  检查配置：sbin/nginx -t
 	3.配置：
@@ -158,6 +159,10 @@ nginx
 				   proxy_pass http://backend;
 				}	
 			}
+		}
+	5)静态页面(f:/tmp/目录下有index.html)
+		location /m {
+			alias f:/tmp/;	
 		}
 	4.nginx rewrite
 	rewrite ^(.*)/index-([0-9]+).html$ $1/index.html?offset=$2 redirect;
@@ -1851,6 +1856,26 @@ node
 spring security and outh2
 	DelegatingFilterProxy
 	org.springframework.security.authentication.encoding.PlaintextPasswordEncoder@3a8aaea6
+
+nfs
+	服务端和客户端都安装
+	yum -y install nfs-utils rpcbind
+	服务端创建共享目录
+	mkdir /var/web ; chmod a+w /var/web
+	配置共享目录访问权限
+	echo '/var/web/ *(rw,async,no_root_squash)'>/ect/exports
+	启动服务
+	systemctl start rpcbind ; systemctl start nfs 
+	
+	客户端访问
+	showmount -e slave1
+	挂载
+	mkdir tmp ; mount slave1:/var/web tmp
+	查看挂载
+	du -f
+	解挂
+	umount -l tmp
+	
 	
 	
 
