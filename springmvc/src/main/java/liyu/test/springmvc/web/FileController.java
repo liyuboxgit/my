@@ -10,19 +10,38 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
-@RequestMapping("/my")
-public class MyController {
-	@RequestMapping("/index")
-	public String index(Model model,Date date){
+@RequestMapping("/")
+public class FileController {
+	@RequestMapping("/")
+	public String index(Model model,@RequestParam(required=true) Date date){
 		model.addAttribute("now", date);
 		return "index";
 	}
-	@SuppressWarnings("unused")
+	
+	@RequestMapping("/toError")
+	@ResponseBody
+	public String toError(){
+		return "errorInfo";
+	}
+	
+	@RequestMapping("/toErrorEx")
+	@ResponseBody
+	public String toErrorEx(){
+		return "toErrorEx";
+	}
+	
+	@RequestMapping("/toErrorExAndReturn")
+	@ResponseBody
+	public String toErrorExAndReturn(){
+		return "toErrorExAndReturn";
+	}
+	
 	@RequestMapping("/upload")
 	@ResponseBody
 	public Map<String,Object> upload(HttpServletRequest request){
@@ -38,8 +57,7 @@ public class MyController {
 			}
 		}
 		System.out.println(request.getParameter("id"));
-		if(false)
-		throw new RuntimeException();
+		
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("success", false);
 		return map;

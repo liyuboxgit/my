@@ -47,10 +47,8 @@
         </property>
     </bean>
     <bean id="dateConvert" class="liyu.test.springmvc.util.DateConvert">
-    	<constructor-arg>
-    		<value>yyyy-MM-dd</value>
-    		<value>yyyy-MM-dd HH:mm:ss</value>
-    	</constructor-arg>
+    	<constructor-arg value="yyyy-MM-dd"/>
+    	<constructor-arg value="yyyy-MM-dd HH:mm:ss"/>
     </bean>
     
 	<bean id="multipartResolver"
@@ -60,5 +58,12 @@
 		<property name="maxInMemorySize" value="40960" />
 	</bean>
 	
-	<import resource="jpa.xml"/>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="liyu.test.springmvc.web.interceptor.PathIntegerceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
 </beans>   

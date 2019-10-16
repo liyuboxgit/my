@@ -15,7 +15,6 @@ public class DateConvert implements Converter<String, Date> {
 		this.dateTimeFormat = new SimpleDateFormat(dateTime);
 	}
 
-	@Override
 	public Date convert(String stringDate) {
 		try {
 			if(stringDate.trim().length()>10){
