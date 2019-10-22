@@ -61,6 +61,7 @@ class TimeServerHandler extends ChannelInboundHandlerAdapter {
 		f.addListener(new ChannelFutureListener() {
 			@Override
 			public void operationComplete(ChannelFuture future) {
+				System.out.println("client close...");
 				assert f == future;
 				ctx.close();
 			}

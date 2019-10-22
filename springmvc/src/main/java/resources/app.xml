@@ -19,6 +19,7 @@
     </bean>   
     <!-- 静态文件 -->
     <mvc:resources mapping="/static/**" location="/static/"/>
+    <mvc:resources location="classpath:/liyu/test/springmvc/mh/" mapping="/mh/**"/>
           
     <!-- message converter -->
     <bean id="mappingJacksonHttpMessageConverter"

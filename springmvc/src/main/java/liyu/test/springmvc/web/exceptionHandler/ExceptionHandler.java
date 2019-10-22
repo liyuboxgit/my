@@ -20,7 +20,7 @@ public class ExceptionHandler {
         	return "not allowed,need return json";
         }
         else {        	
-        	return ""; 
+        	return e.getMessage(); 
         }
     }   
 }
