@@ -1,5 +1,5 @@
 
-package liyu.test.netty.exam01;
+package liyu.test.netty.echo;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

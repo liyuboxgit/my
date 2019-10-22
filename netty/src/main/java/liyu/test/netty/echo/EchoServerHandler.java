@@ -1,4 +1,4 @@
-package liyu.test.netty.exam01;
+package liyu.test.netty.echo;
 
 import java.io.IOException;
 
