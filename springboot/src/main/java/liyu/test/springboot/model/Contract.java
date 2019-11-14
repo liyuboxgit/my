@@ -3,26 +3,20 @@ package liyu.test.springboot.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import liyu.test.springboot.util.DateUtil;
-@Entity
-@Table(name = "t_contract")
+//@Entity
+//@Table(name = "t_contract")
 public class Contract implements Serializable{
 	private static final long serialVersionUID = 1019941861212647059L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
 	private Date createTime;
 	private String type;
 	private String typeDict;
-	@ManyToOne
+	//@ManyToOne
 	private User author;
 	
 	public String getCreateTimeStr(){

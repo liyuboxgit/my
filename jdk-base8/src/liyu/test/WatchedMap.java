@@ -39,6 +39,11 @@ public class WatchedMap {
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                System.out.println("我要stop了...........................");
+            }
+        });
 		WatchedMap map = new WatchedMap();
 		map.put("k", "v1");
 		//return v1

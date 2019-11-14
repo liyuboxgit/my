@@ -18,7 +18,7 @@ public class CreateTable {
 	private static String url = "jdbc:mysql://localhost:3306/activity";
 	private static String driver = "com.mysql.jdbc.Driver";
 	private static String username = "root";
-	private static String password = "root";
+	private static String password = "liyuff";
 
 	public static void main(String[] args) {
 //		dropTable();

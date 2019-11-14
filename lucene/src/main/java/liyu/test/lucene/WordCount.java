@@ -102,7 +102,7 @@ public class WordCount {
         
         // 读取String
         try {
-            String cont = "滚滚长江东逝水，浪花淘尽英雄，是非成败转头空，青山依旧在，几度夕阳红。";
+            String cont = "《三国演义》描写了从东汉末年到西晋初年之间近百年的历史风云，以描写战争为主，诉说了东汉末年的群雄割据混战和魏、蜀、吴三国之间的政治和军事斗争，最终司马炎一统三国，建立晋朝的故事。反映了三国时代各类社会斗争与矛盾的转化，并概括了这一时代的历史巨变，塑造了一群叱咤风云的三国英雄人物。";
             doc.add(new Field("twitter", cont, ft));
         } catch (Exception e) {
             e.printStackTrace();

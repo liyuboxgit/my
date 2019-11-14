@@ -2,24 +2,17 @@ package liyu.test.springboot.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-@Entity
-@Table(name = "t_user")
+//@Entity
+//@Table(name = "t_user")
 public class User implements Serializable{
 	private static final long serialVersionUID = 8768982937738871210L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String username;
 	private String password = "123456";
-	@ManyToOne
-	@JoinColumn(name = "role_id")
+	//@ManyToOne
+	//@JoinColumn(name = "role_id")
 	private Role role;
 	
 

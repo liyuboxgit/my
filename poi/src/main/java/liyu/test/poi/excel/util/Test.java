@@ -37,13 +37,13 @@ public class Test {
 		
 		
 		
-/*		File file = new File("files/test_0002.xlsx");
+		File file = new File("files/test_0002.xlsx");
 		System.out.println(file.exists());
 		ExcelParser parser = new ExcelParser(file);
 //		User user = parser.singleParse(User.class);
 //		System.out.println(user);
 		System.out.println(parser.getSheetCount());
 		List<SimpleUser> list = parser.batchParse(0,SimpleUser.class);
-		System.out.println(list.size());*/
+		System.out.println(list.size());
 	}
 }

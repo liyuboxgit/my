@@ -1185,6 +1185,75 @@ springmvc dispatcherservlet
 			}
 		}
 	}
+spring ComponentScan
+	@ComponentScan( ///spring的配置
+        basePackages = {"OThinker", "OThinker.H3.service", "com.h3bpm.base.operator", "com.h3bpm.mobile.operators", "com.h3bpm.base.engine", "com.h3bpm.base.util"},
+        excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, classes = {Controller.class})}
+    )
+	@ComponentScan( ///springM的配置
+        basePackages = {"OThinker.H3.Controller.*","com.h3bpm.mobile.controller","com.h3bpm.base.controller.handler"},
+        excludeFilters = {@ComponentScan.Filter(type=FilterType.ASSIGNABLE_TYPE,value={OThinker.H3.Controller.Controllers.Organization.OrganizationController.class})}
+    )
+maven依赖本地化
+	<?xml version="1.0" encoding="UTF-8"?>
+
+	<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+		<groupId>liyu.test</groupId>
+		<artifactId>portal-web</artifactId>
+		<version>10.7-RELEASE</version>
+		<modelVersion>4.0.0</modelVersion>
+
+		<packaging>war</packaging>
+
+		<name>portal-web Maven Webapp</name>
+		<url>http://www.example.com</url>
+
+		<dependencies>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>3.0.1</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet.jsp</groupId>
+				<artifactId>jsp-api</artifactId>
+				<version>2.1</version>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>
+
+		<build>
+			<finalName>portal-web</finalName>
+			<plugins>
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<configuration>
+						<skip>true</skip>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.3</version>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+						<compilerArguments>
+							<extdirs>${basedir}/src/main/webapp/WEB-INF/lib</extdirs>
+						</compilerArguments>
+					</configuration>
+				</plugin>
+			</plugins>
+		</build>
+	</project>
+oracle函数：
+	--随机，字符传截取
+	SELECT to_number(concat('0.',substr(dbms_random.value||'',-2,3))) FROM dual;
+	--五分钟
+	select (to_date('2006-05-11 12:35:00','YYYY-MM-DD HH24:MI:SS')-to_date('2006-05-11 12:30:00','YYYY-MM-DD HH24:MI:SS'))*60*24 T from dual;
 oracle分区;
 	--建立测试表分区
 	CREATE TABLE FPFX_T_QYGX_TEST (

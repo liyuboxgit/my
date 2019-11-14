@@ -2,27 +2,20 @@ package liyu.test.springboot.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "t_person")
+//@Entity
+//@Table(name = "t_person")
 public class Person {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "name")
+	//@Column(name = "name")
 	private String name;
-	@Column(name = "email")
+	//@Column(name = "email")
 	private String email;
-	@Column(name = "telephone")
+	//@Column(name = "telephone")
 	private String telephone;
-	@Column(name = "create_time")
+	//@Column(name = "create_time")
 	private Date createTime;
 	
 	public Long getId() {

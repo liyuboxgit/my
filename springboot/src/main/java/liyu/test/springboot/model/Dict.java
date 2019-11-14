@@ -1,21 +1,15 @@
 package liyu.test.springboot.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "t_dict")
+//@Entity
+//@Table(name = "t_dict")
 public class Dict {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "text_")
+	//@Column(name = "text_")
 	private String text;
-	@Column(name = "value_")
+	//@Column(name = "value_")
 	private String value;
 	private String type;
 	
