@@ -3,6 +3,7 @@ package liyu.test.collection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TestList {
 	/**
@@ -28,12 +29,11 @@ public class TestList {
 	}
 	
 	public static void main(String[] args) {
+		//subList
 		List<Integer> list = Arrays.asList(new Integer[] {1,2,3,4,5,6,7});
 		List<List<Integer>> subList = subList(list, 3);
 		subList.stream().forEach(
-			e->e.stream().forEach(
-				e2->System.out.println(e2)
-			)
+			e->{System.out.println(e);System.out.println("--");}
 		);
 	}
 }

@@ -49,7 +49,7 @@ public class WordCount {
                 file.mkdirs();
             } else {
                 try {
-                    file.delete();
+                    del(file);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -61,7 +61,19 @@ public class WordCount {
             e.printStackTrace();
         }
     }
-
+    public static void del(File file) {
+		if(file.isDirectory()) {
+			File[] files = file.listFiles();
+			for(File f:files) {
+				del(f);
+			}
+			file.delete();
+			System.out.println("delete dictionary:"+file.getPath());
+		}else {
+			file.delete();
+			System.out.println("delete file:"+file.getPath());
+		}
+	}
     public static void main(String[] args) {
         indexCreate();
         Map<String, Long> map = getTotalFreqMap();
@@ -111,12 +123,20 @@ public class WordCount {
         // 生成索引
         try {
             writer.addDocument(doc);
-            // 关闭
-            writer.close();
-
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }finally {
+			try {
+				writer.commit();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			try {
+				writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
     }
 
     /**
