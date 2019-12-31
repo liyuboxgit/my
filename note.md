@@ -1660,6 +1660,8 @@ linux:http://www.linuxcommand.org/lc3_learning_the_shell.php
 	echo "third param：$3";
 	echo "param count: $#";
 	echo "param in one string: $*"
+	
+	$? 代表脚本退出方式：0正常退出，1非正常退出
 	# ------------------------------------------------------------------运算符及条件判断
 	echo `expr 2 + 2`
 	echo `expr 2 - 1`
@@ -1683,7 +1685,20 @@ linux:http://www.linuxcommand.org/lc3_learning_the_shell.php
 	fi
 	# -----------------------------------------------------------------执行命令
 	echo `date`
-	
+	# -----------------------------------------------------------------输出重定向
+	ls ./a>result 2>&1	列出当前目录下的a文件，输出到result，标准错误也定向到result，&1代表result
+	# -----------------------------------------------------------------grep wc组合
+	ps -ef|grep nginx|grep -v pts|wc -l	这条命令就是判断nginx是否启动，grep -v代表no match，wc -l代表多少行
+	# -----------------------------------------------------------------综合样例
+	[root@vm1 ~]# cat t.sh
+	#!/bin/bash
+	/usr/local/mysql/bin/mysql -uroot -pliyuff -e "show status;" > /dev/null 2>&1
+	if [ $? == 0 ] ;then
+		echo 'mysql is running'
+	else
+		echo 'mysql is not run'
+	fi
+	--------------------------------------------------------------------end
 	yum groupinstall "X Window System"
 	yum groupinstall "GNOME Desktop" "Graphical Administration Tools"
 	ln -sf /lib/systemd/system/runlevel5.target /etc/systemd/system/default.target 图形桌面启动（runlevel3是命令界面）

@@ -1,0 +1,7 @@
+9471 [main] INFO  l.test.log4j_logstash.MainConfigure - Starting MainConfigure on O5HGTQDJHN623WA with PID 9748 (D:\gitrepostary\my\log4j_logstash\target\classes started by Administrator in D:\gitrepostary\my\log4j_logstash)
+9489 [main] DEBUG l.test.log4j_logstash.MainConfigure - Running with Spring Boot v1.5.7.RELEASE, Spring v4.3.11.RELEASE
+9491 [main] INFO  l.test.log4j_logstash.MainConfigure - No active profile set, falling back to default profiles: default
+19034 [main] INFO  l.test.log4j_logstash.MainConfigure - Started MainConfigure in 13.047 seconds (JVM running for 20.184)
+65453 [http-nio-8080-exec-10] DEBUG l.test.log4j_logstash.MainConfigure - Thu Sep 12 17:34:59 CST 2019
+98337 [http-nio-8080-exec-8] DEBUG l.test.log4j_logstash.MainConfigure - Thu Sep 12 17:35:32 CST 2019
+99111 [http-nio-8080-exec-6] DEBUG l.test.log4j_logstash.MainConfigure - Thu Sep 12 17:35:33 CST 2019
