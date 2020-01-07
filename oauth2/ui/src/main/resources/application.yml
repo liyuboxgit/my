@@ -28,7 +28,7 @@ zuul:
       url: http://localhost:9000
     user:
       path: /user/**
-      url: http://localhost:9999/uaa/getUser
+      url: http://localhost:9999/uaa/user
 
 logging:
   level:

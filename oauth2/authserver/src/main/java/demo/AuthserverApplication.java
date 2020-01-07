@@ -14,6 +14,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -31,14 +35,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @SpringBootApplication
 @Controller
-///@SessionAttributes("authorizationRequest")
+@SessionAttributes("authorizationRequest")
 @EnableResourceServer
 public class AuthserverApplication extends WebMvcConfigurerAdapter {
 
-	@RequestMapping("/getUser")
+	@RequestMapping("/user")
 	@ResponseBody
 	public Principal user(Principal user) {
-		System.out.println(user.getName());
 		return user;
 	}
 
@@ -53,7 +56,6 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 	}
 
 	@Configuration
-	@Order(-20)
 	protected static class LoginConfig extends WebSecurityConfigurerAdapter {
 
 		@Autowired
@@ -76,6 +78,15 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 			auth.parentAuthenticationManager(authenticationManager);
 		}
 
+		@Bean
+		public UserDetailsService userDetailsService(){
+			return new UserDetailsService() {
+				@Override
+				public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+					return User.withUsername("username").password("password").roles("USER").build();
+				}
+			};
+		}
 	}
 
 	@Configuration
