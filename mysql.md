@@ -30,7 +30,7 @@ vi /etc/my.cnf
 	socket=/tmp/mysql.sock
 
 	[mysqld]
-	skip-name-resolve
+	default-time_zone='+8:00'
 	port = 3306 
 	socket=/tmp/mysql.sock
 	basedir=/usr/local/mysql
