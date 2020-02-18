@@ -44,7 +44,8 @@
 	$ git config --global core.autocrlf false
 	在eclipse中window>references>general>workspace设置new line delimiter为unix
 	项目删除，重新下载， 只此三步，基本上可以解决换行问题了，否则请深究吧
-
+			
+	git clone -b 2.0.x https://github.com/spring-projects/spring-boot.git
 gradle
 	gradle tasks
 	gradle build
@@ -1625,7 +1626,10 @@ linux:http://www.linuxcommand.org/lc3_learning_the_shell.php
 	修改主机名称
 	hostnamectl set-hostname xxx 
 	reboot	
-	
+	查看文件大小
+	du -h filepath
+	查看最大文件
+	du -h -x --max-depth=1
 	脚本Shell
 	#!/bin/bash
 	# ------------------------------------------------------------------hello world
@@ -1709,9 +1713,10 @@ linux:http://www.linuxcommand.org/lc3_learning_the_shell.php
 	systemctl set-default multi-user.target
 	# 设置当前运行级别为5 （开机为图形界面）
 	systemctl set-default graphical.target
-	
 	#安装netstat
 	yum install web-tolls
+	#设置开机自动启动
+	systemctl enable/disabled docker
 elasticsearch
 	基础教程
 	https://www.elastic.co/guide/cn/elasticsearch/guide/current/getting-started.html

@@ -104,7 +104,7 @@
 							<goal>install-node-and-npm</goal>
 						</goals>
 					</execution>
-					<execution>
+					<!-- <execution>
 						<id>npm-install</id>
 						<goals>
 							<goal>npm</goal>
@@ -128,7 +128,7 @@
 							<arguments>run-script e2e</arguments>
 						</configuration>
 						<phase>test</phase>
-					</execution>
+					</execution> -->
 				</executions>
 			</plugin>
 		</plugins>
