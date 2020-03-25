@@ -53,3 +53,58 @@
 	</build>
 </project>
 二、maven在eclipse中出现Unknew Error，在properties中加入<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+三、配置阿里云镜像
+	<repositories>
+        <repository>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>public</id>
+            <name>Public Repositories</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+       </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>public</id>
+            <name>Public Repositories</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+	或者：
+	<mirrors>
+		<mirror>
+			<id>nexus</id>
+			<mirrorOf>central</mirrorOf>
+			<name>local maven</name>
+			<url>http://120.78.180.15:8081/nexus/content/groups/public/</url>
+		</mirror>
+	</mirrors>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

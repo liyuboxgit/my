@@ -1,3 +1,18 @@
+mysql yum install 快速安装
+	rpm -qa|grep -i mysql #检查是否安装过
+	yum -y remove mysql-community-client-5.6.38-2.el7.x86_64
+	wget http://repo.mysql.com/mysql57-community-release-el7-8.noarch.rpm
+	rpm -ivh mysql57-community-release-el7-8.noarch.rpm
+	yum -y install mysql-server
+	ls /etc/my.cnf
+	ls /var/log/var/log/mysqld.log
+	ls /usr/lib/systemd/system/mysqld.service
+	cat /etc/my.cnf
+	service mysqld restart
+	grep "password" /var/log/mysqld.log #随机密码：Nm.eSljs#042
+	mysql -uroot -p
+	登录后修改密码： alter user 'root'@'localhost' identified by 'Root!!2018';
+---------------------------------------------------------------------------------------------------------------------------------
 centos7安装mysql前系统设置，设置完成重启系统
 1.卸载mariadb
 	rpm -qa|grep mariadb

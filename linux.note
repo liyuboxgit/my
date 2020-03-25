@@ -1,0 +1,220 @@
+linux磁盘扩容~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+No space left on device
+[root@localhost ~]# df -h /
+Filesystem               Size  Used Avail Use% Mounted on
+/dev/mapper/centos-root  3.5G  3.5G   20K 100% /
+以上说明磁盘满了，如果继续使用就该扩容了，使用量达到100%扩容会报错，删掉部分文件，降低使用量到90%
+1.使用虚拟机编辑磁盘扩容（vmworkstation中操作）
+2.fdisk -l 查看扩容后磁盘容量，然后对新加的磁盘进行分区操作：
+  fdisk /dev/sda
+  输入p查看已分区数量
+  输入n新增一个分区
+  输入p选择分区类型
+  输入3作为分区号
+  输入w写入磁盘
+  操作完成后，再次fdisk -l查看分区
+3.reboot
+4.vgdisplay 查看卷组名
+  pvcreate /dev/sda3 初始化刚刚的分区
+  vgextend centos /dev/sda3 将初始化过的分区加入到虚拟卷组名
+  vgdisplay 再次查看卷组情况
+  df -h 扩展根目录，所以我记下的是 /dev/mapper/centos-root
+  lvextend -L +29G /dev/mapper/centos-root 扩容已有的卷组容量
+  pvdisplay 查看当前卷组
+  xfs_growfs /dev/mapper/centos-root 扩展磁盘空间
+  df -h 我们再次用命令查看磁盘状态，可以看到，现在已经扩容成功了！
+  
+linux:http://www.linuxcommand.org/lc3_learning_the_shell.php ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	定时任务：(echo 'good morning'，console会没有输出，可以重定向到文件且不需要创建文件)
+	service crond start （service crond start）
+	echo */1 * * * * echo 'good morning' > crontest.cron
+	crontab crontest.cron 
+	crontab -l
+	crontab -r
+	rm crontest.cron
+	注意minute hour day month week command，和其他的cron表达式格式不一样,此例
+	* * * * * #每1分钟执行
+	3,15 * * * * #每小时的第3和第15分钟执行
+	3,15 8-11 * * * #上午8点到11点的第3和第15分钟执行
+	3,15 8-11 */2 * * 每隔两天的上午8点到11点的第3和第15分钟执行
+	3,15 8-11 * * 1 每个星期一的上午8点到11点的第3和第15分钟执行
+	30 21 * * * 每晚的21:30执行
+	实例7：每月1、10、22日的4 : 45重启smb 
+	命令：
+	45 4 1,10,22 * * /etc/init.d/smb restart
+	实例8：每周六、周日的1 : 10重启smb
+	命令：
+	10 1 * * 6,0 /etc/init.d/smb restart
+	实例9：每天18 : 00至23 : 00之间每隔30分钟重启smb 
+	命令：
+	0,30 18-23 * * * /etc/init.d/smb restart
+	实例10：每星期六的晚上11 : 00 pm重启smb 
+	命令：
+	0 23 * * 6 /etc/init.d/smb restart
+	实例11：每一小时重启smb 
+	命令：
+	* */1 * * * /etc/init.d/smb restart
+	实例12：晚上11点到早上7点之间，每隔一小时重启smb 
+	命令：
+	* 23-7/1 * * * /etc/init.d/smb restart
+	实例13：每月的4号与每周一到周三的11点重启smb 
+	命令：
+	0 11 4 * mon-wed /etc/init.d/smb restart
+	实例14：一月一号的4点重启smb 
+	命令：
+	0 4 1 jan * /etc/init.d/smb restart
+	
+	修改主机名称
+	hostnamectl set-hostname xxx 
+	reboot	
+	查看文件大小
+	du -h filepath
+	查看最大文件
+	du -h -x --max-depth=1
+	脚本Shell
+	#!/bin/bash
+	# ------------------------------------------------------------------hello world
+	hello=HelloWorld
+	echo "$hello ${#hello} !"
+	echo ${hello:5}
+	echo `expr index "$hello" o`
+	# ------------------------------------------------------------------拼接字符串、专义
+	echo "the PATH is: \""$PATH"\""
+	# 遍历文件
+	for file in $(ls ../)
+	do 
+		echo $file 
+	done
+	# ------------------------------------------------------------------定义数组、获取数组长度、遍历数组和while遍历数组
+	arr=("a" "b" "c" "d" "e" "f")
+	echo ${arr[2]}
+	echo "arr length："${#arr[*]}
+	for loop in ${arr[@]};do 
+		echo $loop 
+	done
+
+	i=0
+	while [[ i -lt ${#arr[@]} ]]; do
+		echo ${arr[i]}
+		let i++
+	done
+	# ------------------------------------------------------------------shell传递参数
+	echo "shell script name：$0";
+	echo "first param：$1";
+	echo "second param：$2";
+	echo "third param：$3";
+	echo "param count: $#";
+	echo "param in one string: $*"
+	
+	$? 代表脚本退出方式：0正常退出，1非正常退出
+	# ------------------------------------------------------------------运算符及条件判断
+	echo `expr 2 + 2`
+	echo `expr 2 - 1`
+	echo `expr 2 \* 3`
+	echo `expr 6 / 2`
+	if [ 1==1 ]
+	then
+		echo '1=1'
+	fi
+	if [ 1 -lt 2 ]
+	then
+		echo '1 low then 1'
+	fi
+	if [[ 1==1 && 1 -lt 2 ]]
+	then
+		echo '1=1 1<2'
+	fi
+	if [ -e ./a.sh ]
+	then
+		echo 'file a.sh exist'
+	fi
+	# -----------------------------------------------------------------执行命令
+	echo `date`
+	# -----------------------------------------------------------------输出重定向
+	ls ./a>result 2>&1	列出当前目录下的a文件，输出到result，标准错误也定向到result，&1代表result
+	# -----------------------------------------------------------------grep wc组合
+	ps -ef|grep nginx|grep -v pts|wc -l	这条命令就是判断nginx是否启动，grep -v代表no match，wc -l代表多少行
+	# -----------------------------------------------------------------综合样例
+	[root@vm1 ~]# cat t.sh
+	#!/bin/bash
+	/usr/local/mysql/bin/mysql -uroot -pliyuff -e "show status;" > /dev/null 2>&1
+	if [ $? == 0 ] ;then
+		echo 'mysql is running'
+	else
+		echo 'mysql is not run'
+	fi
+	--------------------------------------------------------------------end
+	yum groupinstall "X Window System"
+	yum groupinstall "GNOME Desktop" "Graphical Administration Tools"
+	ln -sf /lib/systemd/system/runlevel5.target /etc/systemd/system/default.target 图形桌面启动（runlevel3是命令界面）
+	
+	# 查看当前运行级别
+	systemctl get-default
+	# 设置当前运行级别为3 （开机为命令行模式）
+	systemctl set-default multi-user.target
+	# 设置当前运行级别为5 （开机为图形界面）
+	systemctl set-default graphical.target
+	#安装netstat
+	yum install web-tolls
+	#设置开机自动启动
+	systemctl enable/disabled docker  
+
+停止java程序~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~·
+!/bin/sh
+APP_MAIN=com.cucpay.tradeportal.MainApp
+
+tradePortalPID=0
+
+getTradeProtalPID(){
+    javaps=`$JAVA_HOME/bin/jps -l | grep $APP_MAIN`
+    if [ -n "$javaps" ]; then
+        tradePortalPID=`echo $javaps | awk '{print $1}'`
+    else
+        tradePortalPID=0
+    fi
+}
+
+# 停止Java应用程序
+# ------------------------------------------------------------------------------------------------------
+# 1、调用getTradeProtalPID()函数，刷新$tradePortalPID全局变量
+# 2、若程序已经启动（$tradePortalPID不等于0），则开始执行停止程序操作，否则提示程序未运行
+# 3、使用[kill -9 PID]命令强制杀掉进程
+# 4、使用[$?]获取上一句命令的返回值，若其为0，表示程序已停止运行，则打印Success，反之打印Failed
+# 5、为防止Java程序被启动多次，这里增加了反复检查程序进程的功能，通过递归调用shutdown()函数的方式，反复kill
+# 注意：Shell编程中，[$?]表示上一句命令或者上一个函数的返回值
+# ------------------------------------------------------------------------------------------------------
+shutdown(){
+    getTradeProtalPID
+    echo "==============================================================================================="
+    if [ $tradePortalPID -ne 0 ]; then
+        echo -n "Stopping $APP_MAIN(PID=$tradePortalPID)..."
+        kill -9 $tradePortalPID
+        if [ $? -eq 0 ]; then
+            echo "[Success]"
+            echo "==============================================================================================="
+        else
+            echo "[Failed]"
+            echo "==============================================================================================="
+        fi
+        getTradeProtalPID
+        if [ $tradePortalPID -ne 0 ]; then
+            shutdown
+        fi
+    else
+        echo "$APP_MAIN is not running"
+        echo "==============================================================================================="
+    fi
+}
+
+shutdown 
+awk~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	#将nginx.conf文件中存在default_server的行的80替换
+    awk '/default_server/ { sub(/80/,"'"$nginxport"'"); print $0; next }{ print $0 } ' nginx.conf > nginx.confd
+	#获取java服务的pid
+	pid=$(ps -ef|grep tomcat-engine|grep -w java|grep -v 'grep'|awk '{print $2}')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+修改时区
+ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+date
+
+

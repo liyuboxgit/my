@@ -1255,6 +1255,25 @@ oracle函数：
 	SELECT to_number(concat('0.',substr(dbms_random.value||'',-2,3))) FROM dual;
 	--五分钟
 	select (to_date('2006-05-11 12:35:00','YYYY-MM-DD HH24:MI:SS')-to_date('2006-05-11 12:30:00','YYYY-MM-DD HH24:MI:SS'))*60*24 T from dual;
+oracle 创建表空间，用户，授权， 导入导入
+
+CREATE TABLESPACE H3BPM 
+LOGGING
+DATAFILE 'H:\D\oracle\H3BPM.DBF'
+SIZE 32M
+AUTOEXTEND ON
+NEXT 32M MAXSIZE UNLIMITED
+EXTENT MANAGEMENT LOCAL;
+
+CREATE USER h3bpm IDENTIFIED BY h3bpm 
+ACCOUNT UNLOCK
+DEFAULT TABLESPACE H3BPM;
+
+GRANT CONNECT,RESOURCE TO h3bpm; 
+GRANT DBA TO NEWUSER;
+
+imp h3bpm/h3bpm file=EXPDAT.DMP full=y
+
 oracle分区;
 	--建立测试表分区
 	CREATE TABLE FPFX_T_QYGX_TEST (

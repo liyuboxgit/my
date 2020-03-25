@@ -1,0 +1,195 @@
+1、安装vsftpd服务
+yum -y install vsftpd
+2、去掉配置文件里的注释行
+mv /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.conf.bak
+grep -v "#" /etc/vsftpd/vsftpd.conf.bak > /etc/vsftpd/vsftpd.conf
+3、关闭防护墙
+4、配置selinux允许FTP服务
+yum -y install policycoreutils-python.x86_64
+#sestatus -b | grep ftp 
+setsebool -P  tftp_home_dir=on
+setsebool -P ftpd_full_access=on
+5、vim /etc/vsftpd/vsftpd.conf
+anonymous_enable=NO   
+local_enable=YES
+write_enable=YES
+local_umask=022
+local_root=/data/user   
+chroot_local_user=YES   
+allow_writeable_chroot=YES   
+dirmessage_enable=YES
+xferlog_enable=YES
+connect_from_port_20=YES
+xferlog_std_format=YES
+listen_port=2231
+listen=NO
+listen_ipv6=YES
+pam_service_name=vsftpd
+userlist_enable=YES
+6、创建本地用户，并指定家目录
+mkdir -p /data/user
+chmod -R 777 /data/user
+useradd -d /data/user -s /sbin/nologin user
+echo "123456" | passwd --stdin user
+7.检查/etc/pam.d/vsftpd
+注释掉 auth    required pam_shells.so
+8、重启vsftpd服务
+systemctl restart vsftpd
+9、安装客户端
+yum -y install ftp
+10、登录
+ftp localhost
+----------------------------------------------------------------------------------------------
+package liyu.test.vsftpdTest;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPClientConfig;
+import org.apache.commons.net.ftp.FTPFile;
+import org.apache.commons.net.ftp.FTPReply;
+/**
+ * FTP文件下载
+ * @author wangbo
+ *
+ */
+public class FTPUtil {
+    private static int port = 21;
+    private static String username = "user";
+    private static String password = "123456";
+    
+    public static void main(String[] args) {
+		//fileDown("192.168.145.131", "/data/user/bpm", "h:/ftpdir/");
+    	upload("192.168.145.132","user",21,"123456","test","h:/ftpdir/test.txt","dest.txt");
+	}
+    /**
+     * 
+     * @param ftpUrl
+     * @param userName
+     * @param port
+     * @param password
+     * @param directory 不以/开头
+     * @param srcFileName
+     * @param destName
+     * @return
+     * tail /var/log/xferlog文件返回如下既正常
+     * Tue Mar 10 03:42:59 2020 1 ::ffff:192.168.145.1 59 /data/user/test/dest.txt b _ i r user ftp 0 * c
+     */
+	public static boolean upload(String ftpUrl, String userName, int port, String password,
+			String directory, String srcFileName, String destName) {
+		
+		FTPClient ftpClient = new FTPClient();
+		FileInputStream fis = null;
+		boolean result = false;
+		try {
+			ftpClient.connect(ftpUrl, port);
+			ftpClient.login(userName, password);
+			ftpClient.enterLocalPassiveMode();
+			File srcFile = new File(srcFileName);
+			fis = new FileInputStream(srcFile);
+			// 设置上传目录
+			ftpClient.makeDirectory(directory);
+			ftpClient.changeWorkingDirectory(directory);
+			ftpClient.setBufferSize(1024);
+			ftpClient.setControlEncoding("UTF-8");
+			// 设置文件类型（二进制）
+			ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
+			result = ftpClient.storeFile(destName, fis);
+			System.out.println(result);
+			return result;
+		} catch (NumberFormatException e) {
+			System.out.println("FTP端口配置错误:不是数字:");
+			throw e;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				fis.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			try {
+				ftpClient.disconnect();
+			} catch (IOException e) {
+				throw new RuntimeException("关闭FTP连接发生异常！", e);
+			}
+		}
+		
+		return false;
+	}
+
+    		
+    
+    public static boolean fileDown(String ip,String fileDir,String saveFTPDir){
+    
+        FTPClient ftp = null; 
+        File file = new File(saveFTPDir);    
+        if(!file.exists() && !file.isDirectory()){//如果文件夹不存在则创建 
+            System.out.println("文件目录不存在，创建。");
+            file.mkdirs();
+        }
+        try{
+            //ftp的数据下载
+            ftp = new FTPClient();
+            ftp.connect(ip, port);   
+            ftp.login(username, password);
+            ftp.setFileType(FTPClient.BINARY_FILE_TYPE);//传输图片的话设置文件类型为二进制
+            //ftp.setControlEncoding("UTF-8");//如果有中文文件名的话需要设置
+            
+            //设置linux环境
+            FTPClientConfig conf = new FTPClientConfig( FTPClientConfig.SYST_UNIX);
+            ftp.configure(conf);
+            
+            //判断是否连接成功
+            int reply = ftp.getReplyCode();
+            if (!FTPReply.isPositiveCompletion(reply)){
+                ftp.disconnect();
+                System.out.println("FTP服务无法连接！");
+                return false;
+            }
+            
+            //设置访问被动模式
+            ftp.setRemoteVerificationEnabled(false);
+            ftp.enterLocalPassiveMode();
+            
+            //切换工作目录到文件所在的目录
+            //boolean dir = ftp.changeWorkingDirectory(new String(fileDir.getBytes(),FTP.DEFAULT_CONTROL_ENCODING));//如果是中文路径需要处理
+            boolean dir = ftp.changeWorkingDirectory(fileDir);
+            if (dir) { 
+                //检索ftp目录下所有的文件
+                FTPFile[] fs = ftp.listFiles(); 
+                for(FTPFile f : fs){
+                      File localFile = new File(saveFTPDir+f.getName());    
+                      OutputStream ios = new FileOutputStream(localFile);     
+                      ftp.retrieveFile(f.getName(), ios);  
+                      ios.close(); 
+                }
+                return true;
+            }else {
+                System.out.println("服务器编码方式可能有问题，请检查！");
+                return false;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("ftp下载文件发生异常！");
+            return false;
+        }finally{
+            if(ftp != null)  try {ftp.disconnect();} catch (IOException ioe) {}  
+        }
+    }
+    
+}
+<dependency>
+    <groupId>commons-net</groupId>
+    <artifactId>commons-net</artifactId>
+    <version>3.6</version>
+</dependency>
