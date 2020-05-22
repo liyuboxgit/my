@@ -216,5 +216,13 @@ awk~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 修改时区
 ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 date
+---------------------------------------------------------------------------------------------------------
+centos7 安装桌面环境
+yum groupinstall "X Window System"
+yum grouplist
+yum groupinstall "GNOME Desktop" "Graphical Administration Tools"
+reboot
+startx
+
 
 

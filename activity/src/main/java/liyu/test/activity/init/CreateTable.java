@@ -15,7 +15,7 @@ import org.apache.ibatis.jdbc.ScriptRunner;
  * @date: 2017年9月20日 上午11:08:01
  */
 public class CreateTable {
-	private static String url = "jdbc:mysql://localhost:3306/activity";
+	private static String url = "jdbc:mysql://localhost:3306/activity5";
 	private static String driver = "com.mysql.jdbc.Driver";
 	private static String username = "root";
 	private static String password = "liyuff";
