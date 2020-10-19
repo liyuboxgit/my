@@ -23,6 +23,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * activity表：
  * act_re_procdef,act_re_deployment,act_ge_bytearray流程定义相关
  */
+//taskCandidateGroup 流程变量
 public class SimpleTest {
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {

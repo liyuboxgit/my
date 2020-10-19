@@ -2,6 +2,7 @@ package liyu.test.springbootMybatis.domain;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -11,8 +12,10 @@ import liyu.test.springbootMybatis.mybatis.BaseEntity;
 public class Demo extends BaseEntity{	
 	private static final long serialVersionUID = 1L;
 	
+	@Column(length=20)
 	private String name;
-	private Integer age;
+	private Short age;
+	@Column(precision=2,scale=0)
 	private BigDecimal money;
 	private Date birth;
 	
@@ -22,10 +25,10 @@ public class Demo extends BaseEntity{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getAge() {
+	public Short getAge() {
 		return age;
 	}
-	public void setAge(Integer age) {
+	public void setAge(Short age) {
 		this.age = age;
 	}
 	public BigDecimal getMoney() {

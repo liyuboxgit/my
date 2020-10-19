@@ -12,6 +12,11 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 import liyu.test.springbootMybatis.domain.Demo;
+import liyu.test.springbootMybatis.domain.MenuDto;
+import liyu.test.springbootMybatis.domain.RoleDto;
+import liyu.test.springbootMybatis.domain.RoleMenuDto;
+import liyu.test.springbootMybatis.domain.UserDto;
+import liyu.test.springbootMybatis.domain.UserRoleDto;
 
 public class HibernateCreateTable {
 	
@@ -22,13 +27,13 @@ public class HibernateCreateTable {
 		
 		xml.toFile().createNewFile();
 		// User needs to changed; 
-		Files.write(xml,Conf.get(Demo.class).toHibernateConfigString().getBytes());
+		Files.write(xml,Conf.get(MenuDto.class).toHibernateConfigString().getBytes());
 		ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().configure(xml.toFile()).build();
 		MetadataImplementor metadata = (MetadataImplementor) new MetadataSources(
 		serviceRegistry ).buildMetadata();
-		//create (true,true):print console and execute in database
-		//create (true,false):print console only
-		new SchemaExport(metadata).create(true, true);
+		//create (true,true):	print console and execute in database
+		//create (true,false):	print console only
+		new SchemaExport(metadata).create(true, false);
 		System.exit(-1);
 	}
 	

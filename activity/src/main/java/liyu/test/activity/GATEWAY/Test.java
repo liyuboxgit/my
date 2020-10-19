@@ -30,7 +30,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import liyu.test.activity.util.ExportUtil;
+
 public class Test {
+	//1,流程变量、 排他网关、 流程资源（bpmn文件和图片）导出、轨迹高亮图片
 	public static void main(String[] args) throws IOException {
 		ApplicationContext context = new ClassPathXmlApplicationContext("springActivity.xml");
 		// Get Activiti services
@@ -53,9 +56,7 @@ public class Test {
 				else if(i==2){
 					///导出流程图片
 					try {
-						byte[] bytes = exportImg(procId,context);
-						File file = new File("e:/monitor.png");
-						FileUtils.writeByteArrayToFile(file, bytes);
+						//ExportUtil.exportImg(procId,context,new File("h:/monitor.png"));
 						taskService.complete(task.getId());						
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -65,7 +66,7 @@ public class Test {
 				}
 			}
 		}
-		HistoryService historyService = context.getBean(HistoryService.class);
+		/*HistoryService historyService = context.getBean(HistoryService.class);
 		HistoricProcessInstance historicProcessInstance = historyService.createHistoricProcessInstanceQuery()
 				.processInstanceId(procId).singleResult();
 		System.out.println("Process instance end time: " + historicProcessInstance.getEndTime());
@@ -76,7 +77,7 @@ public class Test {
 		
 		for (String name : names) {
 			if (name.indexOf(".bpmn") >= 0) {
-				File f = new File("e:/bpmn.bpmn");
+				File f = new File("h:/bpmn.bpmn");
 				// 通过部署ID和文件名称得到文件的输入流
 				InputStream in = repositoryService.getResourceAsStream(deploymentId, name);
 				OutputStream os = new FileOutputStream(f);
@@ -87,10 +88,10 @@ public class Test {
 				}
 				os.close();
 				in.close();
-				System.out.println("生成定义文件：e:/bpmn.bpmn");
+				System.out.println("生成定义文件：h:/bpmn.bpmn");
 			}
 			if (name.indexOf(".png") >= 0) {
-				File f = new File("e:/png.png");
+				File f = new File("h:/png.png");
 				// 通过部署ID和文件名称得到文件的输入流
 				InputStream in = repositoryService.getResourceAsStream(deploymentId, name);
 				OutputStream os = new FileOutputStream(f);
@@ -101,90 +102,8 @@ public class Test {
 				}
 				os.close();
 				in.close();
-				System.out.println("生成图片文件：e:/png.png");
+				System.out.println("生成图片文件：h:/png.png");
 			}
-		}
+		}*/
 	}
-	
-	private static  byte[] exportImg(String processInstanceId, ApplicationContext context){
-		return traceProcessImage(processInstanceId,context);
-	}
-	
-	 /* 得到带有高亮节点的流程图
-	 * @param processInstanceId	流程实例id
-	 * @return
-	 */
-	public static byte[] traceProcessImage(String processInstanceId, ApplicationContext context) {
-		TaskService taskService = (TaskService) context.getBean(TaskService.class);
-		RepositoryService repositoryService = (RepositoryService) context.getBean(RepositoryService.class);
-		HistoryService historyService = (HistoryService) context.getBean(HistoryService.class);
-		RuntimeService runtimeService = (RuntimeService) context.getBean(RuntimeService.class);
-		SpringProcessEngineConfiguration processEngineConfiguration = context.getBean(SpringProcessEngineConfiguration.class);
-		String taskId = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult().getId();
-		if (StringUtils.isBlank(taskId))
-            throw new IllegalArgumentException("任务ID不能为空！");
-        // 当前任务节点
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
-        if (task == null)
-            throw new IllegalArgumentException("任务不存在！");
-
-        BpmnModel bpmnModel = repositoryService.getBpmnModel(task.getProcessDefinitionId());
-        // List<String> activeActivityIds = runtimeService.getActiveActivityIds(task.getExecutionId());
-
-        // 必须添加此行才能取到配置文件中的字体，待根本解决问题后删除
-        // Context.setProcessEngineConfiguration(processEngineConfiguration);
-        // return ProcessDiagramGenerator.generateDiagram(bpmnModel, "PNG", activeActivityIds);
-
-        // 经过的节点
-        List<String> activeActivityIds = new ArrayList<String>();
-        List<String> finishedActiveActivityIds = new ArrayList<String>();
-
-        // 已执行完的任务节点
-        List<HistoricActivityInstance> finishedInstances = historyService.createHistoricActivityInstanceQuery().processInstanceId(task.getProcessInstanceId()).finished().list();
-        for (HistoricActivityInstance hai : finishedInstances) {
-            finishedActiveActivityIds.add(hai.getActivityId());
-        }
-
-        // 已完成的节点+当前节点
-        activeActivityIds.addAll(finishedActiveActivityIds);
-        activeActivityIds.addAll(runtimeService.getActiveActivityIds(task.getProcessInstanceId()));
-
-        // 经过的流
-        ProcessDefinitionEntity processDefinitionEntity = (ProcessDefinitionEntity) repositoryService.getProcessDefinition(task.getProcessDefinitionId());
-        List<String> highLightedFlows = new ArrayList<String>();
-        getHighLightedFlows(processDefinitionEntity.getActivities(), highLightedFlows, activeActivityIds);
-
-        ProcessDiagramGenerator pdg = processEngineConfiguration.getProcessDiagramGenerator();
-        InputStream inputStream = pdg.generateDiagram(bpmnModel, "jpg", finishedActiveActivityIds,highLightedFlows,"宋体","宋体",null,null, 1.0);
-       try {
-           return IOUtils.toByteArray(inputStream);
-        } catch (Exception e) {
-            throw new RuntimeException("生成流程图异常！", e);
-        } finally {
-            IOUtils.closeQuietly(inputStream);
-        }
-	}
-	
-
-	/*
-     * 递归查询经过的流
-     */
-    private static void getHighLightedFlows(List<ActivityImpl> activityList, List<String> highLightedFlows, List<String> historicActivityInstanceList) {
-        for (ActivityImpl activity : activityList) {
-            if (activity.getProperty("type").equals("subProcess")) {
-                // get flows for the subProcess
-                getHighLightedFlows(activity.getActivities(), highLightedFlows, historicActivityInstanceList);
-            }
-
-            if (historicActivityInstanceList.contains(activity.getId())) {
-                List<PvmTransition> pvmTransitionList = activity.getOutgoingTransitions();
-                for (PvmTransition pvmTransition : pvmTransitionList) {
-                    String destinationFlowId = pvmTransition.getDestination().getId();
-                    if (historicActivityInstanceList.contains(destinationFlowId)) {
-                        highLightedFlows.add(pvmTransition.getId());
-                    }
-                }
-            }
-        }
-    }
 }

@@ -223,6 +223,9 @@ yum grouplist
 yum groupinstall "GNOME Desktop" "Graphical Administration Tools"
 reboot
 startx
+---------------------------------------------------------------------------------------------------------
+putty and pscp
+pscp -P 12317 cms-0.0.1-SNAPSHOT.jar root@47.94.204.17:/root
 
 
 

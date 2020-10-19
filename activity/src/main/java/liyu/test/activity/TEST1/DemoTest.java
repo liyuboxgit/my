@@ -1,5 +1,7 @@
 package liyu.test.activity.TEST1;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,8 +17,11 @@ import org.activiti.engine.task.Task;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import liyu.test.activity.util.ExportUtil;
+
 public class DemoTest {
 	@SuppressWarnings("resource")
+	//任务变量，控制流向
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("springActivity.xml");
 		RepositoryService repositoryService = (RepositoryService) context.getBean(RepositoryService.class);
@@ -37,16 +42,31 @@ public class DemoTest {
 		Task task = list.get(0);
 		HashMap<String,Object> hashMap = new HashMap<String,Object>();
 		hashMap.put("a", 1);
-		
+		String formKey = task.getFormKey();
+		System.out.println(formKey);
 		taskService.complete(task.getId(),hashMap);
 		
 		List<Task> list2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).taskAssignee("lsuserId").list();
 		System.out.println(list2.size());
-		
-		taskService.complete(list2.get(0).getId());
+		try {
+			Thread.sleep(1000);//睡眠5s，否则流程图片显示不正确
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		//taskService.complete(list2.get(0).getId());
 		
 		HistoryService historyService = context.getBean(HistoryService.class);
 		List<HistoricProcessInstance> instanceId = historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstance.getId()).list();
 		System.out.println(instanceId.get(0).getEndTime());
+		
+		//if(processInstance.isEnded())
+			//ExportUtil.exportImg(processInstance.getId(), context, new File("h:/monitor.png"));
+		//else
+			try {
+				ExportUtil.generateProcessHightLightImg(processInstance.getId(), context, new File("h:/monitor.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 }

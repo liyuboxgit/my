@@ -7,7 +7,18 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Spring Pairs Samples OAuth2</name>
+	<description>
+		资源拥有者
+		客户端
+		授权服务器
+		资源服务器
 
+		访问方式：
+		1，授权码模式
+		2，简化模式
+		3，用户名密码模式
+		4，客户端模式
+	</description>
 	<modules>
 		<module>authserver</module>
 		<module>ui</module>
